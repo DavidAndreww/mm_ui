@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { ComponentHeader } from './ComponentHeader';
 import { enterprises } from '../sampleData';
 import { bobs } from '../sampleData';
 import { payers } from '../sampleData';
@@ -9,67 +14,45 @@ import { territories } from '../sampleData';
 import { categories } from '../sampleData';
 import { teams } from '../sampleData';
 
-const Dropdown = ({label, array, cb}) => {
+const Dropdown = ({label, array, callback}) => {
   return (
-    <div style={{marginBottom: '5px'}}>
+    <div style={{marginBottom: '2px'}}>
       <label>{label}</label>
-      <Select name={label.toLowerCase()} isMulti={true} value={array.value} onChange={(e,name) => cb(e,name)} options={array} />
+      <Select name={label.toLowerCase()} isMulti={true} value={array.value} onChange={(e,name) => callback(e,name)} options={array} />
     </div>
   
-  )
-}
-
-const Checkbox = ({label, cb}) => {
-  return (
-    <div>
-      <input type='checkbox' id={label.toLowerCase()} name={label.toLowerCase()} onChange={cb} />
-      <label>{label}</label>
-    </div>
   )
 }
 
 
 export const DimensionFilter = ({ toggleParameters }) => {
 
-  const [dimensions, setDimensions] = useState({
-    payer: false, 
-    geography: false,
-    team: false
-  })
-
-  const toggleDimensions = (e) => {
-    let dimension = e.target.name;
-    let opposite = !dimensions[dimension];
-    setDimensions({...dimensions, [dimension]: opposite})
-  }
-
   return (
     <div id='dimension-filter' className='component-boundary'>
-      <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
-        <Checkbox label={'Payer'} cb={toggleDimensions} />
-        <Checkbox label={'Geography'} cb={toggleDimensions}/>
-        <Checkbox label={'Team'} cb={toggleDimensions} />
-      </div>
-      { dimensions['payer'] && 
-        <div>
-          <Dropdown label={'Enterprise'} array={enterprises} cb={toggleParameters} />
-          <Dropdown label={'BOB'} array={bobs} cb={toggleParameters} />
-          <Dropdown label={'Payer Entity'} array={payers} cb={toggleParameters} />
-        </div> 
-      }
-      { dimensions['geography'] && 
-        <div>
-          <Dropdown label={'Region'} array={regions} cb={toggleParameters} />
-          <Dropdown label={'State'} array={states} cb={toggleParameters} />
-          <Dropdown label={'Territory'} array={territories} cb={toggleParameters} />
-      </div> 
-      }
-      { dimensions['team'] && 
-        <div>
-          <Dropdown label={'Category'} array={categories} cb={toggleParameters} />
-          <Dropdown label={'Team'} array={teams} cb={toggleParameters} />
-        </div> 
-      }
+      <ComponentHeader label={'Dimension Filter'} />
+      <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+        <Typography><b>Payer</b></Typography>
+      </AccordionSummary>
+      <Dropdown label={'Enterprise'} array={enterprises} callback={toggleParameters}/>
+      <Dropdown label={'BOB'} array={bobs} callback={toggleParameters}/>
+      <Dropdown label={'Payer Entity'} array={payers} callback={toggleParameters}/>
+      </Accordion>
+      <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+        <Typography><b>Geo</b></Typography>
+      </AccordionSummary>
+      <Dropdown label={'Region'} array={regions} callback={toggleParameters}/>
+      <Dropdown label={'State'} array={states} callback={toggleParameters}/>
+      <Dropdown label={'Territory'} array={territories} callback={toggleParameters}/>
+      </Accordion>
+      <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+        <Typography><b>Team</b></Typography>
+      </AccordionSummary>
+      <Dropdown label={'Category'} array={categories} callback={toggleParameters}/>
+      <Dropdown label={'Team'} array={teams} callback={toggleParameters}/>
+      </Accordion>
     </div>
   )
 };

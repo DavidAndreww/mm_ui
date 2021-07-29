@@ -28,7 +28,15 @@ export const regions = [
 export const states = [
   { value: 'Texas', label: 'Texas' }, 
   { value: 'New Hampshire', label: 'New Hampshire' },
-  { value: 'Florida', label: 'Florida' }
+  { value: 'Florida', label: 'Florida' },
+  { value: 'South Carolina', label: 'South Carolina' },
+  { value: 'Georgia', label: 'Georgia' },
+  { value: 'California', label: 'California' },
+  { value: 'Virginia', label: 'Virginia' },
+  { value: 'Utah', label: 'Utah' },
+  { value: 'Colorado', label: 'Colorado' },
+  { value: 'New Jersey', label: 'New Jersey' },
+  { value: 'New Mexico', label: 'New Mexico' },
 ];
 export const territories = [
   {value: '78745', label: '78745'}, 
