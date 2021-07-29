@@ -5,7 +5,7 @@ const timeFilterStyle = {
   justifyContent: 'flex-start'
 }
 
-export const TimeFilter = () => {
+export const TimeFilter = ({ toggleParameters }) => {
 
   const [singleDateRange, toggleSingleDateRange] = useState(true)
 
@@ -20,16 +20,16 @@ export const TimeFilter = () => {
       </div>
       <div>
         <label>Current Start Date:</label>
-        <input type='date' id='span-start' name='span-start' min='2018-01-01' max='2021-07-28' /><br />
+        <input type='date' id='currStartDate' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} /><br />
         <label>Current End Date:</label>
-        <input type='date' id='span-start' name='span-end' min='2018-01-01' max='2021-07-28' />
+        <input type='date' id='currEndDate' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} />
       </div>
       {singleDateRange === false && 
         <div>
         <label>Previous Start Date:</label>
-        <input type='date' id='curr-prev-start' name='curr-prev-start' min='2018-01-01' max='2021-07-28' /> <br />
+        <input type='date' id='prevStartDate' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} /> <br />
         <label>Previous End Date:</label>
-        <input type='date' id='curr-prev-end' name='curr-prev-end' min='2018-01-01' max='2021-07-28' />
+        <input type='date' id='prevEndDate' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} />
       </div>
       }
     </div>

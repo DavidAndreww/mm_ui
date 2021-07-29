@@ -24,23 +24,32 @@ function App() {
     engine: '' 
   })
 
-  const toggleParameters = (e,name) => {
-    let dimension = name.name.split(' ').join('');
+  const toggleParameters = (e,name = null) => {
+    let dimension;
     let values;
-    if (typeof e === 'object') {
+    console.log(e)
+    if (name) {
+      dimension = name.name.split(' ').join('')
+    } else {
+      dimension = e.target.id
+    }
+
+    if (e.length !== undefined) {
       values = e.map(val => {
         return val.value
       });
+    } else {
+      values = e.target.value;
     }
     setParameters({ ...parameters, [dimension]:values })
   }
   
   return (  
     <div id='app'>
-      <TimeFilter />
+      <TimeFilter toggleParameters={toggleParameters} />
       <DimensionFilter toggleParameters={toggleParameters}/>
       <ResultsGrid />
-      <QueryEngine />
+      <QueryEngine toggleParameters={toggleParameters}/>
       <QueryMonitor />
     </div>  
   );

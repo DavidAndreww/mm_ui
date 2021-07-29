@@ -46,3 +46,9 @@ export const teams = [
   { value: 'Specialty Team', label: 'Specialty Team' }, 
   { value: 'Hybrid Team', label: 'Hybrid Team' }
 ];
+
+export const queries = [
+  { value: 'Snowflake', label: 'Snowflake' },
+  { value: 'DSE Graph', label: 'DSE Graph' },
+  { value: 'QE-2', label: 'QE-2' }
+]

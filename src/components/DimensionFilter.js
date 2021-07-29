@@ -9,20 +9,20 @@ import { territories } from '../sampleData';
 import { categories } from '../sampleData';
 import { teams } from '../sampleData';
 
-const Dropdown = ({label, array, toggleParameters}) => {
+const Dropdown = ({label, array, cb}) => {
   return (
-    <div>
+    <div style={{marginBottom: '5px'}}>
       <label>{label}</label>
-      <Select name={label.toLowerCase()} isMulti={true} value={array.value} onChange={(e,name) => toggleParameters(e,name)} options={array} />
+      <Select name={label.toLowerCase()} isMulti={true} value={array.value} onChange={(e,name) => cb(e,name)} options={array} />
     </div>
   
   )
 }
 
-const Checkbox = ({label, callback}) => {
+const Checkbox = ({label, cb}) => {
   return (
     <div>
-      <input type='checkbox' id={label.toLowerCase()} name={label.toLowerCase()} onChange={callback} />
+      <input type='checkbox' id={label.toLowerCase()} name={label.toLowerCase()} onChange={cb} />
       <label>{label}</label>
     </div>
   )
@@ -46,28 +46,28 @@ export const DimensionFilter = ({ toggleParameters }) => {
   return (
     <div id='dimension-filter' className='component-boundary'>
       <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
-        <Checkbox label={'Payer'} callback={toggleDimensions} />
-        <Checkbox label={'Geography'} callback={toggleDimensions}/>
-        <Checkbox label={'Team'} callback={toggleDimensions} />
+        <Checkbox label={'Payer'} cb={toggleDimensions} />
+        <Checkbox label={'Geography'} cb={toggleDimensions}/>
+        <Checkbox label={'Team'} cb={toggleDimensions} />
       </div>
       { dimensions['payer'] && 
         <div>
-          <Dropdown label={'Enterprise'} array={enterprises} toggleParameters={toggleParameters} />
-          <Dropdown label={'BOB'} array={bobs} toggleParameters={toggleParameters} />
-          <Dropdown label={'Payer Entity'} array={payers} toggleParameters={toggleParameters} />
+          <Dropdown label={'Enterprise'} array={enterprises} cb={toggleParameters} />
+          <Dropdown label={'BOB'} array={bobs} cb={toggleParameters} />
+          <Dropdown label={'Payer Entity'} array={payers} cb={toggleParameters} />
         </div> 
       }
       { dimensions['geography'] && 
         <div>
-          <Dropdown label={'Region'} array={regions} toggleParameters={toggleParameters} />
-          <Dropdown label={'State'} array={states} toggleParameters={toggleParameters} />
-          <Dropdown label={'Territory'} array={territories} toggleParameters={toggleParameters} />
+          <Dropdown label={'Region'} array={regions} cb={toggleParameters} />
+          <Dropdown label={'State'} array={states} cb={toggleParameters} />
+          <Dropdown label={'Territory'} array={territories} cb={toggleParameters} />
       </div> 
       }
       { dimensions['team'] && 
         <div>
-          <Dropdown label={'Category'} array={categories} toggleParameters={toggleParameters} />
-          <Dropdown label={'Team'} array={teams} toggleParameters={toggleParameters} />
+          <Dropdown label={'Category'} array={categories} cb={toggleParameters} />
+          <Dropdown label={'Team'} array={teams} cb={toggleParameters} />
         </div> 
       }
     </div>
