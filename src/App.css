@@ -1,38 +1,39 @@
-.App {
-  text-align: center;
+/* App */
+#app {
+  border: 2px solid blue;
+  height: auto;
+  display: grid;
+  grid-template-columns: 30% 50% 20%;
+  grid-template-rows: 20vh 50vh 30vh;
+  grid-template-areas: 
+    "empty time empty1"
+    "dimension results engine"
+    "dimension monitor empty3";
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#time-filter {
+  grid-area: time;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#dimension-filter {
+  grid-area: dimension
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#query-engine {
+  grid-area: engine;
 }
 
-.App-link {
-  color: #61dafb;
+#query-monitor {
+  grid-area: monitor;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#results-grid {
+  grid-area: results;
+}
+
+
+/* TimeFilter */
+.component-boundary {
+  border: 2px solid black;
+  background-color: rgb(83, 168, 168);
 }
