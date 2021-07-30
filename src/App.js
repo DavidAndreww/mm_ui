@@ -24,22 +24,25 @@ function App() {
     engine: '' 
   })
 
-  const toggleParameters = (e,name = null) => {
+  const toggleParameters = (e,name = null, component) => {
     let dimension;
     let values;
-    console.log(e)
+    
     if (name) {
       dimension = name.name.split(' ').join('')
     } else {
       dimension = e.target.id
     }
+    console.log(dimension)
 
-    if (e.length !== undefined) {
+    if(dimension === 'engine') {
+      values = e.value
+    } else if (e.length !== undefined) {
       values = e.map(val => {
         return val.value
-      });
+      })
     } else {
-      values = e.target.value;
+      values = e.target.value
     }
     setParameters({ ...parameters, [dimension]:values })
   }
