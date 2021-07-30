@@ -31,31 +31,28 @@ const leo_conn = {
 
 const connection = snowflake.createConnection(leo_conn);
 
-connection.connect((err, conn) => {
-  if(err) {
-    console.log(`Unable to connect: ${err}`)
-  } else {
-    console.log('Successfully connected to Snowflake')
-  }
-});
 
-let statement = connection.execute({
-  sqlText: process.env.LEO_SAMPLE_QUERY,
-  complete: (err, stmt, rows) => {
+app.post('/', async (req, res) => {
+
+  connection.connect((err, conn) => {
     if(err) {
-      console.error(`Failed to execute statement: ${err.message}`)
+      console.log(`Unable to connect: ${err}`)
     } else {
-      console.log(`Statement produced ${JSON.stringify(rows)} rows.`)
-      return JSON.stringify(rows)
+      console.log('Successfully connected to Snowflake')
     }
-  }
-});
-
-
-
-
-app.post('/', (req, res) => {
-  res.json(statement)
+  })
+  connection.execute({
+    sqlText: process.env.LEO_SAMPLE_QUERY,
+    complete: (err, stmt, rows) => {
+      if (err) {
+        console.error(`Failed to execute statement: ${err.message}`);
+      } else {
+        console.log(`Statement produced ${JSON.stringify(rows)}`);
+        let results = JSON.stringify(rows)
+        res.send(results)
+      }
+    }
+  });
 });
 
 
