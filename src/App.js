@@ -24,7 +24,7 @@ function App() {
     engine: '' 
   })
 
-  const toggleParameters = (e,name = null, component) => {
+  const toggleParameters = (e,name = null) => {
     let dimension;
     let values;
     
@@ -33,7 +33,6 @@ function App() {
     } else {
       dimension = e.target.id
     }
-    console.log(dimension)
 
     if(dimension === 'engine') {
       values = e.value
@@ -46,13 +45,27 @@ function App() {
     }
     setParameters({ ...parameters, [dimension]:values })
   }
+
+  const handleExecute = () => {
+    if (parameters.engine === '') {
+      window.alert('Please select an engine')
+    } else {
+      fetch('http://localhost:5000', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          parameters
+        })
+      }).then(res => res.json()).then(json => console.log(json))
+    }
+  }
   
   return (  
     <div id='app'>
       <TimeFilter toggleParameters={toggleParameters} />
       <DimensionFilter toggleParameters={toggleParameters}/>
       <ResultsGrid />
-      <QueryEngine toggleParameters={toggleParameters}/>
+      <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}/>
       <QueryMonitor />
     </div>  
   );

@@ -6,10 +6,10 @@ export const TimeFilter = ({ toggleParameters }) => {
   const [singleDateRange, toggleSingleDateRange] = useState(true)
 
   return (
-    <div id='time-filter' className='component-boundary'>
+    <div id='time-filter' className='component-boundary' style={{ minWidth: '710px', minHeigth: '55px' }}>
       <ComponentHeader label={'Time Filter'}/>
       <div>
-        <div style={{ float: 'left', marginRight: '15px' }}>
+        <div style={{ float: 'left', marginRight: '15px'}}>
           <input type='radio' name='time' id='time-span' value="span" defaultChecked={true} onChange={() => toggleSingleDateRange(true)}/>
           <label>Span</label>
           <br />

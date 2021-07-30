@@ -28,7 +28,7 @@ const Dropdown = ({label, array, callback}) => {
 export const DimensionFilter = ({ toggleParameters }) => {
 
   return (
-    <div id='dimension-filter' className='component-boundary'>
+    <div id='dimension-filter' className='component-boundary' style={{ minHeigh: '200px', minWidth: '225px' }}>
       <ComponentHeader label={'Dimension Filter'} />
       <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
