@@ -21,7 +21,7 @@
 }
 
 #dimension-filter {
-  grid-area: dimension
+  grid-area: dimension;
 }
 
 #query-engine {
