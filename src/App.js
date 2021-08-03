@@ -21,20 +21,21 @@ function App() {
     currEndDate: '',
     prevStartDate: '',
     prevEndDate: '',
-    engine: '' 
+    engine: '',
+    result:[]
   })
 
-  const toggleParameters = (e,name = null) => {
+  const toggleParameters = (e, name = null) => {
     let dimension;
     let values;
-    
+
     if (name) {
       dimension = name.name.split(' ').join('')
     } else {
       dimension = e.target.id
     }
 
-    if(dimension === 'engine') {
+    if (dimension === 'engine') {
       values = e.value
     } else if (e.length !== undefined) {
       values = e.map(val => {
@@ -43,7 +44,7 @@ function App() {
     } else {
       values = e.target.value
     }
-    setParameters({ ...parameters, [dimension]:values })
+    setParameters({ ...parameters, [dimension]: values })
   }
 
   const handleExecute = () => {
@@ -56,18 +57,18 @@ function App() {
         body: JSON.stringify({
           parameters
         })
-      }).then(res => res.json()).then(json => console.log(json))
+      }).then(res => res.json()).then(json => setParameters({...parameters,result:json}))
     }
   }
-  
-  return (  
+
+  return (
     <div id='app'>
       <TimeFilter toggleParameters={toggleParameters} />
-      <DimensionFilter toggleParameters={toggleParameters}/>
-      <ResultsGrid />
-      <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}/>
+      <DimensionFilter toggleParameters={toggleParameters} />
+      <ResultsGrid data={parameters.result}/>
+      <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
       <QueryMonitor />
-    </div>  
+    </div>
   );
 }
 

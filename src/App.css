@@ -1,19 +1,24 @@
 /* App */
 #app {
+  font-family: 'Roboto', sans-serif;
   padding: 15px;
   height: 100vh;
   background-color: rgb(194, 194, 194);
   display: grid;
-  column-gap: .5%;
+  column-gap: 0.5%;
   row-gap: 1%;
   grid-template-columns: 25% 60% 13%;
   grid-template-rows: 15% 15% 15% 30% 20%;
-  grid-template-areas: 
+  grid-template-areas:
     "dimension time empty1"
     "dimension results engine"
     "empty results engine"
     "empty2 results empty3"
     "empty4 monitor empty5";
+}
+
+.component-body{
+  padding: 12px;
 }
 
 #time-filter {
@@ -22,6 +27,7 @@
 
 #dimension-filter {
   grid-area: dimension;
+  padding: 12px;
 }
 
 #query-engine {
@@ -35,7 +41,6 @@
 #results-grid {
   grid-area: results;
 }
-
 
 /* TimeFilter */
 .component-boundary {
