@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { forwardRef } from 'react';
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -100,3 +101,42 @@ const tableIcons = {
       </div>
     )
   };
+=======
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+const columns = ["Brand Id",'Drug Id'];
+export const ResultsGrid = ({data}) => {
+  console.log(data)
+  return (
+    <div id='results-grid' className='component-boundary'>
+      <PerfectScrollbar>
+        <TableContainer component={Paper}>
+          <Table size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow> {columns.map((row) => (
+                <TableCell scope="row" key={row}>{row}</TableCell>
+              ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map(({BRAND_ID, DRUG_ID},index) => (
+                <TableRow key={index}>
+                  <TableCell scope="row">{BRAND_ID}</TableCell>
+                  <TableCell>{DRUG_ID}</TableCell>
+                </TableRow>                
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </PerfectScrollbar>
+    </div>
+  )
+};
+>>>>>>> 4d221bfe6758086f73307f01e43dd77726f97760
