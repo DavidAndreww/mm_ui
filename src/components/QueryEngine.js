@@ -7,7 +7,7 @@ import { ComponentHeader } from './ComponentHeader';
 
 export const QueryEngine = ({ toggleParameters, handleExecute }) => {
   return (
-    <div id='query-engine' style={{ minHeight: '302px', minWidth: '165px' }}>
+    <div id='query-engine'>
       <ComponentHeader label={'Query Engine'} />
       <Select name='engine' value={queries.value} onChange={(e, name) => toggleParameters(e,name)} options={queries} />
       <div style={{ height: 'calc(100% - 86px)', textAlign: 'center', paddingTop: '70%'}}>

@@ -27,8 +27,7 @@ export const ResultsGrid = ({data}) => {
                 <TableRow key={index}>
                   <TableCell scope="row">{BRAND_ID}</TableCell>
                   <TableCell>{DRUG_ID}</TableCell>
-                </TableRow>
-                
+                </TableRow>                
               ))}
             </TableBody>
           </Table>

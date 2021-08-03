@@ -28,7 +28,7 @@ const Dropdown = ({ label, array, callback }) => {
 export const DimensionFilter = ({ toggleParameters }) => {
 
   return (
-    <div id='dimension-filter' style={{ minHeight: '200px', minWidth: '225px' }}>
+    <div id='dimension-filter'>
       <ComponentHeader label={'Dimension Filter'} />
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
@@ -48,8 +48,7 @@ export const DimensionFilter = ({ toggleParameters }) => {
         <div className="component-body">
           <Dropdown label={'Region'} array={regions} callback={toggleParameters} />
           <Dropdown label={'State'} array={states} callback={toggleParameters} />
-          <Dropdown label={'Territory'} array={territories} callback={toggleParameters} />        
-
+          <Dropdown label={'Territory'} array={territories} callback={toggleParameters} />  
         </div>
       </Accordion>
       <Accordion>

@@ -1,5 +1,6 @@
 import './App.css';
 import { useState } from 'react'
+import {Grid} from '@material-ui/core';
 import { DimensionFilter } from './components/DimensionFilter';
 import { TimeFilter } from './components/TimeFilter';
 import { QueryMonitor } from './components/QueryMonitor';
@@ -63,11 +64,27 @@ function App() {
 
   return (
     <div id='app'>
-      <TimeFilter toggleParameters={toggleParameters} />
-      <DimensionFilter toggleParameters={toggleParameters} />
-      <ResultsGrid data={parameters.result}/>
-      <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
-      <QueryMonitor />
+      <Grid container spacing={3}>
+        <Grid item xs={3}>
+            <DimensionFilter toggleParameters={toggleParameters} />
+        </Grid>  
+        <Grid item xs={7}>
+          <Grid container spacing={3} direction="column" className="content-area">
+             <Grid item>
+              <TimeFilter toggleParameters={toggleParameters} />
+             </Grid>
+             <Grid item>
+                <ResultsGrid data={parameters.result}/>
+             </Grid>
+             <Grid item>
+               <QueryMonitor />
+             </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={2}>
+          <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
+        </Grid>
+      </Grid>
     </div>
   );
 }

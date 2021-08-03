@@ -4,16 +4,16 @@ import {Grid} from '@material-ui/core'
 export const TimeFilter = ({ toggleParameters }) => {
   const [singleDateRange, toggleSingleDateRange] = useState(true)
   return (
-    <div id='time-filter' className='component-boundary' style={{ minWidth: '710px'}}>
+    <div id='time-filter' className='component-boundary'>
       <ComponentHeader label={'Time Filter'}/>
         <Grid container spacing={2}>
           <Grid item>
             <div>
               <input type='radio' name='time' id='time-span' value="span" defaultChecked={true} onChange={() => toggleSingleDateRange(true)}/>
-              <label>Span</label>
+              <label htmlFor="time-span">Span</label>
               <br />
               <input type='radio' name='time' id='time-curr-prev' value="curr-prev" onChange={() => toggleSingleDateRange(false)} />
-              <label>Current v Previous</label>
+              <label htmlFor="time-curr-prev">Current v Previous</label>
             </div>           
           </Grid>
           <Grid item> 
