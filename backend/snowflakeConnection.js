@@ -23,7 +23,7 @@ const leo_conn = {
 class Connection {
   constructor() {
     if (!this.odbc) {
-      this.odbc = snowflake.createConnection(leo_conn)
+      this.odbc = snowflake.createConnection(avnr_conn)
       this.odbc.connect((err, conn) => {
         if(err) {
           console.log(`Unable to connect: ${err}`)

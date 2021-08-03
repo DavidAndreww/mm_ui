@@ -24,6 +24,9 @@ function App() {
     engine: '' 
   })
 
+  const [queryResults, setQueryResults] = useState([])
+  console.log(queryResults)
+
   const toggleParameters = (e,name = null) => {
     let dimension;
     let values;
@@ -64,7 +67,7 @@ function App() {
     <div id='app'>
       <TimeFilter toggleParameters={toggleParameters} />
       <DimensionFilter toggleParameters={toggleParameters}/>
-      <ResultsGrid />
+      <ResultsGrid results={queryResults.length === 0 ? null : queryResults}/>
       <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}/>
       <QueryMonitor />
     </div>  

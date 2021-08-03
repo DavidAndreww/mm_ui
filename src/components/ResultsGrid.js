@@ -57,30 +57,34 @@ const tableIcons = {
     { title: 'OPC Paid', field: 'opcPaid' },
   ];
 
-  const data = [
-    {
-      payer: 'Aetna - Medicare',
-      enterprise: 'CVS Health - Medicare',
-      pbm: 'CVS Health', 
-      coverage: 'Tier 5',
-      pa: 'Y',
-      st: 'Y',
-      lives: 72149125,
-      livesShare: '0.85%',
-      mktTrxEq: 5000,
-      brandTrxEq: 200,
-      brandTrxEqLives: 1024,
-      brandTrxEqChange: '25%',
-      rejectRate: '14%',
-      reversalRate: '20%',
-      opcAsk: '$20.00',
-      opcPaid: '$20.00'
+  export const ResultsGrid = ({ results }) => {
+    if(results) {
+      
+    }
 
 
-    } 
-  ]
+    const data = [
+      {
+        payer: 'Aetna - Medicare',
+        enterprise: 'CVS Health - Medicare',
+        pbm: 'CVS Health', 
+        coverage: 'Tier 5',
+        pa: 'Y',
+        st: 'Y',
+        lives: 72149125,
+        livesShare: '0.85%',
+        mktTrxEq: 5000,
+        brandTrxEq: 200,
+        brandTrxEqLives: 1024,
+        brandTrxEqChange: '25%',
+        rejectRate: '14%',
+        reversalRate: '20%',
+        opcAsk: '$20.00',
+        opcPaid: '$20.00'
+      } 
+    ]
 
-  export const ResultsGrid = () => {
+
     return (
       <div id='results-grid' className='component-boundary'>
         <MaterialTable
