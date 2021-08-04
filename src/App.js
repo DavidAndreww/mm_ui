@@ -1,3 +1,4 @@
+import React from 'react'
 import './App.css';
 import { useState } from 'react'
 import {Grid} from '@material-ui/core';
@@ -26,14 +27,7 @@ function App() {
     result:[]
   })
 
-<<<<<<< HEAD
-  const [queryResults, setQueryResults] = useState([])
-  console.log(queryResults)
-
-  const toggleParameters = (e,name = null) => {
-=======
   const toggleParameters = (e, name = null) => {
->>>>>>> 4d221bfe6758086f73307f01e43dd77726f97760
     let dimension;
     let values;
 
@@ -71,14 +65,6 @@ function App() {
 
   return (
     <div id='app'>
-<<<<<<< HEAD
-      <TimeFilter toggleParameters={toggleParameters} />
-      <DimensionFilter toggleParameters={toggleParameters}/>
-      <ResultsGrid results={queryResults.length === 0 ? null : queryResults}/>
-      <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}/>
-      <QueryMonitor />
-    </div>  
-=======
       <Grid container spacing={3}>
         <Grid item xs={3}>
             <DimensionFilter toggleParameters={toggleParameters} />
@@ -101,7 +87,6 @@ function App() {
         </Grid>
       </Grid>
     </div>
->>>>>>> 4d221bfe6758086f73307f01e43dd77726f97760
   );
 }
 
