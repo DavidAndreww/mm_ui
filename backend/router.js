@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('./snowflakeConnection')
-const { querySelector } = require('./querySelector')
+const { queryGenerator } = require('./queryGenerator')
 
 router.post('/', async (req, res) => { 
   let params = req.body.parameters;
   
   let returnObj = {}
-  let query1 = await querySelector(params, 1)
+  let query1 = await queryGenerator(params, 1)
 
   await connection.execute({
     sqlText: query1,
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
       } else {
         returnObj.current = rows
         
-        let query2 = querySelector(params, 2)
+        let query2 = queryGenerator(params, 2)
         if(params.prevStartDate) {
           connection.execute({
             sqlText: query2,

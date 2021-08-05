@@ -1,10 +1,11 @@
-const querySelector = (params, queryNo) => {
+const queryGenerator = (params, queryNo) => {
   let activeFilters = {}
   for(const field in params) {
     if (params[field] && field !== 'engine' && field !== 'result') {
       activeFilters[field] = params[field]
     }
   }
+  JSON.stringify(activeFilters)
 
   if(queryNo === 1) {
     activeFilters.dateOne = activeFilters.currStartDate;
@@ -13,7 +14,7 @@ const querySelector = (params, queryNo) => {
    activeFilters.dateOne = activeFilters.prevEndDate;
    activeFilters.dateTwo = activeFilters.prevEndDate;
  }
-  
+console.log(activeFilters.enterprise)  
  //! Need to incorporate dates when finalized query is ready
   return `SELECT 
   PAYER_NAME, 
@@ -23,7 +24,7 @@ const querySelector = (params, queryNo) => {
   CURRENT_PA, 
   CURRENT_ST, 
   ROUND(AVG(LIVES)) as LIVES,
-  ROUND(AVG(LIVES) / (select SUM(lives) from "AVNR_PROD"."L3"."RPT_MANAGED_MARKETS_HCP_AE" WHERE PAYER_LEVEL = 'Payer Entity' AND PAYER_NAME  ${activeFilters.payerentity ? " IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.payerentity +")))) " : " IS NOT NULL "}) LIVES_SHARE ,
+  ROUND(AVG(LIVES) / (select SUM(lives) from "AVNR_PROD"."L3"."RPT_MANAGED_MARKETS_HCP_AE" WHERE PAYER_LEVEL = 'Payer Entity' ${activeFilters.payerentity ? " AND PAYER_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+activeFilters.payerentity+"))))) " : " )"}) AS LIVES_SHARE,
   ROUND(SUM(MARKET_CURR_PD_TRXEQ)) AS MARKET_TRXEQ,
   ROUND(SUM(BRAND_CURR_PD_TRXEQ)) AS BRAND_TRXEQ,
   ROUND(1000 * SUM(BRAND_CURR_PD_TRXEQ) / AVG(LIVES)) AS BRAND_TRXEQ_1000_LIVES,
@@ -36,14 +37,14 @@ const querySelector = (params, queryNo) => {
   MEDIAN(CURR_PD_OPC_PAID) AS OPC_PAID
   FROM "AVNR_PROD"."L3"."RPT_MANAGED_MARKETS_HCP_AE" 
   WHERE PAYER_LEVEL = 'Payer Entity' 
-  AND PAYER_NAME ${activeFilters.payerentity ? " IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.payerentity +")))) " : " IS NOT NULL "} 
-  AND BOB ${activeFilters.bob ? " IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.bob +")))) " : " IS NOT NULL "}
-  AND PBM_VENDOR_NAME ${activeFilters.enterprise ? " IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.enterprise +")))) " : " IS NOT NULL "}
-  AND REGION_NAME ${activeFilters.region ? " IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.region +")))) " : " IS NOT NULL "}
-  AND STATE ${activeFilters.state ? " IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.state +")))) " : " IS NOT NULL "}
-  AND TERRITORY_NAME ${activeFilters.territory ? " IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.territory +")))) " : " IS NOT NULL "}
-  AND TEAM_NAME ${activeFilters.team ? " IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.team +")))) " : " IS NOT NULL "}
-  AND CATEGORY ${activeFilters.category ? " IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.category +")))) " : " IS NOT NULL "}
+  ${activeFilters.payerentity ? " AND PAYER_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.payerentity +")))) " : " "} 
+  ${activeFilters.bob ? " AND BOB IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.bob +")))) " : " "}
+  ${activeFilters.enterprise ? " AND PBM_VENDOR_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.enterprise +")))) " : " "}
+  ${activeFilters.region ? " AND REGION_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.region +")))) " : " "}
+  ${activeFilters.state ? " AND STATE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.state +")))) " : " "}
+  ${activeFilters.territory ? " AND TERRITORY_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.territory +")))) " : " "}
+  ${activeFilters.team ? " AND TEAM_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.team +")))) " : " "}
+  ${activeFilters.category ? " AND CATEGORY IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.category +")))) " : " "}
   GROUP BY 
   PAYER_NAME, 
   BOB, 
@@ -56,4 +57,4 @@ const querySelector = (params, queryNo) => {
 
 
 
-module.exports = { querySelector }
+module.exports = { queryGenerator }
