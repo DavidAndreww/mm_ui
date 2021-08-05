@@ -11,21 +11,22 @@ import { ResultsGrid } from './components/ResultsGrid'
 function App() {
 
   const [parameters, setParameters] = useState({
-    enterprise: [],
-    bob: [],
-    payerentity: [],
-    region: [],
-    state: [],
-    territory: [],
-    category: [],
-    team: [],
-    currStartDate: '',
-    currEndDate: '',
-    prevStartDate: '',
-    prevEndDate: '',
-    engine: '',
-    result:[]
-  })
+    enterprise: null,
+    bob: null,
+    payerentity: null,
+    region: null,
+    state: null,
+    territory: null,
+    category: null,
+    team: null,
+    currStartDate: null,
+    currEndDate: null,
+    prevStartDate: null,
+    prevEndDate: null,
+    engine: null,
+    result: null
+  });
+  
 
   const toggleParameters = (e, name = null) => {
     let dimension;
@@ -59,7 +60,7 @@ function App() {
         body: JSON.stringify({
           parameters
         })
-      }).then(res => res.json()).then(json => setParameters({...parameters,result:json}))
+      }).then(res => res.json()).then(json => setParameters({ result: json }))
     }
   }
 

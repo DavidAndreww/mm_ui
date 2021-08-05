@@ -15,7 +15,7 @@ export const ResultsGrid = ({data}) => {
     <div id='results-grid' className='component-boundary'>
       <PerfectScrollbar>
         <TableContainer component={Paper}>
-          <Table size="large" aria-label="a dense table">
+          <Table size="medium" aria-label="a dense table">
             <TableHead>
               <TableRow> {columns.map((row) => (
                 <TableCell scope="row" key={row}>{row}</TableCell>
@@ -23,7 +23,7 @@ export const ResultsGrid = ({data}) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row,index) => (
+              {data !== null && data.current.map((row,index) => (
                 <TableRow key={index}>
                   <TableCell scope="row">{row.BRAND_ID}</TableCell>
                   <TableCell>{row.DRUG_ID}</TableCell>
