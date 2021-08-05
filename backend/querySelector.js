@@ -1,13 +1,9 @@
 const querySelector = (params, queryNo) => {
-  let query;
   let activeFilters = {}
   for(const field in params) {
     if (params[field] && field !== 'engine' && field !== 'result') {
       activeFilters[field] = params[field]
     }
-  }
-  for(const fields in activeFilters) {
-    
   }
 
   if(queryNo === 1) {
