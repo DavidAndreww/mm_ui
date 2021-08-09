@@ -13,6 +13,9 @@
   padding: 12px;
 }
 
+.current-period {
+  background-color: yellow;
+}
 
 #dimension-filter {
   padding: 12px;
