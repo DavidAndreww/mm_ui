@@ -57,5 +57,5 @@ export const markets = [
 ];
 
 export const brands = [
-  { value: "NUEDEXTA", label: 'Nuedexta' }
+  { value: "PROZAC", label: 'Prozac' }
 ]
