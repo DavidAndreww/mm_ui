@@ -13,6 +13,8 @@ import { states } from '../sampleData';
 import { territories } from '../sampleData';
 import { categories } from '../sampleData';
 import { teams } from '../sampleData';
+import { markets } from '../sampleData';
+import { brands } from '../sampleData'
 
 const Dropdown = ({ label, array, callback }) => {
   return (
@@ -32,6 +34,15 @@ export const DimensionFilter = ({ toggleParameters }) => {
       <ComponentHeader label={'Dimension Filter'} />
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+          <Typography><b>Market</b></Typography>
+        </AccordionSummary>
+        <div className="component-body">
+          <Dropdown label={'Market'} array={markets} callback={toggleParameters} />
+          <Dropdown label={'Brand'} array={brands} callback={toggleParameters} />
+        </div>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
           <Typography><b>Payer</b></Typography>
         </AccordionSummary>
         <div className="component-body">
@@ -39,7 +50,6 @@ export const DimensionFilter = ({ toggleParameters }) => {
           <Dropdown label={'BOB'} array={bobs} callback={toggleParameters} />
           <Dropdown label={'Payer Entity'} array={payers} callback={toggleParameters} />
         </div>
-        
       </Accordion>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
