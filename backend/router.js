@@ -3,6 +3,12 @@ const router = express.Router();
 const connection = require('./snowflakeConnection')
 const { queryGenerator } = require('./queryGenerator')
 
+
+router.get('/', async (req, res) => {
+  console.log('get request receieved')
+})
+
+// need logic to use different query engines depending on user input
 router.post('/', async (req, res) => { 
   let params = req.body.parameters;
   

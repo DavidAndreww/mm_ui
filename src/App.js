@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {Grid} from '@material-ui/core';
 import { DimensionFilter } from './components/DimensionFilter';
 import { TimeFilter } from './components/TimeFilter';
