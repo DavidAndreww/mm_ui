@@ -33,3 +33,22 @@ export const parameterValidations = (parameters) => {
   }
   return true
 }
+
+
+
+export const slicerJSONFormatting = (queryNumber, jsonSlicer) => {
+  switch(queryNumber){
+
+    case 1:
+      
+
+    break;
+
+    case 2:
+    
+    break;
+
+
+  }
+
+}
