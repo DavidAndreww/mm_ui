@@ -2,9 +2,11 @@
 
 #app {
   font-family: 'Roboto', sans-serif;
-  padding: 15px;
-  height: 100vh;
+  font-size: 14px;
+  padding: 8px;
+  min-height: 100vh;
   background-color: rgb(194, 194, 194);
+  font-display: swap;
 }
 .content-area{
   height: 100vh;
@@ -12,17 +14,61 @@
 .component-body{
   padding: 12px;
 }
-
+.component-wrapper{
+  min-height: 75px;
+  background-color: #fff;
+}
 .current-period {
-  background-color: yellow;
+  background-color: #ddddfb;
+}
+.margin-right{
+  margin-right:30px;
+}
+.lbl-time-filter{
+  margin-bottom:12px;
+}
+.time-container {
+  width: calc(100% + 16px);
+  margin: 0px;
+  padding:10px;
+}
+.date-picker{
+  border:1px solid rgb(212, 212, 212);
+  margin-bottom: 6px;
+}
+.d-filter-margin{
+  margin-bottom:10px;
+}
+#dimension-filter {
+  padding: 0px;
+  margin-bottom: 8px;
+}
+#date-alignment{
+  width: calc(100% + 16px);
+  margin: 2px;
+}
+#results-grid{
+  margin-top:8px;  
+  /* padding:8px 8px; */
 }
 
-#dimension-filter {
-  padding: 12px;
-}
 /* TimeFilter */
 .component-boundary {
   background-color: rgb(255, 255, 255);
-  box-shadow: 5px 5px 10px rgb(117, 116, 116);
-  border-radius: 10px;
+  /* box-shadow: 5px 5px 10px rgb(117, 116, 116);  */
+  /* border-radius: 10px 10px 0px 0px; */
+}
+.MuiAccordionSummary-root.Mui-expanded {
+    min-height: 30px !important;
+}
+.MuiAccordionSummary-content.Mui-expanded{
+  margin:0 !important;
+}
+
+.ag-theme-alpine .ag-ltr .ag-cell,.ag-header-cell-text{
+    font-size: 12px;
+}
+.ag-theme-alpine .ag-cell, .ag-theme-alpine .ag-full-width-row .ag-cell-wrapper.ag-row-group,
+.ag-theme-alpine .ag-header-cell, .ag-theme-alpine .ag-header-group-cell{
+  padding:0px 8px !important;
 }
