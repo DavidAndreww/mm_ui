@@ -14,6 +14,8 @@ import { states } from '../sampleData';
 import { territories } from '../sampleData';
 import { categories } from '../sampleData';
 import { teams } from '../sampleData';
+import { markets } from '../sampleData';
+import { brands } from '../sampleData'
 
 const Dropdown = ({ label, array, callback }) => {
   return (

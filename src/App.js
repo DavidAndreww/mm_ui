@@ -8,10 +8,14 @@ import { TimeFilter } from './components/TimeFilter';
 import { QueryMonitor } from './components/QueryMonitor';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
+import { parameterValidations } from './helperFunctions'
+
 import theme from 'src/theme'
 function App() {
 
   const [parameters, setParameters] = useState({
+    market: null,
+    brand: null,
     enterprise: null,
     bob: null,
     payerentity: null,
@@ -52,9 +56,7 @@ function App() {
   }
 
   const handleExecute = () => {
-    if (parameters.engine === '') {
-      window.alert('Please select an engine')
-    } else {
+    if (parameterValidations(parameters)) {
       fetch('http://localhost:5000', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
