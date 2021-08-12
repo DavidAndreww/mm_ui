@@ -72,7 +72,7 @@ function App() {
       <div id='app'>
         <Grid container spacing={1}>
           <Grid item xs={3}>
-            <DimensionFilter toggleParameters={toggleParameters} />
+            <DimensionFilter toggleParameters={toggleParameters} handleSelect={handleExecute} data={parameters}/>
             <QueryMonitor />
           </Grid>  
           {/* className="content-area" */}

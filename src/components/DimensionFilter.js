@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Select from 'react-select';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -26,39 +26,64 @@ const Dropdown = ({ label, array, callback }) => {
 
   )
 }
-export const DimensionFilter = ({ toggleParameters, handleSelect }) => {
+export const DimensionFilter = ({ toggleParameters, handleSelect, data }) => {
+  const [readOnly,setReadOnly] = useState(true);
   const action = {
-    label:"Select",
-    fn:function name(params) {
-      
+    label:readOnly ? "Change":"Save",
+    fn:() =>{      
+      // if(!readOnly)
+      //   handleSelect();
+      setReadOnly(!readOnly)
     }
   }
   return (
     <div id='dimension-filter'>
       <ComponentHeader label={'Dimension Filter'} action={action}/>
-      <ComponentBody>        
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-            <Typography><b>Payer</b></Typography>
-          </AccordionSummary>
-          <div className="component-body">
-            <Dropdown label={'Enterprise'} class="d-filter-margin" array={enterprises} callback={toggleParameters} />
-            <Dropdown label={'BOB'} array={bobs} callback={toggleParameters} />
-            <Dropdown label={'Payer Entity'} array={payers} callback={toggleParameters} />
-          </div>
-          
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-            <Typography><b>Geo</b></Typography>
-          </AccordionSummary>
-          <div className="component-body">
-            <Dropdown label={'Region'} array={regions} callback={toggleParameters} />
-            <Dropdown label={'State'} array={states} callback={toggleParameters} />
-            <Dropdown label={'Territory'} array={territories} callback={toggleParameters} />  
-          </div>
-        </Accordion>
-        <Accordion>
+      <ComponentBody>    
+        {readOnly ? (
+        <div className="dimension-filter">
+          { data?.market && (<div className="dimension-filter-item"><label>Market:</label> {data?.market.join(", ")}</div>)}
+          { data?.brand && (<div className="dimension-filter-item"><label>Brand:</label> {data?.brand.join(", ")}</div>)}
+          { data?.enterprise && (<div className="dimension-filter-item"><label>Enterprise:</label> {data?.enterprise.join(", ")}</div>)}
+          { data?.bob && (<div className="dimension-filter-item"><label>BOB:</label> {data?.bob.join(", ")}</div>)}
+          { data?.payerentity && (<div className="dimension-filter-item"><label>Payer Entity:</label> {data?.payerentity.join(", ")}</div>)}
+          { data?.region && (<div className="dimension-filter-item"><label>Region:</label> {data?.region.join(", ")}</div>)}
+          { data?.state && (<div className="dimension-filter-item"><label>State:</label> {data?.state.join(", ")}</div>)}
+          { data?.territory && (<div className="dimension-filter-item"><label>Territory:</label> {data?.territory.join(", ")}</div>)}
+          { data?.category && (<div className="dimension-filter-item"><label>Category:</label> {data?.category.join(", ")}</div>)}
+          { data?.team && (<div className="dimension-filter-item"><label>Team:</label> {data?.team.join(", ")}</div>)}
+        </div>)
+        :(<div>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+              <Typography><b>Market</b></Typography>
+            </AccordionSummary>
+            <div className="component-body">
+              <Dropdown label={'Market'} array={markets} callback={toggleParameters} />
+              <Dropdown label={'Brand'} array={brands} callback={toggleParameters} />
+            </div>            
+          </Accordion>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+              <Typography><b>Payer</b></Typography>
+            </AccordionSummary>
+            <div className="component-body">
+              <Dropdown label={'Enterprise'} array={enterprises} callback={toggleParameters} />
+              <Dropdown label={'BOB'} array={bobs} callback={toggleParameters} />
+              <Dropdown label={'Payer Entity'} array={payers} callback={toggleParameters} />
+            </div>            
+          </Accordion>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+              <Typography><b>Geo</b></Typography>
+            </AccordionSummary>
+            <div className="component-body">
+              <Dropdown label={'Region'} array={regions} callback={toggleParameters} />
+              <Dropdown label={'State'} array={states} callback={toggleParameters} />
+              <Dropdown label={'Territory'} array={territories} callback={toggleParameters} />  
+            </div>
+          </Accordion>
+          <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
           <Typography><b>Team</b></Typography>
         </AccordionSummary>
@@ -67,6 +92,9 @@ export const DimensionFilter = ({ toggleParameters, handleSelect }) => {
         <Dropdown label={'Team'} array={teams} callback={toggleParameters} />
         </div>
       </Accordion>      
+        </div>
+        )
+        }    
       </ComponentBody>
     </div>
   )
