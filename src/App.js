@@ -8,7 +8,7 @@ import { TimeFilter } from './components/TimeFilter';
 import { QueryMonitor } from './components/QueryMonitor';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { parameterValidations } from './helperFunctions'
+import { slicerMapCreation, parameterValidations } from './helperFunctions'
 
 import theme from './theme/index'
 function App() {
@@ -17,7 +17,7 @@ function App() {
      fetch('http://localhost:5000', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json()).then(jsonRes => console.log(jsonRes));
+      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"]));
   })
 
   const [parameters, setParameters] = useState({
