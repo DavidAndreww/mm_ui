@@ -33,7 +33,7 @@ export const ComponentHeader =({ label,action}) => {
           </Typography>
           <div className={classes.flex}></div>
           {action && (
-            <Button color='secondary' variant='contained' className={classes.btnSmall} onClick={action?.fn}>{action?.label}</Button>
+            <Button color='secondary' variant='contained' className={classes.btnSmall} onClick={action.fn}>{action.label}</Button>
           )}
         </Toolbar>
       </AppBar>

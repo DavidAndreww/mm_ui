@@ -10,7 +10,7 @@ import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
 import { parameterValidations } from './helperFunctions'
 
-import theme from 'src/theme'
+import theme from './theme/index'
 function App() {
 
   useEffect(() => {
