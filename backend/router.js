@@ -6,6 +6,7 @@ const { queryGenerator } = require('./queryGenerator')
 
 router.get('/', async (req, res) => {
   console.log('get request receieved')
+  res.json('message received')
 })
 
 // need logic to use different query engines depending on user input
