@@ -23,7 +23,7 @@ function App() {
      fetch('http://localhost:5000', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"], setSlicerMaps,slicerMaps)).then(console.log(slicerMaps));
+      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setSlicerMaps,slicerMaps)).then(console.log(slicerMaps));
   },[1])
 
  
@@ -86,7 +86,7 @@ function App() {
       <div id='app'>
         <Grid container spacing={1}>
           <Grid item xs={3}>
-            <DimensionFilter toggleParameters={toggleParameters} />
+            <DimensionFilter toggleParameters={toggleParameters} slicerMaps={slicerMaps}/>
             <QueryMonitor />
           </Grid>  
           {/* className="content-area" */}

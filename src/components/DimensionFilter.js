@@ -26,13 +26,14 @@ const Dropdown = ({ label, array, callback }) => {
 
   )
 }
-export const DimensionFilter = ({ toggleParameters, handleSelect }) => {
+export const DimensionFilter = ({ toggleParameters, slicerMaps }) => {
   const action = {
     label:"Select",
     fn:function name(params) {
       
     }
   }
+  console.log(slicerMaps)
   return (
     <div id='dimension-filter'>
       <ComponentHeader label={'Dimension Filter'} action={action}/>
