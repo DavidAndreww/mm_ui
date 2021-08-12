@@ -27,7 +27,7 @@ const Dropdown = ({ label, array, callback }) => {
   )
 }
 export const DimensionFilter = ({ toggleParameters, handleSelect, data }) => {
-  const [readOnly,setReadOnly] = useState(true);
+  const [readOnly,setReadOnly] = useState(false);
   const action = {
     label:readOnly ? "Change":"Save",
     fn:() =>{      
