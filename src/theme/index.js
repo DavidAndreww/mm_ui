@@ -23,36 +23,36 @@ const theme = createTheme({
   },
   overrides: {
     MuiButton: {
-      containedPrimary: {
-        '&:hover': {
-          backgroundColor: colors.main.white,
-          color: colors.main.darkBlue,
-          borderColor: colors.main.darkBlue,
-          border: '1px solid',
-        },
-      },
-      outlinedPrimary: {
-        backgroundColor: colors.main.white,
-        '&:hover': {
-          backgroundColor: colors.main.darkBlue,
-          color: colors.main.white,
-        },
-      },      
-      containedSecondary: {
-        '&:hover': {
-          backgroundColor: colors.main.white,
-          color: colors.main.primaryRed,
-          border: '1px solid',
-          borderColor: colors.main.primaryRed,
-        },
-      },
-      outlinedSecondary: {
-        backgroundColor: colors.main.white,
-        '&:hover': {
-          backgroundColor: colors.main.primaryRed,
-          color: colors.main.white,
-        },
-      },
+      // containedPrimary: {
+      //   '&:hover': {
+      //     backgroundColor: colors.main.white,
+      //     color: colors.main.darkBlue,
+      //     borderColor: colors.main.darkBlue,
+      //     border: '1px solid',
+      //   },
+      // },
+      // outlinedPrimary: {
+      //   backgroundColor: colors.main.white,
+      //   '&:hover': {
+      //     backgroundColor: colors.main.darkBlue,
+      //     color: colors.main.white,
+      //   },
+      // },      
+      // containedSecondary: {
+      //   '&:hover': {
+      //     backgroundColor: colors.main.white,
+      //     color: colors.main.primaryRed,
+      //     border: '1px solid',
+      //     borderColor: colors.main.primaryRed,
+      //   },
+      // },
+      // outlinedSecondary: {
+      //   backgroundColor: colors.main.white,
+      //   '&:hover': {
+      //     backgroundColor: colors.main.primaryRed,
+      //     color: colors.main.white,
+      //   },
+      // },
     },
   },
   typography,
