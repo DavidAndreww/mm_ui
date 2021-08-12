@@ -2,10 +2,7 @@
 
 const defaultSlicers = function(param){
     if(param === 1){
-        return `select market, ARRAY_AGG(brand) As Brand from 
-        (select distinct market , brand
-        from avnr_mdm_uat.l1.dim_brand_market_vw)
-        group by market;`;
+        return `select brand, market from "AVNR_MDM_UAT"."L1"."DIM_BRAND_MARKET_VW" where is_internal = TRUE;`;
     }else if(param===2){
         return 'select distinct payer_entity,bob, enterprise from AVNR_MDM_UAT.L1.PAYER_HIERARCHY_PAYER_PLAN;';
     }else if(param===3){

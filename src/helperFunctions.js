@@ -40,6 +40,9 @@ export const slicerJSONFormatting = (queryNumber, jsonSlicer) => {
   switch(queryNumber){
 
     case 1:
+      for(Keys in jsonSlicer){
+        
+      }
       
 
     break;
