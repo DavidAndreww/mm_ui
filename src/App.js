@@ -11,6 +11,13 @@ import { parameterValidations } from './helperFunctions'
 
 function App() {
 
+  useEffect(() => {
+     fetch('http://localhost:5000', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }).then(res => res.json()).then(jsonRes => console.log(jsonRes));
+  })
+
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
