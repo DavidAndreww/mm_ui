@@ -26,8 +26,13 @@ const Dropdown = ({ label, array, callback }) => {
 
   )
 }
-export const DimensionFilter = ({ toggleParameters, handleSelect, data }) => {
-  const [readOnly,setReadOnly] = useState(false);
+// <<<<<<< HEAD
+// export const DimensionFilter = ({ toggleParameters, handleSelect, data }) => {
+//   const [readOnly,setReadOnly] = useState(false);
+// =======
+export const DimensionFilter = ({ toggleParameters, slicerMaps,handleSelect, data }) => {
+// >>>>>>> SlicerCaching
+const [readOnly,setReadOnly] = useState(false);
   const action = {
     label:readOnly ? "Change":"Save",
     fn:() =>{      
@@ -36,24 +41,26 @@ export const DimensionFilter = ({ toggleParameters, handleSelect, data }) => {
       setReadOnly(!readOnly)
     }
   }
+  console.log(slicerMaps)
   return (
     <div id='dimension-filter'>
       <ComponentHeader label={'Dimension Filter'} action={action}/>
       <ComponentBody>    
         {readOnly ? (
         <div className="dimension-filter">
-          { data?.market && (<div className="dimension-filter-item"><label>Market:</label> {data?.market.join(", ")}</div>)}
-          { data?.brand && (<div className="dimension-filter-item"><label>Brand:</label> {data?.brand.join(", ")}</div>)}
-          { data?.enterprise && (<div className="dimension-filter-item"><label>Enterprise:</label> {data?.enterprise.join(", ")}</div>)}
-          { data?.bob && (<div className="dimension-filter-item"><label>BOB:</label> {data?.bob.join(", ")}</div>)}
-          { data?.payerentity && (<div className="dimension-filter-item"><label>Payer Entity:</label> {data?.payerentity.join(", ")}</div>)}
-          { data?.region && (<div className="dimension-filter-item"><label>Region:</label> {data?.region.join(", ")}</div>)}
-          { data?.state && (<div className="dimension-filter-item"><label>State:</label> {data?.state.join(", ")}</div>)}
-          { data?.territory && (<div className="dimension-filter-item"><label>Territory:</label> {data?.territory.join(", ")}</div>)}
-          { data?.category && (<div className="dimension-filter-item"><label>Category:</label> {data?.category.join(", ")}</div>)}
-          { data?.team && (<div className="dimension-filter-item"><label>Team:</label> {data?.team.join(", ")}</div>)}
+          { data?data.market && (<div className="dimension-filter-item"><label>Market:</label> {data?data.market.join(", "):null}</div>):null}
+          { data?data.brand && (<div className="dimension-filter-item"><label>Brand:</label> {data?data.brand.join(", "):null}</div>):null}
+          { data?data.enterprise && (<div className="dimension-filter-item"><label>Enterprise:</label> {data?data.enterprise.join(", "):null}</div>):null}
+          { data?data.bob && (<div className="dimension-filter-item"><label>BOB:</label> {data?data.bob.join(", "):null}</div>):null}
+          { data?data.payerentity && (<div className="dimension-filter-item"><label>Payer Entity:</label> {data?data.payerentity.join(", "):null}</div>):null}
+          { data?data.region && (<div className="dimension-filter-item"><label>Region:</label> {data?data.region.join(", "):null}</div>):null}
+          { data?data.state && (<div className="dimension-filter-item"><label>State:</label> {data?data.state.join(", "):null}</div>):null}
+          { data?data.territory && (<div className="dimension-filter-item"><label>Territory:</label> {data?data.territory.join(", "):null}</div>):null}
+          { data?data.category && (<div className="dimension-filter-item"><label>Category:</label> {data?data.category.join(", "):null}</div>):null}
+          { data?data.team && (<div className="dimension-filter-item"><label>Team:</label> {data?data.team.join(", "):null}</div>):null}
         </div>)
-        :(<div>
+        :(
+        <div>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
               <Typography><b>Market</b></Typography>

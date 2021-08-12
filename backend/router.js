@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
   let query2 =  defaultSlicers(2);
   let query3 =  defaultSlicers(3);
   let query4 =  defaultSlicers(4);
+  let mapForPayerToBob = defaultSlicers(5);
   await connection.execute({
     sqlText: query1,
     complete: (err, stmt, rows) => {
@@ -39,10 +40,21 @@ router.get('/', async (req, res) => {
                         sqlText:query4,
                         complete:(err,stmt,rows) => {
                           if(err){
-                            console.error(`Failed to execute query 3 with statement: ${err.message}`);
+                            console.error(`Failed to execute query 4 with statement: ${err.message}`);
                           }else{
                             returnObj.timePer = rows;
-                            res.json(returnObj)
+                            // res.json(returnObj)
+                            connection.execute({
+                              sqlText:mapForPayerToBob,
+                              complete:(err,stmt,rows) => {
+                                if(err){
+                                  console.error(`Failed to execute query 5 with statement: ${err.message}`);
+                                }else{
+                                  returnObj.PayerMapToBob = rows;
+                                  res.json(returnObj)
+                                }
+                              }
+                            })
                           }
                         }
                       })
