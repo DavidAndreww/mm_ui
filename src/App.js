@@ -13,13 +13,20 @@ import { slicerMapCreation, parameterValidations } from './helperFunctions'
 import theme from './theme/index'
 function App() {
 
+  const [slicerMaps,setSlicerMaps] = useState({
+    map1:null,
+    map2:null,
+    map3:null
+  })
+
   useEffect(() => {
      fetch('http://localhost:5000', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"]));
-  })
+      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"], setSlicerMaps,slicerMaps)).then(console.log(slicerMaps));
+  },[1])
 
+ 
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,

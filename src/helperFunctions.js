@@ -36,7 +36,7 @@ export const parameterValidations = (parameters) => {
 
 
 
-export const slicerMapCreation = (queryNumber, jsonSlicer) => {
+export const slicerMapCreation = (queryNumber, jsonSlicer, setSlicerMaps, slicerMaps) => {
   switch(queryNumber){
 
     case 1:
@@ -48,7 +48,7 @@ export const slicerMapCreation = (queryNumber, jsonSlicer) => {
 
     case 2:
       const map1 = new Map();
-      let map2 = {}
+      let map2 = new Map();
       let map3 = {}
       for(let objects in jsonSlicer){
         let ent = jsonSlicer[objects]["ENTERPRISE"];
@@ -69,9 +69,11 @@ export const slicerMapCreation = (queryNumber, jsonSlicer) => {
             }
       }
       
-      console.log(map1.get("CVS Health"));
+      // console.log(map1.get("CVS Health"));
       // sessionStorage.setItem("MasterPayerMap", JSON.stringify(map1));
-
+      // const map = new Map(sessionStorage.getItem("MasterPayerMap"))
+      // console.log(sessionStorage.getItem("MasterPayerMap"));
+      setSlicerMaps({...slicerMaps, map1:"map1"});
     break;
 
     default:
