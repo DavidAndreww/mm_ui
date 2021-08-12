@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css';
 import { useState, useEffect } from 'react'
 import {Grid} from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { DimensionFilter } from './components/DimensionFilter';
 import { TimeFilter } from './components/TimeFilter';
 import { QueryMonitor } from './components/QueryMonitor';
@@ -9,6 +10,7 @@ import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
 import { parameterValidations } from './helperFunctions'
 
+import theme from './theme/index'
 function App() {
 
   useEffect(() => {
@@ -73,29 +75,28 @@ function App() {
   }
 
   return (
-    <div id='app'>
-      <Grid container spacing={3}>
-        <Grid item xs={3}>
+    <ThemeProvider theme={theme}>
+      <div id='app'>
+        <Grid container spacing={1}>
+          <Grid item xs={3}>
             <DimensionFilter toggleParameters={toggleParameters} />
-        </Grid>  
-        <Grid item xs={7}>
-          <Grid container spacing={3} direction="column" className="content-area">
-             <Grid item>
-              <TimeFilter toggleParameters={toggleParameters} />
-             </Grid>
-             <Grid item>
-                <ResultsGrid data={parameters.result}/>
-             </Grid>
-             <Grid item>
-               <QueryMonitor />
-             </Grid>
+            <QueryMonitor />
+          </Grid>  
+          {/* className="content-area" */}
+          <Grid item xs={9}>
+            <Grid container spacing={1}>
+              <Grid item  sm={12} md={9}>
+                <TimeFilter toggleParameters={toggleParameters} />
+              </Grid>
+              <Grid item  sm={12} md={3}>
+                  <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
+              </Grid>
+            </Grid>
+            <ResultsGrid data={parameters.result}/>
           </Grid>
         </Grid>
-        <Grid item xs={2}>
-          <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
