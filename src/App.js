@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {Grid} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { DimensionFilter } from './components/DimensionFilter';
@@ -10,8 +10,15 @@ import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
 import { parameterValidations } from './helperFunctions'
 
-import theme from 'src/theme'
+import theme from './theme/index'
 function App() {
+
+  useEffect(() => {
+     fetch('http://localhost:5000', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }).then(res => res.json()).then(jsonRes => console.log(jsonRes));
+  })
 
   const [parameters, setParameters] = useState({
     market: null,
