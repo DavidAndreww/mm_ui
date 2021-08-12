@@ -18,6 +18,9 @@ function App() {
     map2:null,
     map3:null
   })
+  // const [slicerMaps, setSlicerMaps] = useState(new Map())
+
+ 
 
   useEffect(() => {
      fetch('http://localhost:5000', {

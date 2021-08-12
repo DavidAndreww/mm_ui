@@ -26,12 +26,9 @@ const Dropdown = ({ label, array, callback }) => {
 
   )
 }
-// <<<<<<< HEAD
-// export const DimensionFilter = ({ toggleParameters, handleSelect, data }) => {
-//   const [readOnly,setReadOnly] = useState(false);
-// =======
-export const DimensionFilter = ({ toggleParameters, slicerMaps,handleSelect, data }) => {
-// >>>>>>> SlicerCaching
+
+export const DimensionFilter = ({ toggleParameters, slicerMaps, handleSelect, data }) => {
+
 const [readOnly,setReadOnly] = useState(false);
   const action = {
     label:readOnly ? "Change":"Save",
@@ -41,7 +38,16 @@ const [readOnly,setReadOnly] = useState(false);
       setReadOnly(!readOnly)
     }
   }
-  console.log(slicerMaps)
+
+  if (data!==null){
+    console.log(data)
+  }
+
+  if(slicerMaps!==null) {
+    console.log(slicerMaps)
+  }
+
+
   return (
     <div id='dimension-filter'>
       <ComponentHeader label={'Dimension Filter'} action={action}/>

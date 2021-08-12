@@ -91,6 +91,10 @@ export const slicerMapCreation = (queryNumber, jsonSlicer, jsonSlicer2, setSlice
       setSlicerMaps({map1:map1});
       setSlicerMaps({map2:map2});
       setSlicerMaps({map3:map3});
+
+      // setSlicerMaps(slicerMaps.set('map1',map1));
+      // setSlicerMaps(slicerMaps.set('map2',map2));
+      // setSlicerMaps(slicerMaps.set('map3',map3));
     break;
 
     default:
