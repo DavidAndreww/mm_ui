@@ -72,3 +72,16 @@
 .ag-theme-alpine .ag-header-cell, .ag-theme-alpine .ag-header-group-cell{
   padding:0px 8px !important;
 }
+.dimension-filter {
+  padding:10px
+}
+.dimension-filter-item{
+  font-size: 14px;
+  padding-bottom: 6px;
+}
+.dimension-filter-item label{
+  font-size: 14px;
+  font-weight: 600;
+  width:80px;
+  display: inline-flex;
+}

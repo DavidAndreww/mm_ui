@@ -11,7 +11,7 @@ export const ResultsGrid = ({data}) => {
     const colIds = params.columnApi
       .getAllDisplayedColumns()
       .map(col => col.getColId());
-    params.columnApi.autoSizeColumns(colIds,params);
+    params.columnApi.autoSizeColumns(colIds);
   };
 
   const [gridOptions] = React.useState({

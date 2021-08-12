@@ -8,18 +8,28 @@ import { TimeFilter } from './components/TimeFilter';
 import { QueryMonitor } from './components/QueryMonitor';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { parameterValidations } from './helperFunctions'
+import { slicerMapCreation, parameterValidations } from './helperFunctions'
 
 import theme from './theme/index'
 function App() {
+
+  const [slicerMaps,setSlicerMaps] = useState({
+    map1:null,
+    map2:null,
+    map3:null
+  })
+  // const [slicerMaps, setSlicerMaps] = useState(new Map())
+
+ 
 
   useEffect(() => {
      fetch('http://localhost:5000', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json()).then(jsonRes => console.log(jsonRes));
-  })
+      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setSlicerMaps,slicerMaps)).then(console.log(slicerMaps));
+  },[1])
 
+ 
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
@@ -79,7 +89,7 @@ function App() {
       <div id='app'>
         <Grid container spacing={1}>
           <Grid item xs={3}>
-            <DimensionFilter toggleParameters={toggleParameters} />
+            <DimensionFilter toggleParameters={toggleParameters} slicerMaps={slicerMaps}  handleSelect={handleExecute} data={parameters}/>
             <QueryMonitor />
           </Grid>  
           {/* className="content-area" */}
