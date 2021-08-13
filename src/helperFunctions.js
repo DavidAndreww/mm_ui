@@ -36,7 +36,7 @@ export const parameterValidations = (parameters) => {
 
 
 
-export const slicerMapCreation = (queryNumber, jsonSlicer, jsonSlicer2, setSlicerMaps, slicerMaps) => {
+export const slicerMapCreation = (queryNumber, jsonSlicer, jsonSlicer2, setPayerSlicerMaps, payerSlicerMaps) => {
   switch(queryNumber){
 
     case 1:
@@ -88,24 +88,11 @@ export const slicerMapCreation = (queryNumber, jsonSlicer, jsonSlicer2, setSlice
           payToBob: payToBob,
           bobToEnt: bobToEnt
         }
-        setSlicerMaps(slicers)
-      
-      // console.log(entToBobToPay.get("CVS Health"));
-      // sessionStorage.setItem("MasterPayerMap", JSON.stringify(entToBobToPay));
-      // const map = new Map(sessionStorage.getItem("MasterPayerMap"))
-      // console.log(sessionStorage.getItem("MasterPayerMap"));
-      // setSlicerMaps({entToBobToPay:entToBobToPay});
-      // setSlicerMaps({payToBob:payToBob});
-      // setSlicerMaps({bobToEnt:bobToEnt});
-
-      // setSlicerMaps(slicerMaps.set('map1',map1));
-      // setSlicerMaps(slicerMaps.set('map2',map2));
-      // setSlicerMaps(slicerMaps.set('bobToEnt',map3));
+        setPayerSlicerMaps(slicers)
     break;
 
     default:
       return null;
-      break;
 
   }
 

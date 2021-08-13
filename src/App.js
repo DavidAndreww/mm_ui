@@ -13,7 +13,7 @@ import { slicerMapCreation, parameterValidations } from './helperFunctions'
 import theme from './theme/index'
 function App() {
 
-  const [slicerMaps,setSlicerMaps] = useState()
+  const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   // const [slicerMaps, setSlicerMaps] = useState(new Map())
 
  
@@ -22,7 +22,7 @@ function App() {
      fetch('http://localhost:5000', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setSlicerMaps,slicerMaps));
+      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps));
   },[1])
 
  
@@ -87,7 +87,7 @@ function App() {
       <div id='app'>
         <Grid container spacing={1}>
           <Grid item xs={3}>
-            <DimensionFilter toggleParameters={toggleParameters} slicerMaps={slicerMaps}  handleSelect={handleExecute} data={parameters}/>
+            <DimensionFilter toggleParameters={toggleParameters} slicerMaps={payerSlicerMaps}  handleSelect={handleExecute} data={parameters}/>
             <QueryMonitor />
           </Grid>  
           {/* className="content-area" */}
