@@ -10,7 +10,7 @@ import { MarketFilter } from './components/MarketFilter';
 import { SelectedFilter } from './components/SelectedFilter';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { slicerMapCreation, parameterValidations } from './helperFunctions';
+import { slicerMapCreation, parameterValidations, payerFilter } from './helperFunctions';
 import theme from './theme/index';
 
 function App() {
@@ -86,12 +86,13 @@ function App() {
     }
   }
 
+
   return (
     <ThemeProvider theme={theme}>
       <div id='app'>
         <Grid container spacing={1}>
           <Grid item xs={3}>
-            <DimensionFilter toggleParameters={toggleParameters} payerSlicerMaps={payerSlicerMaps}  handleSelect={handleExecute} data={parameters}/>
+            <DimensionFilter toggleParameters={toggleParameters} payerSlicerMaps={payerFilter(payerSlicerMaps, parameters)}  handleSelect={handleExecute} data={parameters}/>
             <QueryMonitor />
           </Grid>  
           {/* className="content-area" */}

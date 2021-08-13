@@ -14,13 +14,13 @@ import { states } from '../sampleData';
 import { territories } from '../sampleData';
 import { categories } from '../sampleData';
 import { teams } from '../sampleData';
+
 const Dropdown = ({ label, array, callback }) => {
   return (
     <div style={{ marginBottom: '2px' }}>
       <label>{label}</label>
-      <Select name={label.toLowerCase()} isMulti={true} value={array.value} onChange={(e, name) => callback(e, name)} options={array} />
+      <Select name={label.toLowerCase()} isMulti={true} value={array && array.value} onChange={(e, name) => callback(e, name)} options={array} />
     </div>
-
   )
 }
 
@@ -53,9 +53,9 @@ const [readOnly,setReadOnly] = useState(false);
               <Typography><b>Payer</b></Typography>
             </AccordionSummary>
             <div className="component-body">
-              <Dropdown label={'Enterprise'} array={enterprises} callback={toggleParameters} />
-              <Dropdown label={'BOB'} array={bobs} callback={toggleParameters} />
-              <Dropdown label={'Payer Entity'} array={payers} callback={toggleParameters} />
+              <Dropdown label={'Enterprise'} array={payerSlicerMaps && payerSlicerMaps.enterprises} callback={toggleParameters} />
+              <Dropdown label={'BOB'} array={payerSlicerMaps && payerSlicerMaps.bobs} callback={toggleParameters} />
+              <Dropdown label={'Payer Entity'} array={payerSlicerMaps && payerSlicerMaps.payers} callback={toggleParameters} />
             </div>            
           </Accordion>
           <Accordion>
