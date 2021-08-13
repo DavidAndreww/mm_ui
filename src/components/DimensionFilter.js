@@ -14,9 +14,6 @@ import { states } from '../sampleData';
 import { territories } from '../sampleData';
 import { categories } from '../sampleData';
 import { teams } from '../sampleData';
-import { markets } from '../sampleData';
-import { brands } from '../sampleData'
-
 const Dropdown = ({ label, array, callback }) => {
   return (
     <div style={{ marginBottom: '2px' }}>
@@ -27,18 +24,8 @@ const Dropdown = ({ label, array, callback }) => {
   )
 }
 
-export const DimensionFilter = ({ toggleParameters, slicerMaps, handleSelect, data }) => {
-
-const [readOnly,setReadOnly] = useState(false);
-  const action = {
-    label:readOnly ? "Change":"Save",
-    fn:() =>{      
-      // if(!readOnly)
-      //   handleSelect();
-      setReadOnly(!readOnly)
-    }
-  }
-
+export const DimensionFilter = ({ toggleParameters, slicerMaps, handleSelect, data }) => { 
+  
   if (data!==null){
     console.log(data)
   }
@@ -46,36 +33,11 @@ const [readOnly,setReadOnly] = useState(false);
   if(slicerMaps!==null) {
     console.log(slicerMaps)
   }
-
-
   return (
     <div id='dimension-filter'>
-      <ComponentHeader label={'Dimension Filter'} action={action}/>
-      <ComponentBody>    
-        {readOnly ? (
-        <div className="dimension-filter">
-          { data?data.market && (<div className="dimension-filter-item"><label>Market:</label> {data?data.market.join(", "):null}</div>):null}
-          { data?data.brand && (<div className="dimension-filter-item"><label>Brand:</label> {data?data.brand.join(", "):null}</div>):null}
-          { data?data.enterprise && (<div className="dimension-filter-item"><label>Enterprise:</label> {data?data.enterprise.join(", "):null}</div>):null}
-          { data?data.bob && (<div className="dimension-filter-item"><label>BOB:</label> {data?data.bob.join(", "):null}</div>):null}
-          { data?data.payerentity && (<div className="dimension-filter-item"><label>Payer Entity:</label> {data?data.payerentity.join(", "):null}</div>):null}
-          { data?data.region && (<div className="dimension-filter-item"><label>Region:</label> {data?data.region.join(", "):null}</div>):null}
-          { data?data.state && (<div className="dimension-filter-item"><label>State:</label> {data?data.state.join(", "):null}</div>):null}
-          { data?data.territory && (<div className="dimension-filter-item"><label>Territory:</label> {data?data.territory.join(", "):null}</div>):null}
-          { data?data.category && (<div className="dimension-filter-item"><label>Category:</label> {data?data.category.join(", "):null}</div>):null}
-          { data?data.team && (<div className="dimension-filter-item"><label>Team:</label> {data?data.team.join(", "):null}</div>):null}
-        </div>)
-        :(
-        <div>
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-              <Typography><b>Market</b></Typography>
-            </AccordionSummary>
-            <div className="component-body">
-              <Dropdown label={'Market'} array={markets} callback={toggleParameters} />
-              <Dropdown label={'Brand'} array={brands} callback={toggleParameters} />
-            </div>            
-          </Accordion>
+      <ComponentHeader label={'Dimension Filter'}/>
+      <ComponentBody>   
+        <div>          
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
               <Typography><b>Payer</b></Typography>
@@ -97,17 +59,15 @@ const [readOnly,setReadOnly] = useState(false);
             </div>
           </Accordion>
           <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography><b>Team</b></Typography>
-        </AccordionSummary>
-        <div className="component-body">
-        <Dropdown label={'Category'} array={categories} callback={toggleParameters} />
-        <Dropdown label={'Team'} array={teams} callback={toggleParameters} />
-        </div>
-      </Accordion>      
-        </div>
-        )
-        }    
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+              <Typography><b>Team</b></Typography>
+            </AccordionSummary>
+            <div className="component-body">
+              <Dropdown label={'Category'} array={categories} callback={toggleParameters} />
+              <Dropdown label={'Team'} array={teams} callback={toggleParameters} />
+            </div>
+          </Accordion>      
+        </div>        
       </ComponentBody>
     </div>
   )

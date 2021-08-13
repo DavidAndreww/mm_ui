@@ -53,7 +53,7 @@ export const ResultsGrid = ({data}) => {
   }); 
 
   return (
-    <div id='results-grid' className='component-boundary ag-theme-alpine' style={{height:'400px'}} >         
+    <div id='results-grid' className='component-boundary ag-theme-alpine' style={{height:'250px'}} >         
         <AgGridReact 
           onGridReady={onGridReady}
           onFirstDataRendered={autoSizeColumns}
