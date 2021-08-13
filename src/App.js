@@ -15,14 +15,18 @@ import theme from './theme/index';
 
 function App() {
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
-  // const [slicerMaps, setSlicerMaps] = useState(new Map())
+  const [timeSlicers, setTimeSlicers] = useState()
 
 
   useEffect(() => {
      fetch('http://localhost:5000', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)).then(console.log(payerSlicerMaps));
+      }).then(res => res.json()).then(jsonRes =>   {
+        console.log(jsonRes)
+        slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
+        slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)
+      }).then(console.log(payerSlicerMaps));
   },[1])
 
  

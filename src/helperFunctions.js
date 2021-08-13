@@ -36,14 +36,16 @@ export const parameterValidations = (parameters) => {
 
 
 
-export const slicerMapCreation = (queryNumber, jsonSlicer, jsonSlicer2, setPayerSlicerMaps, payerSlicerMaps) => {
+export const slicerMapCreation = (queryNumber, jsonSlicer, jsonSlicer2, slicerCallback, payerSlicerMaps) => {
   switch(queryNumber){
 
     case 1:
-      //let result={}
-      // for(Keys in jsonSlicer){
-          
-      // }
+      
+    /* 
+
+    
+    
+    */
       break;
 
     case 2:
@@ -88,12 +90,36 @@ export const slicerMapCreation = (queryNumber, jsonSlicer, jsonSlicer2, setPayer
           payToBob: payToBob,
           bobToEnt: bobToEnt
         }
-        setPayerSlicerMaps(slicers)
+        slicerCallback(slicers)
+    break;
+
+    case 3: 
+    break;
+
+    case 4:
+        let startDateMap = new Map()
+        let endDateMap = new Map()
+        for(let rowNum in jsonSlicer){
+          let row_number = jsonSlicer[rowNum]["ROW_NUMBER"];
+          let s_w_s_d = jsonSlicer[rowNum]["SPLIT_WEEK_START_DATE"];
+          let s_w_e_d = jsonSlicer[rowNum]["SPLIT_WEEK_END_DATE"];
+
+          startDateMap.set(s_w_s_d, row_number)
+          endDateMap.set(s_w_e_d, row_number)
+        }
+        const dates = {
+          splitWeekStart: startDateMap,
+          splitWeekEnd: endDateMap
+        }
+        slicerCallback(dates)
     break;
 
     default:
       return null;
 
   }
+}
+
+export const payerFilter = (maps, obj) => {
 
 }
