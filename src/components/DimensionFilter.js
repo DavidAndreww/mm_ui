@@ -43,7 +43,7 @@ const [readOnly,setReadOnly] = useState(false);
     console.log(data)
   }
 
-  if(slicerMaps!==null) {
+  if(slicerMaps !== null) {
     console.log(slicerMaps)
   }
 
