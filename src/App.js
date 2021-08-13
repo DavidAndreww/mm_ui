@@ -17,19 +17,7 @@ import theme from './theme/index';
 function App() {
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   const [timeSlicers, setTimeSlicers] = useState()
-
-  useEffect(() => {
-     fetch('http://localhost:5000', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json()).then(jsonRes =>   {
-        console.log(jsonRes)
-        slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
-        slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)
-      }).then(console.log(payerSlicerMaps));
-  },[1])
-
- 
+  const [payerFilterArrays, setPayerFilterArrays] = useState()
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
@@ -48,7 +36,21 @@ function App() {
     engine: null,
     result: null
   });
+
+  useEffect(async() => {
+     await fetch('http://localhost:5000', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }).then(res => res.json()).then(jsonRes =>   {
+        console.log(jsonRes)
+        slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
+        slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)
+      }).then(console.log(payerSlicerMaps));
+  },[1])
   
+  useEffect(async() => {
+    payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays);
+  },[payerSlicerMaps, parameters])
 
   const toggleParameters = (e, name = null) => {
     // should run function to update params object by searching the slicerMaps 
@@ -83,16 +85,16 @@ function App() {
           parameters
         })
       }).then(res => res.json()).then(json => setParameters({ result: json }))
+      // .then(payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays))
     }
   }
-
 
   return (
     <ThemeProvider theme={theme}>
       <div id='app'>
         <Grid container spacing={1}>
           <Grid item xs={2}>
-            <DimensionFilter toggleParameters={toggleParameters} payerSlicerMaps={payerSlicerMaps}   handleSelect={handleExecute} data={parameters}/>            
+            <DimensionFilter toggleParameters={toggleParameters} payerFilterArrays={payerFilterArrays}   handleSelect={handleExecute} data={parameters}/>            
           </Grid> 
            <Grid item xs={6}>
             <TimeFilter toggleParameters={toggleParameters} />
