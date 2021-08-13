@@ -6,14 +6,16 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { DimensionFilter } from './components/DimensionFilter';
 import { TimeFilter } from './components/TimeFilter';
 import { QueryMonitor } from './components/QueryMonitor';
+import { MarketFilter } from './components/MarketFilter';
+import { SelectedFilter } from './components/SelectedFilter';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { slicerMapCreation, parameterValidations } from './helperFunctions'
+import { slicerMapCreation, parameterValidations } from './helperFunctions';
+import theme from './theme/index';
 
-import theme from './theme/index'
 function App() {
-
-  const [payerSlicerMaps, setPayerSlicerMaps] = useState(new Map())
+  const [payerSlicerMaps,setPayerSlicerMaps] = useState()
+  // const [slicerMaps, setSlicerMaps] = useState(new Map())
 
 
   useEffect(() => {
@@ -45,6 +47,8 @@ function App() {
   
 
   const toggleParameters = (e, name = null) => {
+    // should run function to update params object by searching the slicerMaps 
+    // var for restrictions, then update paremeters accordingly
     let dimension;
     let values;
 
@@ -99,6 +103,17 @@ function App() {
             <ResultsGrid data={parameters.result}/>
           </Grid>
         </Grid>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>            
+            <ResultsGrid data={parameters.result}/>
+          </Grid> 
+          <Grid item xs={6}>            
+            <QueryMonitor />
+          </Grid> 
+          <Grid item xs={6}>            
+            <SelectedFilter data={parameters}/>
+          </Grid>            
+        </Grid>        
       </div>
     </ThemeProvider>
   );
