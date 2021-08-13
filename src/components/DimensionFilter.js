@@ -24,7 +24,7 @@ const Dropdown = ({ label, array, callback }) => {
   )
 }
 
-export const DimensionFilter = ({ toggleParameters, payerSlicerMaps, handleSelect, data }) => {
+export const DimensionFilter = ({ toggleParameters, payerFilterArrays, handleSelect, data }) => {
 
 const [readOnly,setReadOnly] = useState(false);
   const action = {
@@ -40,8 +40,8 @@ const [readOnly,setReadOnly] = useState(false);
     console.log(data)
   }
 
-  if(payerSlicerMaps!==null) {
-    console.log(payerSlicerMaps)
+  if(payerFilterArrays!==null) {
+    console.log(payerFilterArrays)
   }
   return (
     <div id='dimension-filter'>
@@ -53,9 +53,9 @@ const [readOnly,setReadOnly] = useState(false);
               <Typography><b>Payer</b></Typography>
             </AccordionSummary>
             <div className="component-body">
-              <Dropdown label={'Enterprise'} array={payerSlicerMaps && payerSlicerMaps.enterprises} callback={toggleParameters} />
-              <Dropdown label={'BOB'} array={payerSlicerMaps && payerSlicerMaps.bobs} callback={toggleParameters} />
-              <Dropdown label={'Payer Entity'} array={payerSlicerMaps && payerSlicerMaps.payers} callback={toggleParameters} />
+              <Dropdown label={'Enterprise'} array={payerFilterArrays && payerFilterArrays.enterprises} callback={toggleParameters} />
+              <Dropdown label={'BOB'} array={payerFilterArrays && payerFilterArrays.bobs} callback={toggleParameters} />
+              <Dropdown label={'Payer Entity'} array={payerFilterArrays && payerFilterArrays.payers} callback={toggleParameters} />
             </div>            
           </Accordion>
           <Accordion>
