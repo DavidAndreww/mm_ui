@@ -30,7 +30,7 @@ export const DimensionFilter = ({ toggleParameters, slicerMaps, handleSelect, da
     console.log(data)
   }
 
-  if(slicerMaps!==null) {
+  if(slicerMaps !== null) {
     console.log(slicerMaps)
   }
   return (
