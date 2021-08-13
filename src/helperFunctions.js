@@ -128,10 +128,11 @@ export const payerFilter = (maps, obj) => {
   if(maps === undefined || maps === null) {
     return
   }
-  let enterprises = []
-  let bobs = []
-  let payers = []
+  
   if (obj.payerentity === null && obj.enterprise === null && obj.bob === null) {
+      let enterprises = []
+      let bobs = []
+      let payers = []
       let uniqueEnt = new Set()
       let uniqueBob = new Set()
       let uniquePay = new Set()
@@ -156,26 +157,53 @@ export const payerFilter = (maps, obj) => {
           }
         }
       }
+      return {
+        enterprises,
+        bobs,
+        payers
+      }
+  } else if (obj.enterprise && obj.payerentity === null && obj.bob === null) {
+    console.log('ENT SELECTEDD::::',maps.entToBobToPay.get(obj.enterprise.toString()))
+    let enterprises = []
+    let bobsArr = []
+    let payersArr = []
+    let uniqueEnt = new Set()
+    let uniqueBob = new Set()
+    let uniquePay = new Set()
+    obj.enterprise.forEach(enterprise => {
+      for(let bobs of maps.entToBobToPay.get(enterprise.toString()).keys()) {
+        if(uniqueBob.has(bobs)) {
+  
+        }else{
+          uniqueBob.add(bobs)
+          bobsArr.push(JSON.stringify({ value: bobs, label: bobs }))
+        }
+        for (let i in maps.entToBobToPay.get(enterprise).get(bobs)) {
+          if (uniquePay.has(maps.entToBobToPay.get(enterprise).get(bobs)[i])) {
+          } else {
+            uniquePay.add(maps.entToBobToPay.get(enterprise).get(bobs)[i])
+            payersArr.push(JSON.stringify({ value: maps.entToBobToPay.get(enterprise).get(bobs)[i], label: maps.entToBobToPay.get(enterprise).get(bobs)[i] }))
+          }
+        }
+      }      
+    });
+    for (let ent of maps.entToBobToPay.keys()) {
+      if (uniqueEnt.has(ent)) {
+      } else {
+        uniqueEnt.add(ent)
+        enterprises.push({ value: ent, label: ent })
+      }
+    }
+    console.log(`bobs::: ${bobsArr}:::payers:::${payersArr}`)
+    return {
+
+      bobs: bobsArr, 
+      payers: payersArr
+    }
   }
-  return {
-    enterprises,
-    bobs,
-    payers
-  }
+
+  
 }
 
-export const enterprises = [
-  {
-    value: 'Express Scripts - Commercial',
-    label: 'Express Scripts - Commercial',
-  },
-]
 
-export const bobs = [{ value: 'Express Scripts', label: 'Express Scripts' }]
 
-export const payers = [
-  {
-    value: 'Express Scripts Administered Plans - Commercial',
-    label: 'Express Scripts Administered Plans - Commercial',
-  },
-]

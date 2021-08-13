@@ -17,7 +17,6 @@ function App() {
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   const [timeSlicers, setTimeSlicers] = useState()
 
-
   useEffect(() => {
      fetch('http://localhost:5000', {
         method: 'GET',
