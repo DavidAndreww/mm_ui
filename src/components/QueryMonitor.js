@@ -4,7 +4,7 @@ import ComponentBody from './ComponentBody';
 export const QueryMonitor = () => {
   return (
     <div id='query-monitor' className='component-boundary'>
-      <ComponentHeader label={'Query Monitor'}/>
+      <ComponentHeader label={'Query History'}/>
       <ComponentBody></ComponentBody>
     </div>
   )

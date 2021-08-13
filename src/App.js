@@ -6,17 +6,17 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { DimensionFilter } from './components/DimensionFilter';
 import { TimeFilter } from './components/TimeFilter';
 import { QueryMonitor } from './components/QueryMonitor';
+import { MarketFilter } from './components/MarketFilter';
+import { SelectedFilter } from './components/SelectedFilter';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { slicerMapCreation, parameterValidations } from './helperFunctions'
+import { slicerMapCreation, parameterValidations } from './helperFunctions';
+import theme from './theme/index';
 
-import theme from './theme/index'
 function App() {
-
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   // const [slicerMaps, setSlicerMaps] = useState(new Map())
 
- 
 
   useEffect(() => {
      fetch('http://localhost:5000', {
@@ -86,23 +86,32 @@ function App() {
     <ThemeProvider theme={theme}>
       <div id='app'>
         <Grid container spacing={1}>
-          <Grid item xs={3}>
-            <DimensionFilter toggleParameters={toggleParameters} slicerMaps={payerSlicerMaps}  handleSelect={handleExecute} data={parameters}/>
-            <QueryMonitor />
-          </Grid>  
-          {/* className="content-area" */}
-          <Grid item xs={9}>
-            <Grid container spacing={1}>
-              <Grid item  sm={12} md={9}>
-                <TimeFilter toggleParameters={toggleParameters} />
-              </Grid>
-              <Grid item  sm={12} md={3}>
-                  <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
-              </Grid>
-            </Grid>
-            <ResultsGrid data={parameters.result}/>
-          </Grid>
+
+          <Grid item xs={2}>
+            <DimensionFilter toggleParameters={toggleParameters} slicerMaps={slicerMaps}  handleSelect={handleExecute} data={parameters}/>            
+          </Grid> 
+           <Grid item xs={6}>
+            <TimeFilter toggleParameters={toggleParameters} />
+          </Grid> 
+          <Grid item xs={2}>
+            <MarketFilter toggleParameters={toggleParameters} handleExecute={handleExecute}  />
+          </Grid>   
+          <Grid item xs={2}>
+            <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
+          </Grid>           
+
         </Grid>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>            
+            <ResultsGrid data={parameters.result}/>
+          </Grid> 
+          <Grid item xs={6}>            
+            <QueryMonitor />
+          </Grid> 
+          <Grid item xs={6}>            
+            <SelectedFilter data={parameters}/>
+          </Grid>            
+        </Grid>        
       </div>
     </ThemeProvider>
   );
