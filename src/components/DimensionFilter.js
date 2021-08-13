@@ -27,7 +27,7 @@ const Dropdown = ({ label, array, callback }) => {
   )
 }
 
-export const DimensionFilter = ({ toggleParameters, slicerMaps, handleSelect, data }) => {
+export const DimensionFilter = ({ toggleParameters, payerSlicerMaps, handleSelect, data }) => {
 
 const [readOnly,setReadOnly] = useState(false);
   const action = {
@@ -43,8 +43,8 @@ const [readOnly,setReadOnly] = useState(false);
     console.log(data)
   }
 
-  if(slicerMaps!==null) {
-    console.log(slicerMaps)
+  if(payerSlicerMaps!==null) {
+    console.log(payerSlicerMaps)
   }
 
 

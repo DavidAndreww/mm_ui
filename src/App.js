@@ -13,20 +13,14 @@ import { slicerMapCreation, parameterValidations } from './helperFunctions'
 import theme from './theme/index'
 function App() {
 
-  const [slicerMaps,setSlicerMaps] = useState({
-    map1:null,
-    map2:null,
-    map3:null
-  })
-  // const [slicerMaps, setSlicerMaps] = useState(new Map())
+  const [payerSlicerMaps, setPayerSlicerMaps] = useState(new Map())
 
- 
 
   useEffect(() => {
      fetch('http://localhost:5000', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setSlicerMaps,slicerMaps)).then(console.log(slicerMaps));
+      }).then(res => res.json()).then(jsonRes =>   slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)).then(console.log(payerSlicerMaps));
   },[1])
 
  
@@ -89,7 +83,7 @@ function App() {
       <div id='app'>
         <Grid container spacing={1}>
           <Grid item xs={3}>
-            <DimensionFilter toggleParameters={toggleParameters} slicerMaps={slicerMaps}  handleSelect={handleExecute} data={parameters}/>
+            <DimensionFilter toggleParameters={toggleParameters} payerSlicerMaps={payerSlicerMaps}  handleSelect={handleExecute} data={parameters}/>
             <QueryMonitor />
           </Grid>  
           {/* className="content-area" */}
