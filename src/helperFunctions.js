@@ -36,70 +36,63 @@ export const parameterValidations = (parameters) => {
 
 
 
-export const slicerMapCreation = (queryNumber, jsonSlicer, jsonSlicer2, setSlicerMaps, slicerMaps) => {
+export const slicerMapCreation = (queryNumber, jsonSlicer, jsonSlicer2, setPayerSlicerMaps, payerSlicerMaps) => {
   switch(queryNumber){
 
     case 1:
-      let result={}
+      //let result={}
       // for(Keys in jsonSlicer){
           
       // }
       break;
 
     case 2:
-      const map1 = new Map();
-      const map2 = new Map();
-      const map3 = new Map();
+      const entToBobToPay = new Map();
+      const payToBob = new Map();
+      const bobToEnt = new Map();
       for(let objects in jsonSlicer){
         let ent = jsonSlicer[objects]["ENTERPRISE"];
         let bob = jsonSlicer[objects]["BOB"];
         let payer = jsonSlicer[objects]["PAYER_ENTITY"];
         // console.log(`Enter: ${ent}, BOB: ${bob}, payer: ${payer}`);
-          if(map1.has(ent)){
-            if(map1.get(ent).has(bob)){
-              map1.get(ent).get(bob).push(payer);
+          if(entToBobToPay.has(ent)){
+            if(entToBobToPay.get(ent).has(bob)){
+              entToBobToPay.get(ent).get(bob).push(payer);
             }else{
-              map1.get(ent).set(bob, []);
-              map1.get(ent).get(bob).push(payer);
+              entToBobToPay.get(ent).set(bob, []);
+              entToBobToPay.get(ent).get(bob).push(payer);
             }
           }else{
-            map1.set(ent, new Map());
-            map1.get(ent).set(bob,[]);
-            map1.get(ent).get(bob).push(payer);
+            entToBobToPay.set(ent, new Map());
+            entToBobToPay.get(ent).set(bob,[]);
+            entToBobToPay.get(ent).get(bob).push(payer);
             }
       }
 
       for(let objects in jsonSlicer2){
         let payer = jsonSlicer2[objects]["PAYER_ENTITY"];
         let bobArr = jsonSlicer2[objects]["BOB_ARR"];
-        map2.set(payer,bobArr);
+        payToBob.set(payer,bobArr);
       }
 
-      for( let Ent of map1.keys()){
-        for(let bobs of map1.get(Ent).keys()){
+      for( let Ent of entToBobToPay.keys()){
+        for(let bobs of entToBobToPay.get(Ent).keys()){
           // console.log(`${Ent} and bob : ${bobs}`)
-          // map2.set(map1.get(Objects).get(bobs),bobs);
-          map3.set(bobs, Ent);  
+          // payToBob.set(entToBobToPay.get(Objects).get(bobs),bobs);
+          bobToEnt.set(bobs, Ent);  
         }}
 
       
-      
-      // console.log(map1.get("CVS Health"));
-      // sessionStorage.setItem("MasterPayerMap", JSON.stringify(map1));
-      // const map = new Map(sessionStorage.getItem("MasterPayerMap"))
-      // console.log(sessionStorage.getItem("MasterPayerMap"));
-      setSlicerMaps({map1:map1});
-      setSlicerMaps({map2:map2});
-      setSlicerMaps({map3:map3});
-
-      // setSlicerMaps(slicerMaps.set('map1',map1));
-      // setSlicerMaps(slicerMaps.set('map2',map2));
-      // setSlicerMaps(slicerMaps.set('map3',map3));
+        const slicers = {
+          entToBobToPay: entToBobToPay,
+          payToBob: payToBob,
+          bobToEnt: bobToEnt
+        }
+        setPayerSlicerMaps(slicers)
     break;
 
     default:
       return null;
-      break;
 
   }
 
