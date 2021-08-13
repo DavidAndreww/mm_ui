@@ -16,6 +16,8 @@ const queryGenerator = (params, queryNo) => {
  }
 console.log('Active Filters', activeFilters)  
 
+let var_brand = JSON.stringify(activeFilters.brand);
+let var_market = JSON.stringify(activeFilters.market);
 //! remove these lines after date to split_row_week_num conversion happens
 activeFilters.dateOne = 377;
 activeFilters.dateTwo = 407;
@@ -53,7 +55,7 @@ LEFT JOIN(
   FROM L1.MMIT_STAGING_FORMULARY_MAJORITY AS A
   LEFT JOIN L1.DIM_BRAND_MARKET_VW AS BRIDGE 
     ON A.DRUG_ID = BRIDGE.DRUG_ID 
-    WHERE BRIDGE.BRAND = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${activeFilters.brand}')))) 
+    WHERE BRIDGE.BRAND = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${var_brand}')))) 
     AND MMIT_DATE = (
       SELECT MAX(MMIT_DATE) 
       FROM L1.MMIT_STAGING_FORMULARY_MAJORITY) 
@@ -242,8 +244,8 @@ LEFT JOIN(
         LEFT JOIN L1.DIM_BRAND_MARKET_VW AS B
             ON A.MDM_BRAND_ID = B.BRAND_ID
         WHERE ROW_NUMBER BETWEEN ${activeFilters.dateOne} AND ${activeFilters.dateTwo}
-            AND A.BRAND = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${activeFilters.brand}'))))
-            AND B.MARKET = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${activeFilters.market}'))))
+            AND A.BRAND = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${var_brand}'))))
+            AND B.MARKET = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${var_market}'))))
         GROUP BY
             A.PAYER_ENTITY_ID,
             A.BRAND,
@@ -257,7 +259,7 @@ LEFT JOIN(
         LEFT JOIN L1.DIM_BRAND_MARKET_VW AS B
             ON A.MDM_BRAND_ID = B.BRAND_ID
         WHERE ROW_NUMBER BETWEEN ${activeFilters.dateOne} AND ${activeFilters.dateTwo}
-            AND B.MARKET = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${activeFilters.market}'))))
+            AND B.MARKET = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${var_market}'))))
         GROUP BY
             A.PAYER_ENTITY_ID,
             B.MARKET)
@@ -360,7 +362,7 @@ SELECT CASE WHEN (SUM(CURR_PD_BRAND_ACCEPTED_CLAIMS) + SUM(CURR_PD_BRAND_REVERSE
        PAYER_ENTITY_ID
 FROM RLCH AS A
 WHERE SPLIT_WEEK_ROW_NUMBER BETWEEN ${activeFilters.dateOne} AND ${activeFilters.dateTwo} 
-AND BRAND = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${activeFilters.brand}'))))
+AND BRAND = (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('${var_brand}'))))
 GROUP BY PAYER_ENTITY_ID) AS H
 ON A.PAYER_ENTITY_ID = H.PAYER_ENTITY_ID
 --TERRITORY

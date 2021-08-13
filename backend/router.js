@@ -6,10 +6,10 @@ const {defaultSlicers} = require('./defaultSlicers');
 
 
 router.get('/', async (req, res) => {
-<<<<<<< HEAD
-  console.log('get request receieved')
-  res.json('message received')
-=======
+// <<<<<<< HEAD
+//   console.log('get request receieved')
+//   res.json('message received')
+// =======
   console.log('get request receieved');
   // 
   let returnObj = {}
@@ -71,7 +71,7 @@ router.get('/', async (req, res) => {
        }
     }
   });
->>>>>>> 05ccdfbb135eb705478fd848c3e801f27e33daba
+// >>>>>>> 05ccdfbb135eb705478fd848c3e801f27e33daba
 })
 
 // need logic to use different query engines depending on user input

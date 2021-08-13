@@ -53,7 +53,7 @@ export const queries = [
 ];
 
 export const markets = [
-  { value: "Neurology", label: 'Neurology' }
+  { value: "Neuroscience", label: 'Neuroscience' }
 ];
 
 export const brands = [
