@@ -81,18 +81,11 @@ export const slicerMapCreation = (
 
       for (let Ent of entToBobToPay.keys()) {
         for (let bobs of entToBobToPay.get(Ent).keys()) {
-          // console.log(`${Ent} and bob : ${bobs}`)
-          // payToBob.set(entToBobToPay.get(Objects).get(bobs),bobs);
           bobToEnt.set(bobs, Ent)
         }
       }
 
-      const slicers = {
-        entToBobToPay: entToBobToPay,
-        payToBob: payToBob,
-        bobToEnt: bobToEnt,
-      }
-      slicerCallback(slicers)
+      slicerCallback({ entToBobToPay: entToBobToPay,  payToBob: payToBob, bobToEnt: bobToEnt })
       break
 
     case 3:
@@ -120,17 +113,13 @@ export const slicerMapCreation = (
       return null
   }
 }
-// entToBobToPay
-// payToBob
-// bobToEnd
 
 export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) => {
   if(maps === undefined || maps === null) {
     return
   }
   
-  if (obj.payerentity === null && obj.enterprise === null && obj.bob === null) {
-      console.log('ALL NULL PAYER SELECTEDD::::')
+  if ((obj.enterprise === null || obj.enterprise === []) && (obj.bob === null || obj.bob === []) && (obj.payerentity === null || obj.payerentity === [])) {
       let enterprises = []
       let bobs = []
       let payers = []
@@ -163,12 +152,9 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
         bobs:bobs,
         payers:payers
       })
-  } else if (obj.enterprise && obj.payerentity === null && obj.bob === null) {
-    console.log('ENT SELECTEDD::::',maps.entToBobToPay.get(obj.enterprise.toString()))
-    // let enterprises = []
+  } else if (obj.enterprise && (obj.bob === null || obj.bob === []) && (obj.payerentity === null || obj.payerentity === [])) {
     let bobsArr = []
     let payersArr = []
-    // let uniqueEnt = new Set()
     let uniqueBob = new Set()
     let uniquePay = new Set()
     obj.enterprise.forEach(enterprise => {
@@ -189,31 +175,38 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
       }      
     });
 
-    console.log(`bobs::: ${bobsArr}:::payers:::${payersArr}`)
     setStatePayerArrays ({
       ...statePayerArrays,
       bobs:bobsArr,
       payers:payersArr
     })
   }
-  // else if(obj.enterprise && obj.bob && obj.payerentity === null ){
-  //   let payerArr = []
-  //   let uniquePayer = new Set();
-  //   // obj.enterprise.forEach(bob => {
-  //     // [ent1, ent2...] 
-  //     // [bob1, bob2...]
-  //   // }
-    
-    
-  //   // for (let i in maps.entToBobToPay.get(enterprise).get(bobs)) {
-  //   //   if (uniquePay.has(maps.entToBobToPay.get(enterprise).get(bobs)[i])) {
-  //   //   } else {
-  //   //     uniquePay.add(maps.entToBobToPay.get(enterprise).get(bobs)[i])
-  //   //     payersArr.push({ value: maps.entToBobToPay.get(enterprise).get(bobs)[i], label: maps.entToBobToPay.get(enterprise).get(bobs)[i] })
-  //   //   }
-  //   // }
-    
-  // }
+  else if(obj.enterprise && obj.bob && (obj.payerentity === null || obj.payerentity === [])){
+    let payerArr = []
+    let entArr = []
+    let uniquePayer = new Set();
+    // obj.enterprise.forEach(enterprise => {
+    //   entArr.push({ value: enterprise, label: enterprise })
+    // })
+    obj.enterprise.forEach(enterprise => {
+      for(let bobs of maps.entToBobToPay.get(enterprise.toString()).keys()) {
+        if(obj.bob.includes(bobs)) {
+          for(let i in maps.entToBobToPay.get(enterprise).get(bobs)) {
+            if(!uniquePayer.has(maps.entToBobToPay.get(enterprise).get(bobs)[i])){
+              uniquePayer.add(maps.entToBobToPay.get(enterprise).get(bobs)[i])
+              payerArr.push({ value: maps.entToBobToPay.get(enterprise).get(bobs)[i], label: maps.entToBobToPay.get(enterprise).get(bobs)[i] })
+            }
+          }
+        }
+      }
+    })
+    console.log('OBJ ENT', entArr)
+    setStatePayerArrays({
+      ...statePayerArrays,
+      enterprises: entArr,
+      payers: payerArr
+    })
+  }
 
   
 }

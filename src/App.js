@@ -52,11 +52,10 @@ function App() {
   },[payerSlicerMaps, parameters])
 
   const toggleParameters = (e, name = null) => {
-    // should run function to update params object by searching the slicerMaps 
-    // var for restrictions, then update paremeters accordingly
+
     let dimension;
     let values;
-
+    
     if (name) {
       dimension = name.name.split(' ').join('')
     } else {
