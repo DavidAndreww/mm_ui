@@ -118,8 +118,8 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
   if(maps === undefined || maps === null) {
     return
   }
-  
-  if ((obj.enterprise === null || obj.enterprise === []) && (obj.bob === null || obj.bob === []) && (obj.payerentity === null || obj.payerentity === [])) {
+  // case when no values are selected
+  if ((obj.enterprise === null || obj.enterprise.length < 1) && (obj.bob === null || obj.bob.length < 1) && (obj.payerentity === null || obj.payerentity.length < 1)) {
       let enterprises = []
       let bobs = []
       let payers = []
@@ -152,7 +152,8 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
         bobs:bobs,
         payers:payers
       })
-  } else if (obj.enterprise && (obj.bob === null || obj.bob === []) && (obj.payerentity === null || obj.payerentity === [])) {
+      // case when user selects only an enterprise
+    } else if (obj.enterprise && (obj.bob === null || obj.bob.length < 1) && (obj.payerentity === null || obj.payerentity.length < 1)) {
     let bobsArr = []
     let payersArr = []
     let uniqueBob = new Set()
@@ -180,14 +181,20 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
       bobs:bobsArr,
       payers:payersArr
     })
+    // case when user has selected only a BOB
+  } else if ((obj.enterprise === null || obj.enterprise.length < 1) && obj.bob && (obj.payerentity === null || obj.payerentity < 1)) {
+    // case when user has selected only a payer
+  } else if ((obj.enterprise === null || obj.enterprise.length < 1) && (obj.bob === null || obj.bob.length <1) && obj.payerentity) {
+
   }
-  else if(obj.enterprise && obj.bob && (obj.payerentity === null || obj.payerentity === [])){
+  // case when user selects enterprise and a BOB
+  else if(obj.enterprise && obj.bob && (obj.payerentity === null || obj.payerentity.length < 1)){
     let payerArr = []
     let entArr = []
     let uniquePayer = new Set();
-    // obj.enterprise.forEach(enterprise => {
-    //   entArr.push({ value: enterprise, label: enterprise })
-    // })
+    obj.enterprise.forEach(enterprise => {
+      entArr.push({ value: enterprise, label: enterprise })
+    })
     obj.enterprise.forEach(enterprise => {
       for(let bobs of maps.entToBobToPay.get(enterprise.toString()).keys()) {
         if(obj.bob.includes(bobs)) {
@@ -200,16 +207,16 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
         }
       }
     })
-    console.log('OBJ ENT', entArr)
     setStatePayerArrays({
       ...statePayerArrays,
       enterprises: entArr,
       payers: payerArr
     })
+    // case when user selects enterprise and payer
+  } else if (obj.enterprise && (obj.bob === null || obj.bob.length <1) && obj.payerentity) {
+    // case when user selects BOB and payer
+  } else if ((obj.enterprise === null || obj.enterprise.length <1) && obj.bob && obj.payerentity) {
+
   }
-
-  
 }
-
-
 
