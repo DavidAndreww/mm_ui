@@ -1,13 +1,15 @@
 export const enterprises = [
-  { value: "Express Scripts - Commercial", label: 'Express Scripts - Commercial' }
+  { value: "CVS Health - Commercial", label: 'CVS Health' }
 ]
 
 export const bobs = [
-  { value: "Express Scripts", label: 'Express Scripts'}
+  { value: "CVS Health - Commercial", label: 'CVS Health - Commercial'},
+  { value: "Express Scripts - Commercial", label: 'Express Scripts - Commercial'}
 ];
 
 export const payers = [
-  { value: "Express Scripts Administered Plans - Commercial", label: 'Express Scripts Administered Plans - Commercial' } 
+  { value: "AbbVie (CVS Health)", label: 'AbbVie (CVS Health)' },
+  { value: "7-Eleven (Express Scripts)", label: '7-Eleven (Express Scripts)' } 
 ];
 
 export const regions = [

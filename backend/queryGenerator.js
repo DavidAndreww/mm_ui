@@ -5,7 +5,7 @@ const queryGenerator = (params, queryNo) => {
       activeFilters[field] = params[field]
     }
   }
-  JSON.stringify(activeFilters)
+  // JSON.stringify(activeFilters)
 
   if(queryNo === 1) {
     activeFilters.dateOne = activeFilters.currStartDate;
@@ -18,6 +18,11 @@ console.log('Active Filters', activeFilters)
 
 let var_brand = JSON.stringify(activeFilters.brand);
 let var_market = JSON.stringify(activeFilters.market);
+let var_payer_entity = JSON.stringify(activeFilters.payerentity);
+let var_bob = JSON.stringify(activeFilters.bob);
+let var_enterprise = JSON.stringify(activeFilters.enterprise);
+let var_region = JSON.stringify(activeFilters.region);
+let bt = true;
 //! remove these lines after date to split_row_week_num conversion happens
 activeFilters.dateOne = 377;
 activeFilters.dateTwo = 407;
@@ -372,15 +377,16 @@ LEFT JOIN(
         TERRITORY_NAME,
         REGION 
     FROM L1.AXTRIA_ZIPTERR) AS TERR
-ON C.TERRITORY_ID = TERR.TERRITORY_ID     
-${activeFilters.payerentity ? " WHERE A.PAYER_ENTITY IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ activeFilters.payerentity +"')))) " : " "}
-${activeFilters.enterprise ? " AND A.ENTERPRISE_BENTYPE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.enterprise +")))) " : " "}
-${activeFilters.bob ? " AND A.BOB IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.bob +")))) " : " "}
-${activeFilters.region ? " AND TERR.REGION_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.region +")))) " : " "}
- ${activeFilters.state ? " AND C.STATE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.state +")))) " : " "}
- ${activeFilters.territory ? " AND TERR.TERRITORY_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.territory +")))) " : " "}
- ${activeFilters.team ? " AND C.TEAM_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.team +")))) " : " "}
- ${activeFilters.category ? " AND C.CATEGORY IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.category +")))) " : " "};` 
+ON C.TERRITORY_ID = TERR.TERRITORY_ID WHERE    
+${activeFilters.payerentity ? "  A.PAYER_ENTITY IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_payer_entity  +"')))) AND " : " "}
+${activeFilters.enterprise ? " A.ENTERPRISE_BENTYPE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_enterprise +"')))) AND " : " "}
+${activeFilters.bob ? " A.BOB  IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_bob  +"')))) AND " : " "}
+${activeFilters.region ? " TERR.REGION IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_region +"')))) AND " : " "}
+ ${activeFilters.state ? " C.STATE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.state +")))) AND " : " "}
+ ${activeFilters.territory ? " TERR.TERRITORY_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.territory +")))) AND " : " "}
+ ${activeFilters.team ? " C.TEAM_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.team +")))) AND " : " "}
+ ${activeFilters.category ? " C.CATEGORY IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.category +")))) AND " : " "}
+ ${bt};`
 };
 
 module.exports = { queryGenerator }

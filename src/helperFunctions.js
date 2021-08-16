@@ -5,15 +5,15 @@ export const parameterValidations = (parameters) => {
     return false
   }
   // ensures user has selected a market
-  if (parameters.market === null) {
-    window.alert('Please select a market...')
-    return false
-  }
-  // ensures user has selected a brand
-  if (parameters.brand === null) {
-    window.alert('Please select a brand...')
-    return false
-  }
+  // if (parameters.market === null) {
+  //   window.alert('Please select a market...')
+  //   return false
+  // }
+  // // ensures user has selected a brand
+  // if (parameters.brand === null) {
+  //   window.alert('Please select a brand...')
+  //   return false
+  // }
   // ensures user has selected a current date range
   if (parameters.currStartDate === null || parameters.currEndDate === null) {
     window.alert('Please select a valid date range for current period')

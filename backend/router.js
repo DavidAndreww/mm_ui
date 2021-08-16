@@ -75,7 +75,7 @@ router.post('/', async (req, res) => {
   
   let returnObj = {}
   let query1 = await queryGenerator(params, 1)
-
+  console.log(query1)
   await connection.execute({
     sqlText: query1,
     complete: (err, stmt, rows) => {
