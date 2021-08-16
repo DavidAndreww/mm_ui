@@ -200,7 +200,6 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
           uniquePay.add(maps.entToBobToPay.get(entName).get(bob)[i])
           payersArr.push({ value: maps.entToBobToPay.get(entName).get(bob)[i], label: maps.entToBobToPay.get(entName).get(bob)[i] })
         }
-        
       }
     })
     setStatePayerArrays({
@@ -210,7 +209,32 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
     })
     // case when user has selected only a payer
   } else if ((obj.enterprise === null || obj.enterprise.length < 1) && (obj.bob === null || obj.bob.length <1) && obj.payerentity) {
+    let entArr = []
+    let bobArr = []
+    let uniqueEnt = new Set()
+    let uniqueBob = new Set()
 
+    obj.payerentity.forEach(payer => {
+      let bobName;
+      if(uniqueBob.has(maps.payToBob.get(payer))) {
+      } else {
+        for (let i in maps.payToBob.get(payer)) {
+          uniqueBob.add(maps.payToBob.get(payer)[i]);
+          bobArr.push({ value: maps.payToBob.get(payer)[i], label: maps.payToBob.get(payer)[i] });
+          bobName = maps.payToBob.get(payer)[i];
+        }
+      }
+      if (uniqueEnt.has(maps.bobToEnt.get(bobName))) {
+      } else {
+        uniqueEnt.add(maps.bobToEnt.get(bobName))
+        entArr.push({ value: maps.bobToEnt.get(bobName), label: maps.bobToEnt.get(bobName) })
+      }
+    })
+    setStatePayerArrays({
+      ...statePayerArrays,
+      enterprises: entArr,
+      bobs: bobArr
+    })
   }
   // case when user selects enterprise and a BOB
   else if(obj.enterprise && obj.bob && (obj.payerentity === null || obj.payerentity.length < 1)){
@@ -239,6 +263,16 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
     })
     // case when user selects enterprise and payer
   } else if (obj.enterprise && (obj.bob === null || obj.bob.length <1) && obj.payerentity) {
+    let entArr = []
+    let bobArr = []
+    let payerArry = []
+    let uniqueEnt = new Set()
+    let uniqueBob = new Set()
+    let uniquePayer = new Set()
+
+    obj.enterprise.forEach(enterprise => {
+      
+    })
     // case when user selects BOB and payer
   } else if ((obj.enterprise === null || obj.enterprise.length <1) && obj.bob && obj.payerentity) {
 
