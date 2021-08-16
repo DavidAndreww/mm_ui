@@ -49,7 +49,7 @@ export const slicerMapCreation = (
     
     */
       break
-
+    // map for payer dimension
     case 2:
       const entToBobToPay = new Map()
       const payToBob = new Map()
@@ -58,7 +58,6 @@ export const slicerMapCreation = (
         let ent = jsonSlicer[objects]['ENTERPRISE']
         let bob = jsonSlicer[objects]['BOB']
         let payer = jsonSlicer[objects]['PAYER_ENTITY']
-        // console.log(`Enter: ${ent}, BOB: ${bob}, payer: ${payer}`);
         if (entToBobToPay.has(ent)) {
           if (entToBobToPay.get(ent).has(bob)) {
             entToBobToPay.get(ent).get(bob).push(payer)
@@ -90,7 +89,7 @@ export const slicerMapCreation = (
 
     case 3:
       break
-
+      // map for time dimension
     case 4:
       let startDateMap = new Map()
       let endDateMap = new Map()
@@ -183,6 +182,32 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
     })
     // case when user has selected only a BOB
   } else if ((obj.enterprise === null || obj.enterprise.length < 1) && obj.bob && (obj.payerentity === null || obj.payerentity < 1)) {
+    let entArr = []
+    let payersArr = []
+    let uniqueEnt = new Set()
+    let uniquePay = new Set()
+    obj.bob.forEach(bob => {
+      let entName;
+      if (uniqueEnt.has(maps.bobToEnt.get(bob))) {
+      } else {
+        uniqueEnt.add(maps.bobToEnt.get(bob));
+        entArr.push({ value: maps.bobToEnt.get(bob), label: maps.bobToEnt.get(bob) });
+        entName = maps.bobToEnt.get(bob);
+      }
+      for (let i in maps.entToBobToPay.get(entName).get(bob)) {
+        if (uniquePay.has(maps.entToBobToPay.get(entName).get(bob)[i])) {
+        } else {
+          uniquePay.add(maps.entToBobToPay.get(entName).get(bob)[i])
+          payersArr.push({ value: maps.entToBobToPay.get(entName).get(bob)[i], label: maps.entToBobToPay.get(entName).get(bob)[i] })
+        }
+        
+      }
+    })
+    setStatePayerArrays({
+      ...statePayerArrays,
+      enterprises: entArr,
+      payers: payersArr
+    })
     // case when user has selected only a payer
   } else if ((obj.enterprise === null || obj.enterprise.length < 1) && (obj.bob === null || obj.bob.length <1) && obj.payerentity) {
 
