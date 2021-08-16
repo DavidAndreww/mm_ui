@@ -6,25 +6,25 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ComponentHeader } from './ComponentHeader';
 import ComponentBody from './ComponentBody';
-import { enterprises } from '../sampleData';
-import { bobs } from '../sampleData';
-import { payers } from '../sampleData';
+// import { enterprises } from '../sampleData';
+// import { bobs } from '../sampleData';
+// import { payers } from '../sampleData';
 import { regions } from '../sampleData';
 import { states } from '../sampleData';
 import { territories } from '../sampleData';
 import { categories } from '../sampleData';
 import { teams } from '../sampleData';
+
 const Dropdown = ({ label, array, callback }) => {
   return (
     <div style={{ marginBottom: '2px' }}>
       <label>{label}</label>
-      <Select name={label.toLowerCase()} isMulti={true} value={array.value} onChange={(e, name) => callback(e, name)} options={array} />
+      <Select name={label.toLowerCase()} isMulti={true} value={array && array.value} onChange={(e, name) => callback(e, name)} options={array} />
     </div>
-
   )
 }
 
-export const DimensionFilter = ({ toggleParameters, payerSlicerMaps, handleSelect, data }) => {
+export const DimensionFilter = ({ toggleParameters, payerFilterArrays, handleSelect, data }) => {
 
 const [readOnly,setReadOnly] = useState(false);
   const action = {
@@ -40,8 +40,8 @@ const [readOnly,setReadOnly] = useState(false);
     console.log(data)
   }
 
-  if(payerSlicerMaps!==null) {
-    console.log(payerSlicerMaps)
+  if(payerFilterArrays!==null) {
+    console.log(payerFilterArrays)
   }
   return (
     <div id='dimension-filter'>
@@ -53,9 +53,9 @@ const [readOnly,setReadOnly] = useState(false);
               <Typography><b>Payer</b></Typography>
             </AccordionSummary>
             <div className="component-body">
-              <Dropdown label={'Enterprise'} array={enterprises} callback={toggleParameters} />
-              <Dropdown label={'BOB'} array={bobs} callback={toggleParameters} />
-              <Dropdown label={'Payer Entity'} array={payers} callback={toggleParameters} />
+              <Dropdown label={'Enterprise'} array={payerFilterArrays && payerFilterArrays.enterprises} callback={toggleParameters} />
+              <Dropdown label={'BOB'} array={payerFilterArrays && payerFilterArrays.bobs} callback={toggleParameters} />
+              <Dropdown label={'Payer Entity'} array={payerFilterArrays && payerFilterArrays.payers} callback={toggleParameters} />
             </div>            
           </Accordion>
           <Accordion>

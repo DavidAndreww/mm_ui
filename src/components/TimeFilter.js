@@ -8,8 +8,8 @@ export const TimeFilter = ({ toggleParameters }) => {
       <ComponentHeader label={'Time Filter'}/>
         <Grid container className="time-container">
           <Grid item>
-            <div class="margin-right">
-              <input type='radio' name='time' id='time-span' class="lbl-time-filter" value="span" defaultChecked={true} onChange={() => toggleSingleDateRange(true)}/>
+            <div className="margin-right">
+              <input type='radio' name='time' id='time-span' className="lbl-time-filter" value="span" defaultChecked={true} onChange={() => toggleSingleDateRange(true)}/>
               <label htmlFor="time-span">Span</label>
               <br />
               <input type='radio' name='time' id='time-curr-prev' value="curr-prev" onChange={() => toggleSingleDateRange(false)} />
@@ -20,16 +20,16 @@ export const TimeFilter = ({ toggleParameters }) => {
              <Grid container spacing={3}>
               <Grid item>    
                   <label style={{ marginRight: '5px' }}>Current Start Date:</label>
-                  <input type='date' id='currStartDate' class='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} /><br />
+                  <input type='date' id='currStartDate' className='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} /><br />
                   <label style={{ marginRight: '11px' }}>Current End Date:</label>
-                  <input type='date' id='currEndDate' class='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} />
+                  <input type='date' id='currEndDate' className='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} />
                 </Grid>
                 {!singleDateRange && 
                     <Grid item> 
                     <label style={{ marginRight: '5px' }}>Prev Start Date:</label>
-                    <input type='date' id='prevStartDate' class='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} /><br />
+                    <input type='date' id='prevStartDate' className='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} /><br />
                     <label style={{ marginRight: '11px' }}>Prev End Date:</label>
-                    <input type='date' id='prevEndDate' class='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} />
+                    <input type='date' id='prevEndDate' className='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} />
                 </Grid>}
               </Grid>
           </Grid>
