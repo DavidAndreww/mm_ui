@@ -33,68 +33,71 @@ function App() {
     prevStartDate: null,
     prevEndDate: null,
     engine: null,
-    result: {
-      current: [
-        {
-          "BRAND_TRXEQ": 234,
-          "BRAND_TRXEQ_PER_1000_LIVES": 152,
-          "COVERAGE_TYPE": 'Tier 1',
-          "ENTERPRISE_BENTYPE": 'CVS Health - Commercial',
-          "LIVES": 1924,
-          "LIVES_SHARE_ALL_PLANS": 526346,
-          "MARKET_TRXEQ": 352344,
-          "PA": "Y",
-          "PAYER": "AbbVie (CSV Health) - Commercial",
-          "PBM": "CVS Health",
-          "REJECT_RATE": 352,
-          "REVERSAL_RATE": 235 
-        },{
-          "BRAND_TRXEQ": 234,
-          "BRAND_TRXEQ_PER_1000_LIVES": 152,
-          "COVERAGE_TYPE": 'Tier 2',
-          "ENTERPRISE_BENTYPE": 'Aetna',
-          "LIVES": 141,
-          "LIVES_SHARE_ALL_PLANS": 5266,
-          "MARKET_TRXEQ": 3544,
-          "PA": "Y",
-          "PAYER": "Aetna of Texas - Medicare",
-          "PBM": "Walgreens",
-          "REJECT_RATE": 32,
-          "REVERSAL_RATE": 35 
-        }
-      ],
-      previous: [
-        {
-          "BRAND_TRXEQ": 234,
-          "BRAND_TRXEQ_PER_1000_LIVES": 152,
-          "COVERAGE_TYPE": 'Tier 1',
-          "ENTERPRISE_BENTYPE": 'CVS Health - Commercial',
-          "LIVES": 1924,
-          "LIVES_SHARE_ALL_PLANS": 526346,
-          "MARKET_TRXEQ": 352344,
-          "PA": "Y",
-          "PAYER": "AbbVie (CSV Health) - Commercial",
-          "PBM": "CVS Health",
-          "REJECT_RATE": 352,
-          "REVERSAL_RATE": 235 
-        },
-        {
-          "BRAND_TRXEQ": 234,
-          "BRAND_TRXEQ_PER_1000_LIVES": 152,
-          "COVERAGE_TYPE": 'Tier 2',
-          "ENTERPRISE_BENTYPE": 'Aetna',
-          "LIVES": 141,
-          "LIVES_SHARE_ALL_PLANS": 5266,
-          "MARKET_TRXEQ": 3544,
-          "PA": "Y",
-          "PAYER": "Aetna of Texas - Medicare",
-          "PBM": "Walgreens",
-          "REJECT_RATE": 32,
-          "REVERSAL_RATE": 35 
-        }
-      ]
-    }
   });
+  const [result, setResults] = useState({
+    result: null
+    // result: {
+    //   current: [
+    //     {
+    //       "BRAND_TRXEQ": 234,
+    //       "BRAND_TRXEQ_PER_1000_LIVES": 152,
+    //       "COVERAGE_TYPE": 'Tier 1',
+    //       "ENTERPRISE_BENTYPE": 'CVS Health - Commercial',
+    //       "LIVES": 1924,
+    //       "LIVES_SHARE_ALL_PLANS": 526346,
+    //       "MARKET_TRXEQ": 352344,
+    //       "PA": "Y",
+    //       "PAYER": "AbbVie (CSV Health) - Commercial",
+    //       "PBM": "CVS Health",
+    //       "REJECT_RATE": 352,
+    //       "REVERSAL_RATE": 235 
+    //     },{
+    //       "BRAND_TRXEQ": 234,
+    //       "BRAND_TRXEQ_PER_1000_LIVES": 152,
+    //       "COVERAGE_TYPE": 'Tier 2',
+    //       "ENTERPRISE_BENTYPE": 'Aetna',
+    //       "LIVES": 141,
+    //       "LIVES_SHARE_ALL_PLANS": 5266,
+    //       "MARKET_TRXEQ": 3544,
+    //       "PA": "Y",
+    //       "PAYER": "Aetna of Texas - Medicare",
+    //       "PBM": "Walgreens",
+    //       "REJECT_RATE": 32,
+    //       "REVERSAL_RATE": 35 
+    //     }
+    //   ],
+    //   previous: [
+    //     {
+    //       "BRAND_TRXEQ": 234,
+    //       "BRAND_TRXEQ_PER_1000_LIVES": 152,
+    //       "COVERAGE_TYPE": 'Tier 1',
+    //       "ENTERPRISE_BENTYPE": 'CVS Health - Commercial',
+    //       "LIVES": 1924,
+    //       "LIVES_SHARE_ALL_PLANS": 526346,
+    //       "MARKET_TRXEQ": 352344,
+    //       "PA": "Y",
+    //       "PAYER": "AbbVie (CSV Health) - Commercial",
+    //       "PBM": "CVS Health",
+    //       "REJECT_RATE": 352,
+    //       "REVERSAL_RATE": 235 
+    //     },
+    //     {
+    //       "BRAND_TRXEQ": 234,
+    //       "BRAND_TRXEQ_PER_1000_LIVES": 152,
+    //       "COVERAGE_TYPE": 'Tier 2',
+    //       "ENTERPRISE_BENTYPE": 'Aetna',
+    //       "LIVES": 141,
+    //       "LIVES_SHARE_ALL_PLANS": 5266,
+    //       "MARKET_TRXEQ": 3544,
+    //       "PA": "Y",
+    //       "PAYER": "Aetna of Texas - Medicare",
+    //       "PBM": "Walgreens",
+    //       "REJECT_RATE": 32,
+    //       "REVERSAL_RATE": 35 
+    //     }
+    //   ]
+    // }
+  })
 
   useEffect(async() => {
      await fetch('http://localhost:5000', {
@@ -155,7 +158,10 @@ function App() {
         body: JSON.stringify({
           parameters
         })
-      }).then(res => res.json()).then(json => setParameters({ result: json }))
+      }).then(res => res.json()).then(json => {
+        console.log('JSON: ', json)
+        setResults({ result: json })
+      })
       // .then(payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays))
     }
   }
@@ -179,7 +185,7 @@ function App() {
         </Grid>
         <Grid container spacing={1}>
           <Grid item xs={12}>            
-            <ResultsGrid data={parameters.result}/>
+            <ResultsGrid data={result.result}/>
           </Grid> 
           <Grid item xs={6}>            
             <QueryMonitor />

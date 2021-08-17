@@ -4,7 +4,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { ColumnHeaders } from './ColumnHeaders';
 import { GridRows } from './GridRows'
-import { Column } from 'ag-grid-community';
+// import { Column } from 'ag-grid-community';
 
 export const ResultsGrid = ({data}) => {
   const onGridReady = params => {

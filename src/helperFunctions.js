@@ -1,5 +1,3 @@
-import { time } from "react-dom-factories"
-
 export const parameterValidations = (parameters) => {
   // ensures user has selected a query engine
   if (parameters.engine === null) {
@@ -266,12 +264,12 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
   }
      // case when user selects enterprise and payer
      else if (obj.enterprise && (obj.bob === null || obj.bob.length <1) && obj.payerentity) {
-      let entArr = []
-      let bobArr = []
-      let payerArry = []
-      let uniqueEnt = new Set()
-      let uniqueBob = new Set()
-      let uniquePayer = new Set()
+      // let entArr = []
+      // let bobArr = []
+      // let payerArry = []
+      // let uniqueEnt = new Set()
+      // let uniqueBob = new Set()
+      // let uniquePayer = new Set()
   
       obj.enterprise.forEach(enterprise => {
         
