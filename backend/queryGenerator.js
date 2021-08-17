@@ -381,12 +381,12 @@ ON C.TERRITORY_ID = TERR.TERRITORY_ID WHERE
 ${activeFilters.payerentity ? "  A.PAYER_ENTITY IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_payer_entity  +"')))) AND " : " "}
 ${activeFilters.enterprise ? " A.ENTERPRISE_BENTYPE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_enterprise +"')))) AND " : " "}
 ${activeFilters.bob ? " A.BOB  IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_bob  +"')))) AND " : " "}
-${activeFilters.region ? " TERR.REGION IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_region +"')))) AND " : " "}
- ${activeFilters.state ? " C.STATE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ var_state +")))) AND " : " "}
- ${activeFilters.territory ? " TERR.TERRITORY_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ var_territory +")))) AND " : " "}
- ${activeFilters.team ? " C.TEAM_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ var_team +")))) AND " : " "}
- ${activeFilters.category ? " C.CATEGORY IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ var_category +")))) AND " : " "}
- ${bt};`
+${activeFilters.region ? " TERR.REGION  IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_region  +"')))) AND " : " "}
+${activeFilters.state ? " C.STATE  IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_state  +"')))) AND " : " "}
+${activeFilters.territory ? " TERR.TERRITORY_NAME  IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_territory  +"')))) AND " : " "}
+${activeFilters.team ? " C.TEAM_NAME  IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_team  +"')))) AND " : " "}
+${activeFilters.category ? " C.CATEGORY  IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_category  +"')))) AND " : " "}
+${bt};`
 };
 
 module.exports = { queryGenerator }
