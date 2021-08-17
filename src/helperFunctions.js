@@ -281,7 +281,7 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
   
     }
   }
-}
+
 
 export const datetorow = (dim,obj, maps) => {
   if (dim === 'currStartDate'){
