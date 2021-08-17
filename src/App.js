@@ -10,7 +10,7 @@ import { MarketFilter } from './components/MarketFilter';
 import { SelectedFilter } from './components/SelectedFilter';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { slicerMapCreation, parameterValidations, payerFilter } from './helperFunctions';
+import { slicerMapCreation, parameterValidations, payerFilter, datetorow } from './helperFunctions';
 import theme from './theme/index';
 
 function App() {
@@ -33,8 +33,71 @@ function App() {
     prevStartDate: null,
     prevEndDate: null,
     engine: null,
-    result: null
   });
+  const [result, setResults] = useState({
+    result: null
+    // result: {
+    //   current: [
+    //     {
+    //       "BRAND_TRXEQ": 234,
+    //       "BRAND_TRXEQ_PER_1000_LIVES": 152,
+    //       "COVERAGE_TYPE": 'Tier 1',
+    //       "ENTERPRISE_BENTYPE": 'CVS Health - Commercial',
+    //       "LIVES": 1924,
+    //       "LIVES_SHARE_ALL_PLANS": 526346,
+    //       "MARKET_TRXEQ": 352344,
+    //       "PA": "Y",
+    //       "PAYER": "AbbVie (CSV Health) - Commercial",
+    //       "PBM": "CVS Health",
+    //       "REJECT_RATE": 352,
+    //       "REVERSAL_RATE": 235 
+    //     },{
+    //       "BRAND_TRXEQ": 234,
+    //       "BRAND_TRXEQ_PER_1000_LIVES": 152,
+    //       "COVERAGE_TYPE": 'Tier 2',
+    //       "ENTERPRISE_BENTYPE": 'Aetna',
+    //       "LIVES": 141,
+    //       "LIVES_SHARE_ALL_PLANS": 5266,
+    //       "MARKET_TRXEQ": 3544,
+    //       "PA": "Y",
+    //       "PAYER": "Aetna of Texas - Medicare",
+    //       "PBM": "Walgreens",
+    //       "REJECT_RATE": 32,
+    //       "REVERSAL_RATE": 35 
+    //     }
+    //   ],
+    //   previous: [
+    //     {
+    //       "BRAND_TRXEQ": 234,
+    //       "BRAND_TRXEQ_PER_1000_LIVES": 152,
+    //       "COVERAGE_TYPE": 'Tier 1',
+    //       "ENTERPRISE_BENTYPE": 'CVS Health - Commercial',
+    //       "LIVES": 1924,
+    //       "LIVES_SHARE_ALL_PLANS": 526346,
+    //       "MARKET_TRXEQ": 352344,
+    //       "PA": "Y",
+    //       "PAYER": "AbbVie (CSV Health) - Commercial",
+    //       "PBM": "CVS Health",
+    //       "REJECT_RATE": 352,
+    //       "REVERSAL_RATE": 235 
+    //     },
+    //     {
+    //       "BRAND_TRXEQ": 234,
+    //       "BRAND_TRXEQ_PER_1000_LIVES": 152,
+    //       "COVERAGE_TYPE": 'Tier 2',
+    //       "ENTERPRISE_BENTYPE": 'Aetna',
+    //       "LIVES": 141,
+    //       "LIVES_SHARE_ALL_PLANS": 5266,
+    //       "MARKET_TRXEQ": 3544,
+    //       "PA": "Y",
+    //       "PAYER": "Aetna of Texas - Medicare",
+    //       "PBM": "Walgreens",
+    //       "REJECT_RATE": 32,
+    //       "REVERSAL_RATE": 35 
+    //     }
+    //   ]
+    // }
+  })
 
   useEffect(async() => {
      await fetch('http://localhost:5000', {
@@ -50,12 +113,11 @@ function App() {
   useEffect(async() => {
     payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays);
   },[payerSlicerMaps, parameters])
-
+  
   const toggleParameters = (e, name = null) => {
 
     let dimension;
     let values;
-    
     if (name) {
       dimension = name.name.split(' ').join('')
     } else {
@@ -64,11 +126,25 @@ function App() {
 
     if (dimension === 'engine') {
       values = e.value
-    } else if (e.length !== undefined) {
+    }
+    else if (dimension === 'currStartDate'){
+      values = datetorow(dimension,e.target.value,timeSlicers)
+    }
+    else if(dimension === 'currEndDate'){
+      values = datetorow(dimension,e.target.value,timeSlicers)
+    }
+    else if(dimension === 'prevStartDate'){
+      values = datetorow(dimension,e.target.value,timeSlicers)
+    }
+    else if(dimension === 'prevEndDate'){
+      values = datetorow(dimension,e.target.value,timeSlicers)
+    }
+    else if (e.length !== undefined) {
       values = e.map(val => {
         return val.value
       })
-    } else {
+    }
+     else {
       values = e.target.value
     }
     setParameters({ ...parameters, [dimension]: values })
@@ -82,7 +158,10 @@ function App() {
         body: JSON.stringify({
           parameters
         })
-      }).then(res => res.json()).then(json => setParameters({ result: json }))
+      }).then(res => res.json()).then(json => {
+        console.log('JSON: ', json)
+        setResults({ result: json })
+      })
       // .then(payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays))
     }
   }
@@ -106,7 +185,7 @@ function App() {
         </Grid>
         <Grid container spacing={1}>
           <Grid item xs={12}>            
-            <ResultsGrid data={parameters.result}/>
+            <ResultsGrid data={result.result}/>
           </Grid> 
           <Grid item xs={6}>            
             <QueryMonitor />

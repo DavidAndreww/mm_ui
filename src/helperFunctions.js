@@ -5,15 +5,15 @@ export const parameterValidations = (parameters) => {
     return false
   }
   // ensures user has selected a market
-  // if (parameters.market === null) {
-  //   window.alert('Please select a market...')
-  //   return false
-  // }
-  // // ensures user has selected a brand
-  // if (parameters.brand === null) {
-  //   window.alert('Please select a brand...')
-  //   return false
-  // }
+  if (parameters.market === null) {
+    window.alert('Please select a market...')
+    return false
+  }
+  // ensures user has selected a brand
+  if (parameters.brand === null) {
+    window.alert('Please select a brand...')
+    return false
+  }
   // ensures user has selected a current date range
   if (parameters.currStartDate === null || parameters.currEndDate === null) {
     window.alert('Please select a valid date range for current period')
@@ -261,21 +261,48 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
       enterprises: entArr,
       payers: payerArr
     })
-    // case when user selects enterprise and payer
-  } else if (obj.enterprise && (obj.bob === null || obj.bob.length <1) && obj.payerentity) {
-    let entArr = []
-    let bobArr = []
-    let payerArry = []
-    let uniqueEnt = new Set()
-    let uniqueBob = new Set()
-    let uniquePayer = new Set()
+  }
+     // case when user selects enterprise and payer
+     else if (obj.enterprise && (obj.bob === null || obj.bob.length <1) && obj.payerentity) {
+      // let entArr = []
+      // let bobArr = []
+      // let payerArry = []
+      // let uniqueEnt = new Set()
+      // let uniqueBob = new Set()
+      // let uniquePayer = new Set()
+  
+      obj.enterprise.forEach(enterprise => {
+        
+      })
+      // case when user selects BOB and payer
+    } else if ((obj.enterprise === null || obj.enterprise.length <1) && obj.bob && obj.payerentity) {
+  
+    }
+  }
 
-    obj.enterprise.forEach(enterprise => {
-      
-    })
-    // case when user selects BOB and payer
-  } else if ((obj.enterprise === null || obj.enterprise.length <1) && obj.bob && obj.payerentity) {
 
+export const datetorow = (dim,obj, maps) => {
+  if (dim === 'currStartDate'){
+    if(maps.splitWeekStart.has(obj)){
+      return maps.splitWeekStart.get(obj)
+    }
+  }
+  else if (dim === 'currEndDate'){
+    if(maps.splitWeekEnd.has(obj)){
+      return maps.splitWeekEnd.get(obj)
+    }
+  }
+  else if (dim === 'prevStartDate'){
+    if(maps.splitWeekStart.has(obj)){
+      return maps.splitWeekStart.get(obj)
+    }
+  }
+  else if (dim === 'prevEndDate'){
+    if(maps.splitWeekEnd.has(obj)){
+      return maps.splitWeekEnd.get(obj)
+    }
+  }
+  else{
+    return
   }
 }
-

@@ -75,7 +75,7 @@ router.post('/', async (req, res) => {
   
   let returnObj = {}
   let query1 = await queryGenerator(params, 1)
-  console.log(query1)
+  console.log('Query', query1)
   await connection.execute({
     sqlText: query1,
     complete: (err, stmt, rows) => {
@@ -85,6 +85,7 @@ router.post('/', async (req, res) => {
         returnObj.current = rows
         
         let query2 = queryGenerator(params, 2)
+        console.log(query2)
         if(params.prevStartDate) {
           connection.execute({
             sqlText: query2,

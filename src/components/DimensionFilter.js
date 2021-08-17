@@ -39,10 +39,6 @@ const [readOnly,setReadOnly] = useState(false);
   if (data!==null){
     console.log(data)
   }
-
-  if(payerFilterArrays!==null) {
-    console.log(payerFilterArrays)
-  }
   return (
     <div id='dimension-filter'>
       <ComponentHeader label={'Dimension Filter'}/>
