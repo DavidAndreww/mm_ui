@@ -95,7 +95,7 @@ function App() {
             <DimensionFilter toggleParameters={toggleParameters} payerFilterArrays={payerFilterArrays}   handleSelect={handleExecute} data={parameters}/>            
           </Grid> 
            <Grid item xs={6}>
-            <TimeFilter toggleParameters={toggleParameters} />
+            <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}/>
           </Grid> 
           <Grid item xs={2}>
             <MarketFilter toggleParameters={toggleParameters} handleExecute={handleExecute}  />
