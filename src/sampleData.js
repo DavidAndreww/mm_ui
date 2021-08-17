@@ -13,23 +13,23 @@ export const payers = [
 ];
 
 export const regions = [
-  { value: "New England", label: 'New England' }, 
+  { value: "LTC UNASSIGNED DISTRICT", label: 'LTC UNASSIGNED DISTRICT' }, 
   { value: "Mid-West", label: 'Mid-West' }, 
   { value: "Southwest", label: 'Southwest' }
 ];
 
 export const states = [
-  { value: "Texas", label: 'Texas' }, 
-  { value: "New Hampshire", label: 'New Hampshire' },
-  { value: "Florida", label: 'Florida' },
-  { value: "South Carolina", label: 'South Carolina' },
-  { value: "Georgia", label: 'Georgia' },
-  { value: "California", label: 'California' },
-  { value: "Virginia", label: 'Virginia' },
-  { value: "Utah", label: 'Utah' },
-  { value: "Colorado", label: 'Colorado' },
-  { value: "New Jersey", label: 'New Jersey' },
-  { value: "New Mexico", label: 'New Mexico' },
+  { value: "TX", label: 'Texas' }, 
+  { value: "NH", label: 'New Hampshire' },
+  { value: "FL", label: 'Florida' },
+  { value: "SC", label: 'South Carolina' },
+  { value: "GA", label: 'Georgia' },
+  { value: "CA", label: 'California' },
+  { value: "VA", label: 'Virginia' },
+  { value: "UT", label: 'Utah' },
+  { value: "CO", label: 'Colorado' },
+  { value: "NJ", label: 'New Jersey' },
+  { value: "NM", label: 'New Mexico' },
 ];
 export const territories = [
   {value: "78745", label: '78745'}, 

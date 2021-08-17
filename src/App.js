@@ -10,7 +10,7 @@ import { MarketFilter } from './components/MarketFilter';
 import { SelectedFilter } from './components/SelectedFilter';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { slicerMapCreation, parameterValidations, payerFilter } from './helperFunctions';
+import { slicerMapCreation, parameterValidations, payerFilter, datetorow } from './helperFunctions';
 import theme from './theme/index';
 
 function App() {
@@ -50,12 +50,11 @@ function App() {
   useEffect(async() => {
     payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays);
   },[payerSlicerMaps, parameters])
-
+  
   const toggleParameters = (e, name = null) => {
 
     let dimension;
     let values;
-    
     if (name) {
       dimension = name.name.split(' ').join('')
     } else {
@@ -64,11 +63,25 @@ function App() {
 
     if (dimension === 'engine') {
       values = e.value
-    } else if (e.length !== undefined) {
+    }
+    else if (dimension === 'currStartDate'){
+      values = datetorow(dimension,e.target.value,timeSlicers)
+    }
+    else if(dimension === 'currEndDate'){
+      values = datetorow(dimension,e.target.value,timeSlicers)
+    }
+    else if(dimension === 'prevStartDate'){
+      values = datetorow(dimension,e.target.value,timeSlicers)
+    }
+    else if(dimension === 'prevEndDate'){
+      values = datetorow(dimension,e.target.value,timeSlicers)
+    }
+    else if (e.length !== undefined) {
       values = e.map(val => {
         return val.value
       })
-    } else {
+    }
+     else {
       values = e.target.value
     }
     setParameters({ ...parameters, [dimension]: values })

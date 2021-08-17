@@ -1,3 +1,5 @@
+import { time } from "react-dom-factories"
+
 export const parameterValidations = (parameters) => {
   // ensures user has selected a query engine
   if (parameters.engine === null) {
@@ -5,15 +7,15 @@ export const parameterValidations = (parameters) => {
     return false
   }
   // ensures user has selected a market
-  // if (parameters.market === null) {
-  //   window.alert('Please select a market...')
-  //   return false
-  // }
-  // // ensures user has selected a brand
-  // if (parameters.brand === null) {
-  //   window.alert('Please select a brand...')
-  //   return false
-  // }
+  if (parameters.market === null) {
+    window.alert('Please select a market...')
+    return false
+  }
+  // ensures user has selected a brand
+  if (parameters.brand === null) {
+    window.alert('Please select a brand...')
+    return false
+  }
   // ensures user has selected a current date range
   if (parameters.currStartDate === null || parameters.currEndDate === null) {
     window.alert('Please select a valid date range for current period')
@@ -118,7 +120,6 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
   if(maps === undefined || maps === null) {
     return
   }
-  
   if ((obj.enterprise === null || obj.enterprise === []) && (obj.bob === null || obj.bob === []) && (obj.payerentity === null || obj.payerentity === [])) {
       let enterprises = []
       let bobs = []
@@ -207,9 +208,30 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
       payers: payerArr
     })
   }
-
-  
 }
 
-
-
+export const datetorow = (dim,obj, maps) => {
+  if (dim === 'currStartDate'){
+    if(maps.splitWeekStart.has(obj)){
+      return maps.splitWeekStart.get(obj)
+    }
+  }
+  else if (dim === 'currEndDate'){
+    if(maps.splitWeekEnd.has(obj)){
+      return maps.splitWeekEnd.get(obj)
+    }
+  }
+  else if (dim === 'prevStartDate'){
+    if(maps.splitWeekStart.has(obj)){
+      return maps.splitWeekStart.get(obj)
+    }
+  }
+  else if (dim === 'prevEndDate'){
+    if(maps.splitWeekEnd.has(obj)){
+      return maps.splitWeekEnd.get(obj)
+    }
+  }
+  else{
+    return
+  }
+}
