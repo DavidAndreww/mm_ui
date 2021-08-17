@@ -5,13 +5,12 @@ const queryGenerator = (params, queryNo) => {
       activeFilters[field] = params[field]
     }
   }
-  // JSON.stringify(activeFilters)
 
   if(queryNo === 1) {
     activeFilters.dateOne = activeFilters.currStartDate;
     activeFilters.dateTwo = activeFilters.currEndDate;
  } else if (queryNo === 2) {
-   activeFilters.dateOne = activeFilters.prevEndDate;
+   activeFilters.dateOne = activeFilters.prevStartDate;
    activeFilters.dateTwo = activeFilters.prevEndDate;
  }
 console.log('Active Filters', activeFilters)  
@@ -21,11 +20,12 @@ let var_market = JSON.stringify(activeFilters.market);
 let var_payer_entity = JSON.stringify(activeFilters.payerentity);
 let var_bob = JSON.stringify(activeFilters.bob);
 let var_enterprise = JSON.stringify(activeFilters.enterprise);
+let var_state = JSON.stringify(activeFilters.state);
 let var_region = JSON.stringify(activeFilters.region);
+let var_territory = JSON.stringify(activeFilters.territory);
+let var_team = JSON.stringify(activeFilters.team);
+let var_category = JSON.stringify(activeFilters.category);
 let bt = true;
-//! remove these lines after date to split_row_week_num conversion happens
-activeFilters.dateOne = 377;
-activeFilters.dateTwo = 407;
 
  return `SELECT DISTINCT
     A.PAYER, 
@@ -35,10 +35,10 @@ activeFilters.dateTwo = 407;
     B.PA, 
     B.ST,
     C.LIVES,
-    ROUND((C.LIVES / D.TOTAL_LIVES)*100, 2) AS LIVES_SHARE_ALL_PLANS,
+    CASE WHEN D.TOTAL_LIVES = 0 THEN 0 ELSE ROUND((C.LIVES / D.TOTAL_LIVES)*100, 2) END AS LIVES_SHARE_ALL_PLANS,
     E.MARKET_TRxEQ,
     E.BRAND_TRxEQ,
-    ROUND((E.BRAND_TRXEQ / C.LIVES * 1000),2) AS BRAND_TRxEQ_per_1000_LIVES,
+    CASE WHEN C.LIVES = 0 THEN 0 ELSE ROUND((E.BRAND_TRXEQ / C.LIVES * 1000),2) END AS BRAND_TRxEQ_per_1000_LIVES,
     H.REJECT_RATE,
     H.REVERSAL_RATE
 FROM(
@@ -382,10 +382,10 @@ ${activeFilters.payerentity ? "  A.PAYER_ENTITY IN (SELECT VALUE FROM TABLE(FLAT
 ${activeFilters.enterprise ? " A.ENTERPRISE_BENTYPE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_enterprise +"')))) AND " : " "}
 ${activeFilters.bob ? " A.BOB  IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_bob  +"')))) AND " : " "}
 ${activeFilters.region ? " TERR.REGION IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON('"+ var_region +"')))) AND " : " "}
- ${activeFilters.state ? " C.STATE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.state +")))) AND " : " "}
- ${activeFilters.territory ? " TERR.TERRITORY_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.territory +")))) AND " : " "}
- ${activeFilters.team ? " C.TEAM_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.team +")))) AND " : " "}
- ${activeFilters.category ? " C.CATEGORY IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ activeFilters.category +")))) AND " : " "}
+ ${activeFilters.state ? " C.STATE IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ var_state +")))) AND " : " "}
+ ${activeFilters.territory ? " TERR.TERRITORY_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ var_territory +")))) AND " : " "}
+ ${activeFilters.team ? " C.TEAM_NAME IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ var_team +")))) AND " : " "}
+ ${activeFilters.category ? " C.CATEGORY IN (SELECT VALUE FROM TABLE(FLATTEN (INPUT => PARSE_JSON("+ var_category +")))) AND " : " "}
  ${bt};`
 };
 
