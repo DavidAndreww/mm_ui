@@ -18,9 +18,9 @@
   min-height: 145px;
   background-color: #fff;
 }
-.current-period {
+.previous-period {
   /* background-color: #ddfbef; */
-  background-color: lightgreen;
+  background-color: rgb(130, 140, 194);
 }
 #results-grid{
   margin-top:0px;  
