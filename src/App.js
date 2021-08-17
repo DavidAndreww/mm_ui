@@ -33,7 +33,67 @@ function App() {
     prevStartDate: null,
     prevEndDate: null,
     engine: null,
-    result: null
+    result: {
+      current: [
+        {
+          "BRAND_TRXEQ": 234,
+          "BRAND_TRXEQ_PER_1000_LIVES": 152,
+          "COVERAGE_TYPE": 'Tier 1',
+          "ENTERPRISE_BENTYPE": 'CVS Health - Commercial',
+          "LIVES": 1924,
+          "LIVES_SHARE_ALL_PLANS": 526346,
+          "MARKET_TRXEQ": 352344,
+          "PA": "Y",
+          "PAYER": "AbbVie (CSV Health) - Commercial",
+          "PBM": "CVS Health",
+          "REJECT_RATE": 352,
+          "REVERSAL_RATE": 235 
+        },{
+          "BRAND_TRXEQ": 234,
+          "BRAND_TRXEQ_PER_1000_LIVES": 152,
+          "COVERAGE_TYPE": 'Tier 2',
+          "ENTERPRISE_BENTYPE": 'Aetna',
+          "LIVES": 141,
+          "LIVES_SHARE_ALL_PLANS": 5266,
+          "MARKET_TRXEQ": 3544,
+          "PA": "Y",
+          "PAYER": "Aetna of Texas - Medicare",
+          "PBM": "Walgreens",
+          "REJECT_RATE": 32,
+          "REVERSAL_RATE": 35 
+        }
+      ],
+      previous: [
+        {
+          "BRAND_TRXEQ": 234,
+          "BRAND_TRXEQ_PER_1000_LIVES": 152,
+          "COVERAGE_TYPE": 'Tier 1',
+          "ENTERPRISE_BENTYPE": 'CVS Health - Commercial',
+          "LIVES": 1924,
+          "LIVES_SHARE_ALL_PLANS": 526346,
+          "MARKET_TRXEQ": 352344,
+          "PA": "Y",
+          "PAYER": "AbbVie (CSV Health) - Commercial",
+          "PBM": "CVS Health",
+          "REJECT_RATE": 352,
+          "REVERSAL_RATE": 235 
+        },
+        {
+          "BRAND_TRXEQ": 234,
+          "BRAND_TRXEQ_PER_1000_LIVES": 152,
+          "COVERAGE_TYPE": 'Tier 2',
+          "ENTERPRISE_BENTYPE": 'Aetna',
+          "LIVES": 141,
+          "LIVES_SHARE_ALL_PLANS": 5266,
+          "MARKET_TRXEQ": 3544,
+          "PA": "Y",
+          "PAYER": "Aetna of Texas - Medicare",
+          "PBM": "Walgreens",
+          "REJECT_RATE": 32,
+          "REVERSAL_RATE": 35 
+        }
+      ]
+    }
   });
 
   useEffect(async() => {

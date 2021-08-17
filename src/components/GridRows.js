@@ -1,11 +1,11 @@
-export const GridRow = (data = null) => {
+export const GridRows = (data = null) => {
   let dataSet = []
   if (data === null) {
     
   } else if (data['current'] && data['previous']) {
     let curr = data['current'];
-    let prev = data['previous']
-    for (let i = 0; i < data['current'].length - 1; i++) {
+    let prev = data['previous'];
+    for (let i = 0; i < data['current'].length; i++) {
       let row = {
         payer: curr[i].PAYER,
         enterpriseBenType: curr[i].ENTERPRISE_BENTYPE,
@@ -16,7 +16,7 @@ export const GridRow = (data = null) => {
         livesCurrPeriod: curr[i].LIVES,
         livesPrevPeriod: prev[i].LIVES,
         livesShareCurrPeriod: curr[i].LIVES_SHARE_ALL_PLANS,
-        liveSharePrevPeriod: prev[i].LIVES_SHARE_ALL_PLANS,
+        livesSharePrevPeriod: prev[i].LIVES_SHARE_ALL_PLANS,
         marketTrxCurrPeriod: curr[i].MARKET_TRXEQ,
         marketTrxPrevPeriod: prev[i].MARKET_TRXEQ,
         brandTrxCurrPeriod: curr[i].BRAND_TRXEQ,
