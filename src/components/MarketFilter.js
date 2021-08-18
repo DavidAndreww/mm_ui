@@ -2,7 +2,6 @@ import React from 'react';
 import Select from 'react-select';
 import { ComponentHeader } from './ComponentHeader';
 import ComponentBody from './ComponentBody';
-import { markets } from '../sampleData';
 import { brands } from '../sampleData'
 
 const Dropdown = ({ label, array, callback }) => {
@@ -20,7 +19,7 @@ export const MarketFilter = ({ toggleParameters, data }) => {
       <ComponentHeader label={'Market Filter'}/>
       <ComponentBody>    
         <div className="component-body">
-            <Dropdown label={'Market'} array={markets} callback={toggleParameters} />
+            {/* <Dropdown label={'Market'} array={markets} callback={toggleParameters} /> */}
             <Dropdown label={'Brand'} array={brands} callback={toggleParameters} />
         </div>    
       </ComponentBody>
