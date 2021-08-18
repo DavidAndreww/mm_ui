@@ -90,8 +90,12 @@ function App() {
   }
 
   const handleExecute = () => {
-    if (parameterValidations(parameters)) {
-      fetch('http://localhost:5000', {
+    if (true) {
+      let url;
+      if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
+      if (parameters.engine === 'Snowflake') url = 'http://localhost:5000/'
+
+      fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
