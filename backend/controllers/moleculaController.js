@@ -5,7 +5,7 @@ const moleculaController = async (req, res) => {
   let params = req.body.params;
   let returnObj = {}
 
-  let baseurl = "http://3.82.174.132:10101"; 
+  let baseurl = "http://3.94.180.251:10101"; 
   let idx = "snowidx";
   let fname = "Count(All())";
   let cmd = "curl -s -k "+baseurl+"/index/"+idx+"/query -X POST --data-binary @"+fname;

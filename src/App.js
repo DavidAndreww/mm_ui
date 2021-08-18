@@ -151,7 +151,7 @@ function App() {
   }
 
   const handleExecute = () => {
-    if (parameterValidations(parameters)) {
+    if (true) {
       let url;
       if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
       if (parameters.engine === 'Snowflake') url = 'http://localhost:5000/'
