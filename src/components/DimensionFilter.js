@@ -43,7 +43,7 @@ const [readOnly,setReadOnly] = useState(false);
     <div id='dimension-filter'>
       <ComponentHeader label={'Dimension Filter'}/>
       <ComponentBody>   
-        <div>          
+        <div className="component-overlap">          
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
               <Typography><b>Payer</b></Typography>

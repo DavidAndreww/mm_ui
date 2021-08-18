@@ -110,7 +110,7 @@ function App() {
       <div id='app'>
         <Grid container spacing={1}>
           <Grid item xs={2}>
-            <DimensionFilter toggleParameters={toggleParameters} payerFilterArrays={payerFilterArrays}   handleSelect={handleExecute} data={parameters}/>            
+            <DimensionFilter toggleParameters={toggleParameters} payerFilterArrays={payerFilterArrays} handleSelect={handleExecute} data={parameters}/>            
           </Grid> 
            <Grid item xs={6}>
             <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}/>
@@ -126,11 +126,11 @@ function App() {
           <Grid item xs={12}>            
             <ResultsGrid data={result.result}/>
           </Grid> 
-          <Grid item xs={6}>            
-            <QueryMonitor />
+          <Grid item xs={6}>  
+            <SelectedFilter data={parameters}/>
           </Grid> 
           <Grid item xs={6}>            
-            <SelectedFilter data={parameters}/>
+            <QueryMonitor />
           </Grid>            
         </Grid>        
       </div>

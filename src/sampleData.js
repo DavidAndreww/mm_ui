@@ -49,15 +49,16 @@ export const teams = [
 ];
 
 export const queries = [
-  { value: "Snowflake", label: 'Snowflake' },
+  { value: "Snowflake L2", label: 'Snowflake L2' },
+  { value: "Snowflake L3", label: 'Snowflake L3' },
   { value: "DSE Graph", label: 'DSE Graph' },
   { value: "QE-2", label: 'QE-2' }
 ];
 
-export const markets = [
-  { value: "Neuroscience", label: 'Neuroscience' }
-];
+// export const markets = [
+//   { value: "Neuroscience", label: 'Neuroscience' }
+// ];
 
 export const brands = [
-  { value: "PROZAC", label: 'Prozac' }
+  { value: "Neuroscience - PROZAC", label: 'Neuroscience - Prozac' }
 ]

@@ -17,6 +17,12 @@
 .component-wrapper{
   min-height: 145px;
   background-color: #fff;
+  position:relative;
+}
+.component-overlap{
+  position: absolute;
+  width: 100%;
+  z-index: 10;
 }
 .previous-period {
   /* background-color: #ddfbef; */
@@ -55,6 +61,9 @@
   background-color: rgb(255, 255, 255);
   /* box-shadow: 5px 5px 10px rgb(117, 116, 116);  */
   /* border-radius: 10px 10px 0px 0px; */
+}
+.MuiAccordion-root.Mui-expanded{
+  margin:0px 0!important;
 }
 .MuiAccordionSummary-root.Mui-expanded {
     min-height: 30px !important;
