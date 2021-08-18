@@ -96,7 +96,7 @@ function App() {
   }
 
   const handleExecute = () => {
-    if (true) {
+    if (parameterValidations(parameters)) {
       let url;
       if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
       if (parameters.engine === 'Snowflake') url = 'http://localhost:5000/'
@@ -111,7 +111,6 @@ function App() {
         console.log('JSON: ', json)
         setResults({ result: json })
       })
-      // .then(payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays))
     }
   }
 
