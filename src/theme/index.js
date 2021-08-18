@@ -14,7 +14,7 @@ const theme = createTheme({
     },
     secondary: {
       contrastText: colors.main.white,
-      main: colors.main.primaryRed,
+      main: colors.main.primaryGreen,
     },
     text: {
       primary: colors.main.darkGray,

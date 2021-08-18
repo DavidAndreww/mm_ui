@@ -97,8 +97,12 @@ function App() {
   }
 
   const handleExecute = () => {
-    if (parameterValidations(parameters)) {
-      fetch('http://localhost:5000', {
+    if (true) {
+      let url;
+      if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
+      if (parameters.engine === 'Snowflake') url = 'http://localhost:5000/'
+
+      fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -117,7 +121,7 @@ function App() {
       <div id='app'>
         <Grid container spacing={1}>
           <Grid item xs={2}>
-            <DimensionFilter toggleParameters={toggleParameters} payerFilterArrays={payerFilterArrays}   handleSelect={handleExecute} data={parameters}/>            
+            <DimensionFilter toggleParameters={toggleParameters} payerFilterArrays={payerFilterArrays} handleSelect={handleExecute} data={parameters}/>            
           </Grid> 
            <Grid item xs={6}>
             <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}/>
@@ -133,11 +137,11 @@ function App() {
           <Grid item xs={12}>            
             <ResultsGrid data={result.result}/>
           </Grid> 
-          <Grid item xs={6}>            
-            <QueryMonitor />
+          <Grid item xs={6}>  
+            <SelectedFilter data={parameters}/>
           </Grid> 
           <Grid item xs={6}>            
-            <SelectedFilter data={parameters}/>
+            <QueryMonitor />
           </Grid>            
         </Grid>        
       </div>
