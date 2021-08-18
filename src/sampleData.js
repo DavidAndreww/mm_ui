@@ -13,7 +13,7 @@ export const payers = [
 ];
 
 export const regions = [
-  { value: "LTC UNASSIGNED DISTRICT", label: 'LTC UNASSIGNED DISTRICT' }, 
+  { value: "LTC WHITESPACE REGION", label: 'LTC WHITESPACE REGION' }, 
   { value: "Mid-West", label: 'Mid-West' }, 
   { value: "Southwest", label: 'Southwest' }
 ];
@@ -30,10 +30,11 @@ export const states = [
   { value: "CO", label: 'Colorado' },
   { value: "NJ", label: 'New Jersey' },
   { value: "NM", label: 'New Mexico' },
+  { value: "North Carolina", label: 'North Carolina'}
 ];
 export const territories = [
-  {value: "78745", label: '78745'}, 
-  {value: "03867", label: '03867'}, 
+  {value: "HYBRID_WHITESPACE", label: 'HYBRID_WHITESPACE'}, 
+  {value: "BRIDGEPORT_CT", label: 'BRIDGEPORT_CT'}, 
   {value: "76867", label: '76867'}
 ];
 

@@ -27,6 +27,9 @@ let var_team = JSON.stringify(activeFilters.team);
 let var_category = JSON.stringify(activeFilters.category);
 let bt = true;
 
+activeFilters.dateOne = '377';
+activeFilters.dateTwo = '407';
+
  return `SELECT DISTINCT
     A.PAYER, 
     A.ENTERPRISE_BENTYPE, 

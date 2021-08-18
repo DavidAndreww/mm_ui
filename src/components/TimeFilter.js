@@ -17,6 +17,7 @@ export const TimeFilter = ({ toggleParameters, timeSlicers }) => {
       return dateB - dateA
     })
   }
+
   return (
     <div id='time-filter' className='component-boundary'>
       <ComponentHeader label={'Time Filter'}/>

@@ -110,6 +110,43 @@ export const slicerMapCreation = (
       slicerCallback(dates)
       break
 
+      //map for geo dimension
+      case 6:
+      const regTostToterr = new Map()
+      const terrTost = new Map()
+      const stToReg = new Map()
+      for (let objects in jsonSlicer) {
+        let reg = jsonSlicer[objects]['REGION']
+        let st = jsonSlicer[objects]['STATE']
+        let terr = jsonSlicer[objects]['TERRITORY_NAME']
+        if (regTostToterr.has(reg)) {
+          if (regTostToterr.get(reg).has(st)) {
+            regTostToterr.get(reg).get(st).push(terr)
+          } else {
+            regTostToterr.get(reg).set(st, [])
+            regTostToterr.get(reg).get(st).push(terr)
+          }
+        } else {
+          regTostToterr.set(reg, new Map())
+          regTostToterr.get(reg).set(st, [])
+          regTostToterr.get(reg).get(st).push(terr)
+        }
+      }
+
+      for (let objects in jsonSlicer2) {
+        let terr = jsonSlicer2[objects]['TERRITORY_REGION']
+        let stArr = jsonSlicer2[objects]['ST_ARR']
+        terrTost.set(terr, stArr)
+      }
+
+      for (let reg of regTostToterr.keys()) {
+        for (let st of regTostToterr.get(reg).keys()) {
+          stToReg.set(st, reg)
+        }
+      }
+
+      slicerCallback({ regTostToterr: regTostToterr,  terrTost: terrTost, stToReg: stToReg })
+        break
     default:
       return null
   }
