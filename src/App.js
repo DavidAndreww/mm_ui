@@ -17,6 +17,7 @@ function App() {
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   const [timeSlicers, setTimeSlicers] = useState()
   const [payerFilterArrays, setPayerFilterArrays] = useState()
+  // const [geoFilterArrays,setGeoFilterArrays] = useState()
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
@@ -36,7 +37,6 @@ function App() {
   });
   const [result, setResults] = useState({
     result: null
-    
   })
 
   useEffect(async() => {
@@ -46,10 +46,15 @@ function App() {
       }).then(res => res.json()).then(jsonRes =>   {
         console.log(jsonRes)
         slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
+        // slicerMapCreation(6,jsonRes['geoData'],jsonRes['terrmaptostate'],setGeoSlicerMaps,geoSlicerMaps)
         slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)
       }).then(console.log(payerSlicerMaps));
   },[1])
   
+  // useEffect(async() => {
+  //   geoFilter(geoSlicerMaps, parameters, geoFilterArrays, setGeoFilterArrays);
+  // },[geoSlicerMaps, parameters])
+
   useEffect(async() => {
     payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays);
   },[payerSlicerMaps, parameters])
