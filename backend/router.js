@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const connection = require('./snowflakeConnection');
 const { queryGenerator } = require('./queryGenerator');
-const {defaultSlicers} = require('./defaultSlicers');
+const { defaultSlicers } = require('./defaultSlicers');
+const { exec } = require('child_process')
 
-
+// Snowflake Default Values Router
 router.get('/', async (req, res) => {
   console.log('get request receieved');
   // 
@@ -68,8 +69,7 @@ router.get('/', async (req, res) => {
     }
   });
 })
-
-// need logic to use different query engines depending on user input
+// Snowflake Router
 router.post('/', async (req, res) => { 
   let params = req.body.parameters;
   
@@ -103,6 +103,33 @@ router.post('/', async (req, res) => {
         }
       }
     }
+  });
+})
+// Molecula Router
+router.post('/qe2', async (req, res) => {
+  console.log('Molecula Router')
+  let params = req.body.params;
+  let returnObj = {}
+
+  let baseurl = "http://3.82.174.132:10101"; 
+  let idx = "snowidx";
+  let fname = "Count(All())";
+  let cmd = "curl -s -k "+baseurl+"/index/"+idx+"/query -X POST --data-binary @"+fname;
+
+  const ls = exec(cmd, function (error, stdout, stderr) {
+    if (error) {
+      console.log(error.stack);
+      console.log('Error code: '+error.code);
+      console.log('Signal received: '+error.signal);
+    }
+    //console.log('Child Process STDOUT: '+stdout);
+    console.log(stdout);
+    //console.log('Child Process STDERR: '+stderr);
+  });
+
+
+  ls.on('exit', function (code) {
+    console.log('Child process exited with exit code '+code);
   });
 })
 
