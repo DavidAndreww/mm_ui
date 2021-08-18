@@ -317,6 +317,173 @@ export const payerFilter = (maps, obj, statePayerArrays, setStatePayerArrays) =>
     }
   }
 
+  export const geoFilter = (maps, obj, stateGeoArrays, setStateGeoArrays) => {
+    if(maps === undefined || maps === null) {
+      return
+    }
+    // case when no values are selected
+    if ((obj.region === null || obj.region.length < 1) && (obj.state === null || obj.state.length < 1) && (obj.territory === null || obj.territory.length < 1)) {
+        let regions = []
+        let states = []
+        let territorys = []
+        let uniqueReg = new Set()
+        let uniqueSt = new Set()
+        let uniqueTerr = new Set()
+        for (let reg of maps.regTostToterr.keys()) {
+          if (uniqueReg.has(reg)) {
+          } else {
+            uniqueReg.add(reg)
+            regions.push({ value: reg, label: reg })
+          }
+          for (let st of maps.regTostToterr.get(reg).keys()) {
+            if (uniqueSt.has(maps.regTostToterr.get(reg).get(st))) {
+            } else {
+              uniqueSt.add(st)
+              states.push({ value: st, label: st })
+            }
+            for (let i in maps.regTostToterr.get(reg).get(st)) {
+              if (uniqueTerr.has(maps.regTostToterr.get(reg).get(st)[i])) {
+              } else {
+                uniqueTerr.add(maps.regTostToterr.get(reg).get(st)[i])
+                territorys.push({ value: maps.regTostToterr.get(reg).get(st)[i], label: maps.regTostToterr.get(reg).get(st)[i] })
+              }
+            }
+          }
+        }
+        setStateGeoArrays ({
+          regions:regions,
+          states:states,
+          territorys:territorys
+        })
+        // case when user selects only an Region
+      } else if (obj.region && (obj.state === null || obj.state.length < 1) && (obj.territory === null || obj.territory.length < 1)) {
+      let stArr = []
+      let terrArr = []
+      let uniqueSt = new Set()
+      let uniqueTerr = new Set()
+      obj.region.forEach(region => {
+        for(let st of maps.regTostToterr.get(region.toString()).keys()) {
+          if(uniqueSt.has(st)) {
+    
+          }else{
+            uniqueSt.add(st)
+            stArr.push({ value: st, label: st })
+          }
+          for (let i in maps.regTostToterr.get(region).get(st)) {
+            if (uniqueTerr.has(maps.regTostToterr.get(region).get(st)[i])) {
+            } else {
+              uniqueTerr.add(maps.regTostToterr.get(region).get(st)[i])
+              terrArr.push({ value: maps.regTostToterr.get(region).get(st)[i], label: maps.regTostToterr.get(region).get(st)[i] })
+            }
+          }
+        }      
+      });
+  
+      setStateGeoArrays ({
+        ...stateGeoArrays,
+        states:stArr,
+        territorys:terrArr
+      })
+      // case when user has selected only a BOB
+    } else if ((obj.region === null || obj.region.length < 1) && obj.state && (obj.territory === null || obj.territory < 1)) {
+      let regArr = []
+      let terrArr = []
+      let uniqueReg = new Set()
+      let uniqueTerr = new Set()
+      obj.state.forEach(state => {
+        let regName;
+        if (uniqueReg.has(maps.stToReg.get(state))) {
+        } else {
+          uniqueReg.add(maps.stToReg.get(state));
+          regArr.push({ value: maps.stToReg.get(state), label: maps.stToReg.get(state) });
+          regName = maps.stToReg.get(state);
+        }
+        for (let i in maps.regTostToterr.get(regName).get(state)) {
+          if (uniqueTerr.has(maps.regTostToterr.get(regName).get(state)[i])) {
+          } else {
+            uniqueTerr.add(maps.regTostToterr.get(regName).get(state)[i])
+            terrArr.push({ value: maps.regTostToterr.get(regName).get(state)[i], label: maps.regTostToterr.get(regName).get(state)[i] })
+          }
+        }
+      })
+      setStateGeoArrays({
+        ...stateGeoArrays,
+        regions: regArr,
+        territorys: terrArr
+      })
+      // case when user has selected only a payer
+    } else if ((obj.region === null || obj.region.length < 1) && (obj.state === null || obj.state.length <1) && obj.territory) {
+      let regArr = []
+      let stArr = []
+      let uniqueReg = new Set()
+      let uniqueSt = new Set()
+  
+      obj.territory.forEach(territory => {
+        let stName;
+        if(uniqueSt.has(maps.terrTost.get(territory))) {
+        } else {
+          for (let i in maps.terrTost.get(territory)) {
+            uniqueSt.add(maps.terrTost.get(territory)[i]);
+            stArr.push({ value: maps.terrTost.get(territory)[i], label: maps.terrTost.get(territory)[i] });
+            stName = maps.terrTost.get(territory)[i];
+          }
+        }
+        if (uniqueReg.has(maps.stToReg.get(stName))) {
+        } else {
+          uniqueReg.add(maps.stToReg.get(stName))
+          regArr.push({ value: maps.stToReg.get(stName), label: maps.stToReg.get(stName) })
+        }
+      })
+      setStateGeoArrays({
+        ...stateGeoArrays,
+        regions: regArr,
+        states: stArr
+      })
+    }
+    // case when user selects enterprise and a BOB
+    else if(obj.region && obj.state && (obj.territory === null || obj.territory.length < 1)){
+      let terrArr = []
+      let regArr = []
+      let uniqueTerr = new Set();
+      obj.region.forEach(region => {
+        regArr.push({ value: region, label: region })
+      })
+      obj.region.forEach(region => {
+        for(let st of maps.regTostToterr.get(region.toString()).keys()) {
+          if(obj.state.includes(st)) {
+            for(let i in maps.regTostToterr.get(region).get(st)) {
+              if(!uniqueTerr.has(maps.regTostToterr.get(region).get(st)[i])){
+                uniqueTerr.add(maps.regTostToterr.get(region).get(st)[i])
+                terrArr.push({ value: maps.regTostToterr.get(region).get(st)[i], label: maps.regTostToterr.get(region).get(st)[i] })
+              }
+            }
+          }
+        }
+      })
+      setStateGeoArrays({
+        ...stateGeoArrays,
+        regions: regArr,
+        territorys: terrArr
+      })
+    }
+       // case when user selects enterprise and payer
+       else if (obj.region && (obj.state === null || obj.state.length <1) && obj.territory) {
+        // let entArr = []
+        // let bobArr = []
+        // let payerArry = []
+        // let uniqueEnt = new Set()
+        // let uniqueBob = new Set()
+        // let uniquePayer = new Set()
+    
+        obj.region.forEach(region => {
+          
+        })
+        // case when user selects BOB and payer
+      } else if ((obj.region === null || obj.region.length <1) && obj.state && obj.territory) {
+    
+      }
+    }
+  
 
 export const datetorow = (dim,obj, maps) => {
   if (dim === 'currStartDate'){

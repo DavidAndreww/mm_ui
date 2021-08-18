@@ -10,14 +10,15 @@ import { MarketFilter } from './components/MarketFilter';
 import { SelectedFilter } from './components/SelectedFilter';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { slicerMapCreation, parameterValidations, payerFilter, datetorow } from './helperFunctions';
+import { slicerMapCreation, parameterValidations, payerFilter, datetorow, geoFilter } from './helperFunctions';
 import theme from './theme/index';
 
 function App() {
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   const [timeSlicers, setTimeSlicers] = useState()
   const [payerFilterArrays, setPayerFilterArrays] = useState()
-  // const [geoFilterArrays,setGeoFilterArrays] = useState()
+  const [geoSlicerMaps,setGeoSlicerMaps] = useState()
+  const [geoFilterArrays,setGeoFilterArrays] = useState()
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
@@ -46,14 +47,14 @@ function App() {
       }).then(res => res.json()).then(jsonRes =>   {
         console.log(jsonRes)
         slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
-        // slicerMapCreation(6,jsonRes['geoData'],jsonRes['terrmaptostate'],setGeoSlicerMaps,geoSlicerMaps)
+        slicerMapCreation(6,jsonRes['geoData'],jsonRes['terrmaptostate'],setGeoSlicerMaps,geoSlicerMaps)
         slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)
       }).then(console.log(payerSlicerMaps));
   },[1])
   
-  // useEffect(async() => {
-  //   geoFilter(geoSlicerMaps, parameters, geoFilterArrays, setGeoFilterArrays);
-  // },[geoSlicerMaps, parameters])
+  useEffect(async() => {
+    geoFilter(geoSlicerMaps, parameters, geoFilterArrays, setGeoFilterArrays);
+  },[geoSlicerMaps, parameters])
 
   useEffect(async() => {
     payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays);
