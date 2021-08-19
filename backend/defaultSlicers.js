@@ -13,7 +13,7 @@ const defaultSlicers = function(param){
         return `select payer_entity, ARRAY_AGG(bob) as BOB_ARR  from AVNR_MDM_UAT.L1.PAYER_HIERARCHY_PAYER_PLAN group by payer_entity;`;
     }
     else if(param===6){
-        return `select distinct territory_name, state, region from AVNR_MDM_UAT.L1.AXTRIA_ZIPTERR where territory_name is not NULL;`;
+        return `select distinct (territory_name), state , region from AVNR_MDM_UAT.L1.AXTRIA_ZIPTERR where state is not NULL and territory_name is not NULL and region is not NULL group by territory_name,state,region;`;
     }
     else if(param===7){
         return `select territory_name, ARRAY_AGG(distinct state) as ST_ARR  from AVNR_MDM_UAT.L1.AXTRIA_ZIPTERR group by territory_name;`;

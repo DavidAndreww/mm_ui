@@ -1,88 +1,38 @@
+const { queryGenerator } = require('../queryGenerator');
 const connection = require('../snowflakeConnection');
-const { queryGenerator } = require('../snowflakeConnection');
 
 const snowflakeController = async (req, res) => { 
+  let params = req.body.parameters;
+  
   let returnObj = {}
-  let query1 =  defaultSlicers(1);
-  let query2 =  defaultSlicers(2);
-  let query3 =  defaultSlicers(3);
-  let query4 =  defaultSlicers(4);
-  let mapForPayerToBob = defaultSlicers(5);
-  let query6 = defaultSlicers(6);
-  let query7 = defaultSlicers(7);
+  let query1 = await queryGenerator(params, 1)
+  console.log('Query', query1)
   await connection.execute({
     sqlText: query1,
     complete: (err, stmt, rows) => {
       if (err) {
-        console.error(`Failed to execute query 1 with statement: ${err.message}`);
+        console.error(`Failed to execute statement: ${err.message}`);
       } else {
-          returnObj.brandMkt = rows; 
+        returnObj.current = rows
+
+        let query2 = queryGenerator(params, 2)
+        console.log(query2)
+        if(params.prevStartDate) {
           connection.execute({
             sqlText: query2,
             complete: (err, stmt, rows) => {
               if (err) {
-                console.error(`Failed to execute query 2 with statement: ${err.message}`);
+                console.error(`Failed to execute statement: ${err.message}`);
               } else {
-                returnObj.payerData = rows;
-                connection.execute({
-                  sqlText:query3,
-                  complete:(err, stmt, rows) => {
-                    if(err){
-                      console.error(`Failed to execute query 3 with statement: ${err.message}`);
-                    }else{
-                      returnObj.catTeam = rows
-                      // res.json(returnObj)
-                      connection.execute({
-                        sqlText:query4,
-                        complete:(err,stmt,rows) => {
-                          if(err){
-                            console.error(`Failed to execute query 4 with statement: ${err.message}`);
-                          }else{
-                            returnObj.timePer = rows;
-                            // res.json(returnObj)
-                            connection.execute({
-                              sqlText:mapForPayerToBob,
-                              complete:(err,stmt,rows) => {
-                                if(err){
-                                  console.error(`Failed to execute query 5 with statement: ${err.message}`);
-                                }else{
-                                  returnObj.PayerMapToBob = rows;
-                                  // res.json(returnObj)
-                                  connection.execute({
-                                    sqlText:query6,
-                                    complete:(err,stmt,rows) => {
-                                      if(err){
-                                        console.error(`Failed to execute query 6 with statement: ${err.message}`);
-                                      }else{
-                                        returnObj.geoData = rows;
-                                        // res.json(returnObj)
-                                        connection.execute({
-                                          sqlText:query7,
-                                          complete:(err,stmt,rows) => {
-                                            if(err){
-                                              console.error(`Failed to execute query 7 with statement: ${err.message}`);
-                                            }else{
-                                              returnObj.terrmaptostate = rows;
-                                              res.json(returnObj)
-                                            }
-                                          }
-                                        });
-                                      }
-                                    }
-                                  });
-                                }
-                              }
-                            });
-                          }
-                        }
-                      });
-                    }
-                  }
-                });
+                returnObj.previous = rows
+                res.json(returnObj)
               }
             }
           });
-       }
+        } else {
+          res.json(returnObj)
+        }
+      }
     }
   });
 }

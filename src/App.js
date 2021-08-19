@@ -10,14 +10,17 @@ import { MarketFilter } from './components/MarketFilter';
 import { SelectedFilter } from './components/SelectedFilter';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { slicerMapCreation, parameterValidations, payerFilter, datetorow } from './helperFunctions';
+import { slicerMapCreation, parameterValidations, payerFilter, datetorow, geoFilter,teamFilter } from './helperFunctions';
 import theme from './theme/index';
 import { queries } from './sampleData';
 function App() {
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   const [timeSlicers, setTimeSlicers] = useState()
   const [payerFilterArrays, setPayerFilterArrays] = useState()
-  // const [geoFilterArrays,setGeoFilterArrays] = useState()
+  const [geoSlicerMaps,setGeoSlicerMaps] = useState()
+  const [geoFilterArrays,setGeoFilterArrays] = useState()
+  const [teamSlicersMaps,setTeamSlicersMaps] = useState()
+  const [teamFilterArrays, setTeamFilterArrays] = useState()
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
@@ -50,7 +53,8 @@ function App() {
         console.log(jsonRes)
         setLoader(false);
         slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
-        // slicerMapCreation(6,jsonRes['geoData'],jsonRes['terrmaptostate'],setGeoSlicerMaps,geoSlicerMaps)
+        slicerMapCreation(3,jsonRes['catTeam'],null,setTeamSlicersMaps, teamSlicersMaps)
+        slicerMapCreation(6,jsonRes['geoData'],jsonRes['terrmaptostate'],setGeoSlicerMaps,geoSlicerMaps)
         slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)
       }).then(console.log(payerSlicerMaps))
       .catch((error) => {
@@ -59,9 +63,13 @@ function App() {
       });
   },[1])
   
-  // useEffect(async() => {
-  //   geoFilter(geoSlicerMaps, parameters, geoFilterArrays, setGeoFilterArrays);
-  // },[geoSlicerMaps, parameters])
+  useEffect(async() => {
+    teamFilter(teamSlicersMaps, parameters, teamFilterArrays, setTeamFilterArrays);
+  },[teamSlicersMaps, parameters])
+
+  useEffect(async() => {
+    geoFilter(geoSlicerMaps, parameters, geoFilterArrays, setGeoFilterArrays);
+  },[geoSlicerMaps, parameters])
 
   useEffect(async() => {
     payerFilter(payerSlicerMaps, parameters, payerFilterArrays, setPayerFilterArrays);
@@ -107,7 +115,7 @@ function App() {
     if (parameterValidations(parameters)) {
       let url = 'http://localhost:5000/';
       if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
-      if (parameters.engine === 'Snowflake') url = 'http://localhost:5000/'
+      if (parameters.engine === 'Snowflake L2') url = 'http://localhost:5000/'
 
       fetch(url, {
         method: 'POST',
@@ -131,7 +139,7 @@ function App() {
         </Grid>
         :(<div><Grid container spacing={1}>
           <Grid item xs={2}>
-            <DimensionFilter toggleParameters={toggleParameters} payerFilterArrays={payerFilterArrays} handleSelect={handleExecute} data={parameters}/>            
+            <DimensionFilter toggleParameters={toggleParameters} teamFilterArrays={teamFilterArrays} geoFilterArrays={geoFilterArrays} payerFilterArrays={payerFilterArrays} handleSelect={handleExecute} data={parameters}/>            
           </Grid> 
            <Grid item xs={6}>
             <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}/>
