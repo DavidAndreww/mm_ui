@@ -690,7 +690,6 @@ export const datetorow = (dim,obj, maps) => {
 }
 
 export const teamFilter = (maps, obj, stateTeamArrays, setStateTeamArrays) =>{
-  console.log('maps',maps)
   if(maps === undefined || maps === null) {
     return
   }
@@ -711,7 +710,7 @@ export const teamFilter = (maps, obj, stateTeamArrays, setStateTeamArrays) =>{
         if(uniqueTeam.has(te)){
         }else{
           uniqueTeam.add(te)
-          teamss.push({ value: maps.categoryToTeam.get(c)[te], value: maps.categoryToTeam.get(c)[te]})
+          teamss.push({ value: maps.categoryToTeam.get(c)[te], label: maps.categoryToTeam.get(c)[te]})
         }
       }
     }
@@ -726,14 +725,13 @@ export const teamFilter = (maps, obj, stateTeamArrays, setStateTeamArrays) =>{
     let teamArr = []
     let uniqueTeam = new Set();
     obj.category.forEach(category => {
-      for(let te of maps.categoryToTeam.get(category)){
-        if(!uniqueTeam.has(maps.categoryToTeam.get(category)[te])){
-          uniqueTeam.add(maps.categoryToTeam.get(category))
-          teamArr.push({ value:maps.categoryToTeam.get(category), label:maps.categoryToTeam.get(category)})
+      for(let te of maps.categoryToTeam.get(category.toString())){
+        if(!uniqueTeam.has(te)){
+          uniqueTeam.add(te)
+          teamArr.push({ value:te, label:te})
         }
       }
     })
-    console.log('unique',uniqueTeam)
     setStateTeamArrays ({
       ...stateTeamArrays,
       teamss:teamArr
@@ -742,10 +740,10 @@ export const teamFilter = (maps, obj, stateTeamArrays, setStateTeamArrays) =>{
     let catArr = []
     let uniqueCat = new Set();
     obj.team.forEach(team => {
-      for(let c of maps.teamToCat.get(team)){
-        if(!uniqueCat.has(maps.teamToCat.get(team)[c])){
-          uniqueCat.add(maps.teamToCat.get(team))
-          catArr.push({ value:maps.teamToCat.get(team), label:maps.teamToCat.get(team)})
+      for(let c of maps.teamToCat.get(team.toString())){
+        if(!uniqueCat.has(c)){
+          uniqueCat.add(c)
+          catArr.push({ value:c, label:c})
         }
       }
     })
