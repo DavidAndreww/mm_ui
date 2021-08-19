@@ -47,11 +47,12 @@ export const slicerMapCreation = (
 ) => {
   switch (queryNumber) {
     case 1:
-      /* 
-
-    
-    
-    */
+      let arr = []
+     console.log('IT sLICES',jsonSlicer)
+     jsonSlicer.forEach(obj => {
+      arr.push({ market: { value: obj.MARKET, label: obj.MARKET }, brand: { value: obj.BRAND, label: obj.BRAND } })
+     })
+     slicerCallback(arr)
       break
     // map for payer dimension
     case 2:

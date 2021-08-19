@@ -21,6 +21,7 @@ function App() {
   const [geoFilterArrays,setGeoFilterArrays] = useState()
   const [teamSlicersMaps,setTeamSlicersMaps] = useState()
   const [teamFilterArrays, setTeamFilterArrays] = useState()
+  const [brandMarketArrays, setBrandMarketArrays] = useState()
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
@@ -52,6 +53,7 @@ function App() {
       }).then(res => res.json()).then(jsonRes =>   {
         console.log(jsonRes)
         setLoader(false);
+        slicerMapCreation(1, jsonRes['brandMkt'], null, setBrandMarketArrays, brandMarketArrays)
         slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
         slicerMapCreation(3,jsonRes['catTeam'],null,setTeamSlicersMaps, teamSlicersMaps)
         slicerMapCreation(6,jsonRes['geoData'],jsonRes['terrmaptostate'],setGeoSlicerMaps,geoSlicerMaps)
@@ -84,7 +86,7 @@ function App() {
     } else {
       dimension = e.target.id
     }
-
+    
     if (dimension === 'engine') {
       values = e.value
     }
@@ -145,7 +147,7 @@ function App() {
             <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}/>
           </Grid> 
           <Grid item xs={2}>
-            <MarketFilter toggleParameters={toggleParameters} handleExecute={handleExecute}  />
+            <MarketFilter toggleParameters={toggleParameters} handleExecute={handleExecute} data={brandMarketArrays} />
           </Grid>   
           <Grid item xs={2}>
             <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />

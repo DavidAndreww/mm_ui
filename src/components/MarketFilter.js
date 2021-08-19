@@ -19,7 +19,7 @@ export const MarketFilter = ({ toggleParameters, data }) => {
       <ComponentHeader label={'Market Filter'}/>
       <ComponentBody>    
         <div className="component-body">
-            {/* <Dropdown label={'Market'} array={markets} callback={toggleParameters} /> */}
+            {/* <Dropdown label={'Market'} array={data.market} callback={toggleParameters} /> */}
             <Dropdown label={'Brand'} array={brands} callback={toggleParameters} />
         </div>    
       </ComponentBody>

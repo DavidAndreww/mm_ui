@@ -14,9 +14,11 @@ const queryGenerator = (params, queryNo) => {
    activeFilters.dateTwo = activeFilters.prevEndDate;
  }
 console.log('Active Filters', activeFilters)  
-
-let var_brand = JSON.stringify(activeFilters.brand);
-let var_market = JSON.stringify(activeFilters.market);
+      let brand = activeFilters.brand.split('-')[1].trim()
+      let market = activeFilters.market.split('-')[0].trim()
+      console.log(`brand ${brand}, market: ${market}`)
+let var_brand = JSON.stringify(brand);
+let var_market = JSON.stringify(market);
 let var_payer_entity = JSON.stringify(activeFilters.payerentity);
 let var_bob = JSON.stringify(activeFilters.bob);
 let var_enterprise = JSON.stringify(activeFilters.enterprise);
