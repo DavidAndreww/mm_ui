@@ -12,7 +12,7 @@ import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
 import { slicerMapCreation, parameterValidations, payerFilter, datetorow } from './helperFunctions';
 import theme from './theme/index';
-
+import { queries } from './sampleData';
 function App() {
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   const [timeSlicers, setTimeSlicers] = useState()
@@ -33,7 +33,7 @@ function App() {
     currEndDate: null,
     prevStartDate: null,
     prevEndDate: null,
-    engine: null,
+    engine: queries[0].value,
   });
   const [result, setResults] = useState({
     result: null

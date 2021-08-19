@@ -14,7 +14,7 @@ export const QueryEngine = ({ toggleParameters, handleExecute }) => {
       <ComponentBody>
        <div  className="component-body">
         <Select name='engine' value={queries.value} 
-          onChange={(e, name) => toggleParameters(e,name)} options={queries} defaultValue={queries[0]}  />           
+          onChange={(e, name) => toggleParameters(e,name)} options={queries} defaultValue={queries[0]} />           
         </div>  
       </ComponentBody>   
     </div>
