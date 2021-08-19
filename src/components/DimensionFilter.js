@@ -9,11 +9,11 @@ import ComponentBody from './ComponentBody';
 // import { enterprises } from '../sampleData';
 // import { bobs } from '../sampleData';
 // import { payers } from '../sampleData';
-import { regions } from '../sampleData';
-import { states } from '../sampleData';
-import { territories } from '../sampleData';
-import { categories } from '../sampleData';
-import { teams } from '../sampleData';
+// import { regions } from '../sampleData';
+// import { states } from '../sampleData';
+// import { territories } from '../sampleData';
+// import { categories } from '../sampleData';
+// import { teams } from '../sampleData';
 
 const Dropdown = ({ label, array, callback }) => {
   return (
@@ -24,7 +24,7 @@ const Dropdown = ({ label, array, callback }) => {
   )
 }
 
-export const DimensionFilter = ({ toggleParameters, payerFilterArrays, handleSelect, data }) => {
+export const DimensionFilter = ({ toggleParameters, payerFilterArrays, geoFilterArrays, teamFilterArrays, handleSelect, data }) => {
 
 const [readOnly,setReadOnly] = useState(false);
   const action = {
@@ -59,9 +59,9 @@ const [readOnly,setReadOnly] = useState(false);
               <Typography><b>Geo</b></Typography>
             </AccordionSummary>
             <div className="component-body">
-              <Dropdown label={'Region'} array={regions} callback={toggleParameters} />
-              <Dropdown label={'State'} array={states} callback={toggleParameters} />
-              <Dropdown label={'Territory'} array={territories} callback={toggleParameters} />  
+              <Dropdown label={'Region'} array={geoFilterArrays && geoFilterArrays.regions} callback={toggleParameters} />
+              <Dropdown label={'State'} array={geoFilterArrays && geoFilterArrays.states} callback={toggleParameters} />
+              <Dropdown label={'Territory'} array={geoFilterArrays && geoFilterArrays.territorys} callback={toggleParameters} />  
             </div>
           </Accordion>
           <Accordion>
@@ -69,8 +69,8 @@ const [readOnly,setReadOnly] = useState(false);
               <Typography><b>Team</b></Typography>
             </AccordionSummary>
             <div className="component-body">
-              <Dropdown label={'Category'} array={categories} callback={toggleParameters} />
-              <Dropdown label={'Team'} array={teams} callback={toggleParameters} />
+              <Dropdown label={'Category'} array={teamFilterArrays && teamFilterArrays.categories} callback={toggleParameters} />
+              <Dropdown label={'Team'} array={teamFilterArrays && teamFilterArrays.teamss} callback={toggleParameters} />
             </div>
           </Accordion>      
         </div>        
