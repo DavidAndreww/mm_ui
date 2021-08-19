@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import { useState, useEffect } from 'react'
-import {Grid} from '@material-ui/core';
+import {Grid,CircularProgress} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { DimensionFilter } from './components/DimensionFilter';
 import { TimeFilter } from './components/TimeFilter';
@@ -12,7 +12,7 @@ import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
 import { slicerMapCreation, parameterValidations, payerFilter, datetorow } from './helperFunctions';
 import theme from './theme/index';
-
+import { queries } from './sampleData';
 function App() {
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   const [timeSlicers, setTimeSlicers] = useState()
@@ -33,22 +33,30 @@ function App() {
     currEndDate: null,
     prevStartDate: null,
     prevEndDate: null,
-    engine: null,
+    engine: queries[0].value,
   });
   const [result, setResults] = useState({
     result: null
   })
 
+  const [loader,setLoader] = useState(true);
+
   useEffect(async() => {
-     await fetch('http://localhost:5000', {
+    setLoader(true);
+    await fetch('http://localhost:5000', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }).then(res => res.json()).then(jsonRes =>   {
         console.log(jsonRes)
+        setLoader(false);
         slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
         // slicerMapCreation(6,jsonRes['geoData'],jsonRes['terrmaptostate'],setGeoSlicerMaps,geoSlicerMaps)
         slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)
-      }).then(console.log(payerSlicerMaps));
+      }).then(console.log(payerSlicerMaps))
+      .catch((error) => {
+        setLoader(false);
+        console.error('Error:', error);
+      });
   },[1])
   
   // useEffect(async() => {
@@ -97,7 +105,7 @@ function App() {
 
   const handleExecute = () => {
     if (parameterValidations(parameters)) {
-      let url;
+      let url = 'http://localhost:5000/';
       if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
       if (parameters.engine === 'Snowflake') url = 'http://localhost:5000/'
 
@@ -116,8 +124,12 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div id='app'>
-        <Grid container spacing={1}>
+      <div id='app' className={loader ? '':'gray-bg'  }>        
+        {loader? 
+        <Grid  container className="loader">
+          <CircularProgress color="secondary" />
+        </Grid>
+        :(<div><Grid container spacing={1}>
           <Grid item xs={2}>
             <DimensionFilter toggleParameters={toggleParameters} payerFilterArrays={payerFilterArrays} handleSelect={handleExecute} data={parameters}/>            
           </Grid> 
@@ -131,7 +143,7 @@ function App() {
             <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
           </Grid>           
         </Grid>
-        <Grid container spacing={1}>
+          <Grid container spacing={1}>
           <Grid item xs={12}>            
             <ResultsGrid data={result.result}/>
           </Grid> 
@@ -141,7 +153,8 @@ function App() {
           <Grid item xs={6}>            
             <QueryMonitor />
           </Grid>            
-        </Grid>        
+        </Grid></div>) 
+        }
       </div>
     </ThemeProvider>
   );

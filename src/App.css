@@ -5,8 +5,16 @@
   font-size: 13px;
   padding: 8px;
   min-height: 100vh;
-  background-color: rgb(194, 194, 194);
   font-display: swap;
+}
+.gray-bg{
+  background-color: rgb(194, 194, 194);
+}
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 .content-area{
   height: 100vh;
