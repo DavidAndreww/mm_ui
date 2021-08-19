@@ -56,10 +56,10 @@ export const queries = [
   { value: "QE-2", label: 'QE-2' }
 ];
 
-// export const markets = [
-//   { value: "Neuroscience", label: 'Neuroscience' }
-// ];
+export const markets = [
+  { value: "Neuroscience", label: 'Neuroscience' }
+];
 
 export const brands = [
-  { value: "Neuroscience - PROZAC", label: 'Neuroscience - Prozac' }
+  { value: "PROZAC", label: 'Prozac' }
 ]
