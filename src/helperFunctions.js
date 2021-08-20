@@ -48,7 +48,6 @@ export const slicerMapCreation = (
   switch (queryNumber) {
     case 1:
       const marketToBrand = new Map()
-      // console.log('IT sLICES',jsonSlicer)
       for(let Objects in jsonSlicer){
         let mark = jsonSlicer[Objects]['MARKET']
         let br = jsonSlicer[Objects]['BRAND']
@@ -825,5 +824,39 @@ export const marketFilter = (maps,obj,stateBrandMarketArrays, setStateBrandMarke
       categories:marArr
     })
   }
-
 }
+
+export const parameterFormatter = (e, name, parameters, slicers) => {
+  let dimension;
+  let values;
+  if (name) {
+    dimension = name.name.split(' ').join('')
+  } else {
+    dimension = e.target.id
+  }
+  if (dimension === 'engine') {
+    values = e.value
+  }
+  else if (dimension === 'currStartDate'){
+    values = datetorow(dimension,e.target.value,slicers)
+  }
+  else if(dimension === 'currEndDate'){
+    values = datetorow(dimension,e.target.value,slicers)
+  }
+  else if(dimension === 'prevStartDate'){
+    values = datetorow(dimension,e.target.value,slicers)
+  }
+  else if(dimension === 'prevEndDate'){
+    values = datetorow(dimension,e.target.value,slicers)
+  }
+  else if (e.length !== undefined) {
+    values = e.map(val => {
+      return val.value
+    })
+  }
+   else {
+    values = e.target.value
+  }
+  return { ...parameters, [dimension]: values }
+}
+

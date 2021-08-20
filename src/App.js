@@ -10,9 +10,8 @@ import { MarketFilter } from './components/MarketFilter';
 import { SelectedFilter } from './components/SelectedFilter';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { slicerMapCreation, parameterValidations, payerFilter, datetorow, geoFilter,teamFilter, marketFilter } from './helperFunctions';
+import { slicerMapCreation, parameterValidations, payerFilter, parameterFormatter, geoFilter,teamFilter, marketFilter } from './helperFunctions';
 import theme from './theme/index';
-import { queries } from './sampleData';
 function App() {
   const [inProgressFlag, setInProgressFlag] = useState(false)
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
@@ -85,38 +84,7 @@ function App() {
   },[payerSlicerMaps, parameters])
   
   const toggleParameters = (e, name = null) => {
-
-    let dimension;
-    let values;
-    if (name) {
-      dimension = name.name.split(' ').join('')
-    } else {
-      dimension = e.target.id
-    }
-    if (dimension === 'engine') {
-      values = e.value
-    }
-    else if (dimension === 'currStartDate'){
-      values = datetorow(dimension,e.target.value,timeSlicers)
-    }
-    else if(dimension === 'currEndDate'){
-      values = datetorow(dimension,e.target.value,timeSlicers)
-    }
-    else if(dimension === 'prevStartDate'){
-      values = datetorow(dimension,e.target.value,timeSlicers)
-    }
-    else if(dimension === 'prevEndDate'){
-      values = datetorow(dimension,e.target.value,timeSlicers)
-    }
-    else if (e.length !== undefined) {
-      values = e.map(val => {
-        return val.value
-      })
-    }
-     else {
-      values = e.target.value
-    }
-    setParameters({ ...parameters, [dimension]: values })
+    setParameters(parameterFormatter(e, name, parameters, timeSlicers))
   }
   
   const handleExecute = () => {
