@@ -47,12 +47,19 @@ export const slicerMapCreation = (
 ) => {
   switch (queryNumber) {
     case 1:
-      let arr = []
-     console.log('IT sLICES',jsonSlicer)
-     jsonSlicer.forEach(obj => {
-      arr.push({ market: { value: obj.MARKET, label: obj.MARKET }, brand: { value: obj.BRAND, label: obj.BRAND } })
-     })
-     slicerCallback(arr)
+      const marketToBrand = new Map()
+      // console.log('IT sLICES',jsonSlicer)
+      for(let Objects in jsonSlicer){
+        let mark = jsonSlicer[Objects]['MARKET']
+        let br = jsonSlicer[Objects]['BRAND']
+        if(marketToBrand.has(mark)){
+          marketToBrand.get(mark).push(br)
+        }else{
+          marketToBrand.set(mark, [])
+          marketToBrand.get(mark).push(br)
+        }
+      }
+     slicerCallback({marketToBrand:marketToBrand})
       break
     // map for payer dimension
     case 2:
@@ -752,4 +759,71 @@ export const teamFilter = (maps, obj, stateTeamArrays, setStateTeamArrays) =>{
       categories:catArr
     })
   }
+}
+
+export const marketFilter = (maps,obj,stateBrandMarketArrays, setStateBrandMarketArrays) => {
+  if(maps === undefined || maps === null) {
+    return
+  }
+  if((obj.market === null || obj.market.length <1) && (obj.brand === null || obj.brand.length < 1)){
+    let markets = []
+    let brands = []
+    let uniqueMar = new Set();
+    let uniqueBr = new Set();
+
+    for(let mar of maps.marketToBrand.keys()){
+      if(uniqueMar.has(mar)){
+      }else{
+        uniqueMar.add(mar)
+        markets.push({ value:mar, label:mar })
+      }
+      for(let br of maps.marketToBrand.get(mar).keys()){
+        if(uniqueBr.has(br)){
+        }else{
+          uniqueBr.add(br)
+          brands.push({ value: maps.marketToBrand.get(mar)[br], label: maps.marketToBrand.get(mar)[br]})
+        }
+      }
+    }
+    
+    setStateBrandMarketArrays ({
+      markets:markets,
+      brands:brands
+    })
+  }
+  //Case when user selects Market
+  else if(obj.market && (obj.brand === null || obj.brand.length < 1)){
+    let brArr = []
+    let uniqueBr = new Set();
+    obj.market.forEach(market => {
+      for(let br of maps.marketToBrand.get(market.toString())){
+        if(!uniqueBr.has(br)){
+          uniqueBr.add(br)
+          brArr.push({ value:br, label:br})
+        }
+      }
+    })
+    setStateBrandMarketArrays ({
+      ...stateBrandMarketArrays,
+      brands:brArr
+    })
+  }
+  // When User selects brand
+  else if((obj.market === null || obj.market.length <1) && obj.brand){
+    let marArr = []
+    let uniqueMar = new Set();
+    obj.brand.forEach(brand => {
+      for(let mar of maps.marketToBrand.get(brand.toString())){
+        if(!uniqueMar.has(mar)){
+          uniqueMar.add(mar)
+          marArr.push({ value:mar, label:mar})
+        }
+      }
+    })
+    setStateBrandMarketArrays({
+      ...stateBrandMarketArrays,
+      categories:marArr
+    })
+  }
+
 }
