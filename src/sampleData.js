@@ -57,7 +57,7 @@ export const queries = [
 ];
 
 export const markets = [
-  { value: "Neuroscience", label: 'Neuroscience' }
+  { value: "Neuroscience - PROZAC", label: 'Neuroscience - PROZAC' }
 ];
 
 export const brands = [

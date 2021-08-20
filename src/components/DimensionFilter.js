@@ -6,14 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { ComponentHeader } from './ComponentHeader';
 import ComponentBody from './ComponentBody';
-// import { enterprises } from '../sampleData';
-// import { bobs } from '../sampleData';
-// import { payers } from '../sampleData';
-// import { regions } from '../sampleData';
-// import { states } from '../sampleData';
-// import { territories } from '../sampleData';
-// import { categories } from '../sampleData';
-// import { teams } from '../sampleData';
 
 const Dropdown = ({ label, array, callback }) => {
   return (

@@ -10,7 +10,7 @@ import { MarketFilter } from './components/MarketFilter';
 import { SelectedFilter } from './components/SelectedFilter';
 import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
-import { slicerMapCreation, parameterValidations, payerFilter, datetorow, geoFilter,teamFilter } from './helperFunctions';
+import { slicerMapCreation, parameterValidations, payerFilter, datetorow, geoFilter,teamFilter, marketFilter } from './helperFunctions';
 import theme from './theme/index';
 import { queries } from './sampleData';
 function App() {
@@ -21,7 +21,8 @@ function App() {
   const [geoFilterArrays,setGeoFilterArrays] = useState()
   const [teamSlicersMaps,setTeamSlicersMaps] = useState()
   const [teamFilterArrays, setTeamFilterArrays] = useState()
-  const [brandMarketArrays, setBrandMarketArrays] = useState()
+  const [brandMarketSlicers, setBrandMarketSlicers] = useState()
+  const [brandMarketFilterArrays,setBrandMarketFilterArrays] = useState()
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
@@ -53,7 +54,7 @@ function App() {
       }).then(res => res.json()).then(jsonRes =>   {
         console.log(jsonRes)
         setLoader(false);
-        slicerMapCreation(1, jsonRes['brandMkt'], null, setBrandMarketArrays, brandMarketArrays)
+        slicerMapCreation(1, jsonRes['brandMkt'], null, setBrandMarketSlicers, brandMarketSlicers)
         slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
         slicerMapCreation(3,jsonRes['catTeam'],null,setTeamSlicersMaps, teamSlicersMaps)
         slicerMapCreation(6,jsonRes['geoData'],jsonRes['terrmaptostate'],setGeoSlicerMaps,geoSlicerMaps)
@@ -65,6 +66,10 @@ function App() {
       });
   },[1])
   
+  useEffect(async() => {
+    marketFilter(brandMarketSlicers, parameters, brandMarketFilterArrays, setBrandMarketFilterArrays);
+  },[teamSlicersMaps, parameters])
+
   useEffect(async() => {
     teamFilter(teamSlicersMaps, parameters, teamFilterArrays, setTeamFilterArrays);
   },[teamSlicersMaps, parameters])
@@ -112,7 +117,7 @@ function App() {
     }
     setParameters({ ...parameters, [dimension]: values })
   }
-
+  console.log(timeSlicers)
   const handleExecute = () => {
     if (parameterValidations(parameters)) {
       let url = 'http://localhost:5000/';
@@ -147,7 +152,7 @@ function App() {
             <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}/>
           </Grid> 
           <Grid item xs={2}>
-            <MarketFilter toggleParameters={toggleParameters} handleExecute={handleExecute} data={brandMarketArrays} />
+            <MarketFilter toggleParameters={toggleParameters} brandMarketFilterArrays={brandMarketFilterArrays} handleExecute={handleExecute} data={parameters}/>
           </Grid>   
           <Grid item xs={2}>
             <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
