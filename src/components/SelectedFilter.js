@@ -3,7 +3,7 @@ import { ComponentHeader } from './ComponentHeader';
 import ComponentBody from './ComponentBody';
 export const SelectedFilter = ({data}) => {
   return (
-    <div id='selected-filter' className='component-boundary'>
+    <div id='selected-filter' className='component-boundary query-filter' style={{height:'200px'}}>
       <ComponentHeader label={'Selected Filters'}/>
       <ComponentBody>
         <div className="selection-filter">  

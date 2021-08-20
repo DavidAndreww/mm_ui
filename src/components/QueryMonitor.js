@@ -5,12 +5,12 @@ import ComponentBody from './ComponentBody';
 
 export const QueryMonitor = ({data}) => {
   return (
-    <div id='query-monitor' className='component-boundary query-filter'>
+    <div id='query-monitor' className='component-boundary query-filter' style={{height:'200px'}}>
       <ComponentHeader label={'Query History'}/>
       <ComponentBody>
         {data && 
           data.map(hist => {
-            return  <div key={hist.id} className='selection-filter' >
+            return  <div key={hist.id} className='selection-filter'>
             { hist.id && (<div className="filter-item"><label>Query ID:</label> {hist.id} </div>) }
             { hist.timestamp && (<div className="filter-item"><label>Timestamp:</label> {hist.timestamp} </div>) }
             { hist.runtime && (<div className="filter-item"><label>Runtime:</label> {hist.runtime}s </div>) }

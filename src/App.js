@@ -115,7 +115,7 @@ function App() {
         let runtimes = (endTimeStamp.getTime() - currTimeStamp.getTime())/1000;
         const newQueryHist = {id:id,timestamp:currTimeStamp.toString(),parameters:param,runtime:runtimes}
         setQueryMonitorData([...queryMonitorData, newQueryHist])
-
+        
         setResults({ result: json })
         setInProgressFlag(false)
       })

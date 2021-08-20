@@ -121,3 +121,6 @@
   margin-bottom: 8px;
 }
 
+.query-filter{
+  overflow: auto;
+}

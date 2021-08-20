@@ -22,10 +22,7 @@ export const MarketFilter = ({ toggleParameters, brandMarketFilterArrays, handle
       setReadOnly(!readOnly)
     }
   }
-
-  if (data!==null){
-    console.log(data)
-  }
+  
   return (
     <div id='market-filter'>
       <ComponentHeader label={'Market Filter'}/>
