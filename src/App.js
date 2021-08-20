@@ -128,16 +128,12 @@ function App() {
       let url = 'http://localhost:5000/';
       if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
       if (parameters.engine === 'Snowflake L2') url = 'http://localhost:5000/'
-<<<<<<< HEAD
       setInProgressFlag(true)
-=======
-
       let id = queryMonitorData.length > 0 ? queryMonitorData[queryMonitorData.length-1].id + 1: 1;
       let currTimeStamp = new Date();
       let param = parameters;
       let endTimeStamp;
 
->>>>>>> 400634ad23eef9f856ca1a32c1e017942ff11db7
       fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
