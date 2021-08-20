@@ -11,10 +11,10 @@ const queryGenerator = (params, queryNo) => {
     activeFilters.dateTwo = activeFilters.currEndDate;
  } else if (queryNo === 2) {
   //  Uncomment this part when timefilter starts working
-  //  activeFilters.dateOne = activeFilters.prevStartDate;
-  //  activeFilters.dateTwo = activeFilters.prevEndDate;
-  activeFilters.dateOne = 374;
-  activeFilters.dateTwo = 376;
+   activeFilters.dateOne = activeFilters.prevStartDate;
+   activeFilters.dateTwo = activeFilters.prevEndDate;
+  // activeFilters.dateOne = 374;
+  // activeFilters.dateTwo = 376;
  }
 console.log('Active Filters', activeFilters)  
 

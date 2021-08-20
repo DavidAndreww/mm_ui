@@ -27,7 +27,9 @@ const [readOnly,setReadOnly] = useState(false);
       setReadOnly(!readOnly)
     }
   }
-
+  if(data){
+    console.log(data)
+  }
   return (
     <div id='dimension-filter'>
       <ComponentHeader label={'Dimension Filter'}/>

@@ -19,22 +19,22 @@ export const parameterValidations = (parameters) => {
     return false
   }
   // ensures user has selected a current date range
-  // if (parameters.currStartDate === null || parameters.currEndDate === null) {
-  //   window.alert('Please select a valid date range for current period')
-  //   return false
-  // }
-  // // ensures user has selected both 'prev' date ranges if one has been selected
-  // if (parameters.prevStartDate !== null) {
-  //   if (parameters.prevEndDate === null) {
-  //     window.alert('Please select a valid date range for prior period')
-  //     return false
-  //   }
-  // } else if (parameters.prevStartDate === null) {
-  //   if (parameters.prevEndDate !== null) {
-  //     window.alert('Please select a valid date range for prior period')
-  //     return false
-  //   }
-  // }
+  if (parameters.currStartDate === null || parameters.currEndDate === null) {
+    window.alert('Please select a valid date range for current period')
+    return false
+  }
+  // ensures user has selected both 'prev' date ranges if one has been selected
+  if (parameters.prevStartDate !== null) {
+    if (parameters.prevEndDate === null) {
+      window.alert('Please select a valid date range for prior period')
+      return false
+    }
+  } else if (parameters.prevStartDate === null) {
+    if (parameters.prevEndDate !== null) {
+      window.alert('Please select a valid date range for prior period')
+      return false
+    }
+  }
   return true
 }
 
