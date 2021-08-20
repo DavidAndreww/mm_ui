@@ -46,10 +46,10 @@
   min-height:192px;
 }
 .margin-right{
-  margin-right:15px;
+  margin-right:40px;
 }
 .lbl-time-filter{
-  margin-bottom:12px;
+  margin-bottom:24px;
 }
 .time-container {
   width: calc(100% + 16px);
@@ -58,9 +58,19 @@
 }
 .date-picker{
   border:1px solid rgb(212, 212, 212);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
-
+.react-datepicker-wrapper {
+    display: block !important;
+    padding: 0;
+    border: 0;
+    width:30%
+}
+.react-datepicker__input-container {
+    position: relative;
+    display: inline-block;
+    width: 35% !important;
+}
 #date-alignment{
   width: calc(100% + 16px);
   margin: 2px;
@@ -110,3 +120,4 @@
   padding: 0px;
   margin-bottom: 8px;
 }
+
