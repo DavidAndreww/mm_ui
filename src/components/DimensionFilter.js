@@ -28,9 +28,6 @@ const [readOnly,setReadOnly] = useState(false);
     }
   }
 
-  if (data!==null){
-    console.log(data)
-  }
   return (
     <div id='dimension-filter'>
       <ComponentHeader label={'Dimension Filter'}/>
