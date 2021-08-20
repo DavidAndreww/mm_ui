@@ -14,6 +14,7 @@ import { slicerMapCreation, parameterValidations, payerFilter, datetorow, geoFil
 import theme from './theme/index';
 import { queries } from './sampleData';
 function App() {
+  const [inProgressFlag, setInProgressFlag] = useState(false)
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
   const [timeSlicers, setTimeSlicers] = useState()
   const [payerFilterArrays, setPayerFilterArrays] = useState()
@@ -23,6 +24,7 @@ function App() {
   const [teamFilterArrays, setTeamFilterArrays] = useState()
   const [brandMarketSlicers, setBrandMarketSlicers] = useState()
   const [brandMarketFilterArrays,setBrandMarketFilterArrays] = useState()
+  const [queryMonitorData, setQueryMonitorData] = useState([])
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
@@ -38,7 +40,7 @@ function App() {
     currEndDate: null,
     prevStartDate: null,
     prevEndDate: null,
-    engine: queries[0].value,
+    engine: 'Snowflake L2',
   });
   const [result, setResults] = useState({
     result: null
@@ -91,7 +93,6 @@ function App() {
     } else {
       dimension = e.target.id
     }
-    
     if (dimension === 'engine') {
       values = e.value
     }
@@ -117,12 +118,21 @@ function App() {
     }
     setParameters({ ...parameters, [dimension]: values })
   }
-  console.log(timeSlicers)
+  
   const handleExecute = () => {
     if (parameterValidations(parameters)) {
+      if (inProgressFlag === true) {
+        window.alert('Cannot execute multiple queries at once...')
+        return
+      }
       let url = 'http://localhost:5000/';
       if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
       if (parameters.engine === 'Snowflake L2') url = 'http://localhost:5000/'
+      setInProgressFlag(true)
+      let id = queryMonitorData.length > 0 ? queryMonitorData[queryMonitorData.length-1].id + 1: 1;
+      let currTimeStamp = new Date();
+      let param = parameters;
+      let endTimeStamp;
 
       fetch(url, {
         method: 'POST',
@@ -132,7 +142,14 @@ function App() {
         })
       }).then(res => res.json()).then(json => {
         console.log('JSON: ', json)
+
+        endTimeStamp = new Date();
+        let runtimes = (endTimeStamp.getTime() - currTimeStamp.getTime())/1000;
+        const newQueryHist = {id:id,timestamp:currTimeStamp.toString(),parameters:param,runtime:runtimes}
+        setQueryMonitorData([...queryMonitorData, newQueryHist])
+
         setResults({ result: json })
+        setInProgressFlag(false)
       })
     }
   }
@@ -166,7 +183,7 @@ function App() {
             <SelectedFilter data={parameters}/>
           </Grid> 
           <Grid item xs={6}>            
-            <QueryMonitor />
+            <QueryMonitor data={queryMonitorData} />
           </Grid>            
         </Grid></div>) 
         }
