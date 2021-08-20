@@ -15,9 +15,6 @@ const Dropdown = ({ label, array, callback }) => {
 }
 
 export const MarketFilter = ({ toggleParameters, data }) => {
-  if (data) {
-    console.log('MARKET FILTER DATA', data)
-  }
   return (
     <div id='market-filter'>
       <ComponentHeader label={'Market Filter'}/>

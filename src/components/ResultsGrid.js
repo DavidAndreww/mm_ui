@@ -4,7 +4,6 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { ColumnHeaders } from './ColumnHeaders';
 import { GridRows } from './GridRows'
-// import { Column } from 'ag-grid-community';
 
 export const ResultsGrid = ({data}) => {
   const onGridReady = params => {
@@ -16,14 +15,6 @@ export const ResultsGrid = ({data}) => {
       .map(col => col.getColId());
     params.columnApi.autoSizeColumns(colIds);
   };
-
-  // const [gridOptions] = React.useState({
-  //     defaultColDef: {
-  //         resizable: true,
-  //     },
-  //     columnDefs: ColumnHeaders(data),
-  //     rowData: GridRow(data)
-  // }); 
 
   const gridOptions = {
     defaultColDef: { resizable: true },

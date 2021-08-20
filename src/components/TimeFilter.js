@@ -46,7 +46,6 @@ export const TimeFilter = ({ toggleParameters, timeSlicers }) => {
                     <input type='date' id='prevStartDate' className='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} /><br />
                     <label style={{ marginRight: '11px' }}>Prev End Date:</label>
                     <input type='date' id='prevEndDate' className='date-picker' min='2018-01-01' max='2021-07-28' onChange={(e) => toggleParameters(e)} />
-                    
                 </Grid>}
               </Grid>
           </Grid>

@@ -1,7 +1,7 @@
 export const ColumnHeaders = (data = null) => {
   if (data === null) {
     return []
-  } else if (data['current'] && data['previous'] === null) {
+  } else if (data['current'] || data['previous'] === undefined) {
     return [
       { headerName: 'Payer', field: 'payer' },
         { headerName: 'Enterprise - Ben Type', field: 'enterpriseBenType' },
