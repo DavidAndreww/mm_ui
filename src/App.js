@@ -12,7 +12,6 @@ import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
 import { slicerMapCreation, parameterValidations, payerFilter, parameterFormatter, geoFilter,teamFilter, marketFilter } from './helperFunctions';
 import theme from './theme/index';
-import { queries } from './sampleData';
 function App() {
   const [inProgressFlag, setInProgressFlag] = useState(false)
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
