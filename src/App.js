@@ -53,7 +53,6 @@ function App() {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }).then(res => res.json()).then(jsonRes =>   {
-        console.log(jsonRes)
         setLoader(false);
         slicerMapCreation(1, jsonRes['brandMkt'], null, setBrandMarketSlicers, brandMarketSlicers)
         slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
@@ -134,7 +133,7 @@ function App() {
             <DimensionFilter toggleParameters={toggleParameters} teamFilterArrays={teamFilterArrays} geoFilterArrays={geoFilterArrays} payerFilterArrays={payerFilterArrays} handleSelect={handleExecute} data={parameters}/>            
           </Grid> 
            <Grid item xs={6}>
-            <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}/>
+            <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}  data={parameters}/>
           </Grid> 
           <Grid item xs={2}>
             <MarketFilter toggleParameters={toggleParameters} brandMarketFilterArrays={brandMarketFilterArrays} handleExecute={handleExecute} data={parameters}/>
