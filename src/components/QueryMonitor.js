@@ -5,7 +5,7 @@ import ComponentBody from './ComponentBody';
 
 export const QueryMonitor = ({data}) => {
   return (
-    <div id='query-monitor' className='component-boundary query-filter' style={{height:'200px'}}>
+    <div id='query-monitor' className='component-boundary scroll-filter' style={{height:'200px'}}>
       <ComponentHeader label={'Query History'}/>
       <ComponentBody>
         {data && 
