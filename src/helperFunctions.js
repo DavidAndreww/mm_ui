@@ -755,7 +755,7 @@ export const marketFilter = (maps,obj,stateBrandMarketArrays, setStateBrandMarke
   if(maps === undefined || maps === null) {
     return
   }
-  if((obj.market === null || obj.market.length <1) && (obj.brand === null || obj.brand.length < 1)){
+  if((obj.market === null || obj.market.length <1)){
     let markets = []
     let brands = []
     let uniqueMar = new Set();
@@ -832,7 +832,6 @@ export const parameterFormatter = (e, data, parameters, slicers, brandMarketFilt
     if (data) {
         dimension = data.name.split(' ').join('')
         if(dimension === 'market'){
-          console.log(brandMarketFilterArrays.brands[0].value)
           parameters.brand = [brandMarketFilterArrays.brands[0].value]
         }
       } else {

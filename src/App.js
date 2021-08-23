@@ -56,6 +56,7 @@ function App() {
         setLoader(false);
         slicerMapCreation(1, jsonRes['brandMkt'], null, setBrandMarketSlicers, brandMarketSlicers)
         slicerMapCreation(4, jsonRes['timePer'], null, setTimeSlicers, timeSlicers)
+        
         slicerMapCreation(3,jsonRes['catTeam'],null,setTeamSlicersMaps, teamSlicersMaps)
         slicerMapCreation(6,jsonRes['geoData'],jsonRes['terrmaptostate'],setGeoSlicerMaps,geoSlicerMaps)
         slicerMapCreation(2,jsonRes["payerData"],jsonRes["PayerMapToBob"], setPayerSlicerMaps,payerSlicerMaps)
@@ -68,6 +69,7 @@ function App() {
   
   useEffect(async() => {
     marketFilter(brandMarketSlicers, parameters, brandMarketFilterArrays, setBrandMarketFilterArrays);
+    // setParameters({...parameters, brand:[brandMarketFilterArrays.brands[0].value]})
   },[brandMarketSlicers,parameters])
 
   useEffect(async() => {
@@ -84,8 +86,8 @@ function App() {
   
   const toggleParameters = (e, name = null) => {
     setParameters(parameterFormatter(e, name, parameters, timeSlicers,brandMarketFilterArrays))
+    // console.log('Time',timeSlicers)
   }
-  
   const handleExecute = () => {
     if (parameterValidations(parameters)) {
       if (inProgressFlag === true) {
@@ -95,8 +97,9 @@ function App() {
       let url = 'http://localhost:5000/';
       if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
       if (parameters.engine === 'Snowflake L2') url = 'http://localhost:5000/'
-      console.log('param',parameters)
+      
       setInProgressFlag(true)
+      
       let id = queryMonitorData.length > 0 ? queryMonitorData[queryMonitorData.length-1].id + 1: 1;
       let currTimeStamp = new Date();
       let param = parameters;
@@ -113,7 +116,7 @@ function App() {
 
         endTimeStamp = new Date();
         let runtimes = (endTimeStamp.getTime() - currTimeStamp.getTime())/1000;
-        const newQueryHist = {id:id,timestamp:currTimeStamp.toString(),parameters:param,runtime:runtimes}
+        const newQueryHist = {id:id,timestamp:currTimeStamp.toLocaleString(),parameters:param,runtime:runtimes}
         setQueryMonitorData([...queryMonitorData, newQueryHist])
         window.alert('Results are here')
         setResults({ result: json })

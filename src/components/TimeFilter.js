@@ -35,7 +35,7 @@ export const TimeFilter = ({ toggleParameters, timeSlicers,data }) => {
       includedendDates.sort((a, b) => b - a)
     }else{
       timeSlicers.splitWeekEnd.forEach((val, key) => {
-        console.log(data.currStartDate,val)
+        
         if(data.currStartDate === val){
           includedendDates.push(Date.parse(key));
         }
