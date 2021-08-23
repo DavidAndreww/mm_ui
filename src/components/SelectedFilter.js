@@ -8,7 +8,7 @@ export const SelectedFilter = ({data}) => {
       <ComponentBody>
         <div className="selection-filter">  
           { data?data.market && (<div className="filter-item"><label>Market:</label> {data?data.market.join(", "):null}</div>):null}
-          { data?data.brand && (<div className="filter-item"><label>Brand:</label> {data?data.brand.join(", "):null}</div>):null}             
+          {/* { data?data.brand && (<div className="filter-item"><label>Brand:</label> {data?data.brand.join(", "):null}</div>):null}              */}
           { data?data.enterprise && (<div className="filter-item"><label>Enterprise:</label> {data?data.enterprise.join(", "):null}</div>):null}
           { data?data.bob && (<div className="filter-item"><label>BOB:</label> {data?data.bob.join(", "):null}</div>):null}
           { data?data.payerentity && (<div className="filter-item"><label>Payer Entity:</label> {data?data.payerentity.join(", "):null}</div>):null}
