@@ -670,22 +670,13 @@ export const geoFilter = (maps, obj, stateGeoArrays, setStateGeoArrays) => {
   }
   
 export const datetorow = (dim,obj, maps) => {
-  if (dim === 'currStartDate'){
+  if (['currStartDate','prevStartDate'].includes(dim)){
     if(maps.splitWeekStart.has(obj)){
+      console.log(maps.splitWeekStart)
       return maps.splitWeekStart.get(obj)
     }
   }
-  else if (dim === 'currEndDate'){
-    if(maps.splitWeekEnd.has(obj)){
-      return maps.splitWeekEnd.get(obj)
-    }
-  }
-  else if (dim === 'prevStartDate'){
-    if(maps.splitWeekStart.has(obj)){
-      return maps.splitWeekStart.get(obj)
-    }
-  }
-  else if (dim === 'prevEndDate'){
+  else if (['currEndDate','prevEndDate'].includes(dim)){
     if(maps.splitWeekEnd.has(obj)){
       return maps.splitWeekEnd.get(obj)
     }
@@ -826,37 +817,31 @@ export const marketFilter = (maps,obj,stateBrandMarketArrays, setStateBrandMarke
   }
 }
 
-export const parameterFormatter = (e, name, parameters, slicers) => {
+export const parameterFormatter = (e, data, parameters, slicers) => {
   let dimension;
   let values;
-  if (name) {
-    dimension = name.name.split(' ').join('')
-  } else {
-    dimension = e.target.id
-  }
-  if (dimension === 'engine') {
-    values = e.value
-  }
-  else if (dimension === 'currStartDate'){
-    values = datetorow(dimension,e.target.value,slicers)
-  }
-  else if(dimension === 'currEndDate'){
-    values = datetorow(dimension,e.target.value,slicers)
-  }
-  else if(dimension === 'prevStartDate'){
-    values = datetorow(dimension,e.target.value,slicers)
-  }
-  else if(dimension === 'prevEndDate'){
-    values = datetorow(dimension,e.target.value,slicers)
-  }
-  else if (e.length !== undefined) {
-    values = e.map(val => {
-      return val.value
-    })
-  }
-   else {
-    values = e.target.value
-  }
+  const filterDatePicker = ['currStartDate','currEndDate','prevStartDate','prevEndDate'];
+  if(filterDatePicker.includes(data.name)){
+    dimension = data.name;
+    values = datetorow(dimension,data.value,slicers);
+  }else{
+    if (data) {
+        dimension = data.name.split(' ').join('')
+      } else {
+        dimension = e.target.id
+      }
+      if (dimension === 'engine') {
+        values = e.value
+      }
+      else if (e.length !== undefined) {
+        values = e.map(val => {
+          return val.value
+        })
+      }
+      else {
+        values = e.target.value
+      }
+  }  
   return { ...parameters, [dimension]: values }
 }
 

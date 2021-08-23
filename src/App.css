@@ -46,19 +46,27 @@
   min-height:192px;
 }
 .margin-right{
-  margin-right:40px;
+   margin-bottom:8px;
 }
 .lbl-time-filter{
-  margin-bottom:24px;
-}
+  margin-bottom:8px;
+} 
 .time-container {
   width: calc(100% + 16px);
   margin: 0px;
   padding:10px;
 }
+.date-wrapper{
+  display: inline-flex;
+  width: 50%;
+}
+.date-wrapper .date-label{
+  width: 165px;
+}
 .date-picker{
   border:1px solid rgb(212, 212, 212);
   margin-bottom: 8px;
+
 }
 .react-datepicker-wrapper {
     display: block !important;
