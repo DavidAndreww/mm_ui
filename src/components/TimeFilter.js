@@ -35,7 +35,10 @@ export const TimeFilter = ({ toggleParameters, timeSlicers,data }) => {
       includedendDates.sort((a, b) => b - a)
     }else{
       timeSlicers.splitWeekEnd.forEach((val, key) => {
+<<<<<<< HEAD
         
+=======
+>>>>>>> cffb15d6064030cb15ba6a06d0befbcd942d14d8
         if(data.currStartDate === val){
           includedendDates.push(Date.parse(key));
         }
@@ -66,7 +69,7 @@ export const TimeFilter = ({ toggleParameters, timeSlicers,data }) => {
               <Grid item style={{width:'100%',marginLeft: '10px',paddingRight:0}} >      
                   <div className='date-wrapper'>
                     <label style={{ marginRight: '5px'}} className='date-label'>Current Start Date:</label>
-                    <DatePicker  dateFormat="yyyy-MM-dd" 
+                    <DatePicker  dateFormat="yyyy-MM-dd" className='date-picker'
                     onChange={(date) => handleDatePicker(date,'currStartDate')} selected={date.currStartDate} includeDates={includedstartDates} />
                    </div>
                    <div className='date-wrapper'>
@@ -80,11 +83,11 @@ export const TimeFilter = ({ toggleParameters, timeSlicers,data }) => {
                       <div className='date-wrapper'>
                         <label style={{ marginRight: '5px' }} className='date-label'>Prev Start Date:</label>
                         <DatePicker dateFormat="yyyy-MM-dd"  className='date-picker' 
-                          onChange={(date) => handleDatePicker(date,'prevStartDate')} selected={date.prevStartDate}/>
+                          onChange={(date) => handleDatePicker(date,'prevStartDate')} selected={date.prevStartDate} includeDates={includedstartDates}/>
                       </div>
                       <div className='date-wrapper'>
                         <label style={{ marginRight: '11px' }} className='date-label'>Prev End Date:</label>
-                        <DatePicker dateFormat="yyyy-MM-dd" className='date-picker' onChange={(date) => handleDatePicker(date,'prevEndDate')} selected={date.prevEndDate}/>
+                        <DatePicker dateFormat="yyyy-MM-dd" className='date-picker' onChange={(date) => handleDatePicker(date,'prevEndDate')} selected={date.prevEndDate} includeDates={includedendDates}/>
                     </div>
                 </Grid>}
               </Grid>

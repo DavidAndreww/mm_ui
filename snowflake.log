@@ -122,6 +122,7 @@
 {"message":"[1:50:53.5053 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
 {"message":"[12:15:34.1534 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
 {"message":"[12:15:34.1534 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
+<<<<<<< HEAD
 {"message":"[3:40:56.4056 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
 {"message":"[3:40:56.4056 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
 {"message":"[3:40:58.4058 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
@@ -289,3 +290,7 @@
 {"message":"[4:09:49.949 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
 {"message":"[4:09:51.951 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
 {"message":"[4:09:51.951 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
+=======
+{"message":"[9:50:52.5052 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
+{"message":"[9:55:36.5536 PM]: WARNING!!! using fail-open to connect. Driver is connecting to an HTTPS endpoint without OCSP based Certificated Revocation checking as it could not obtain a valid OCSP Response to use from the CA OCSP responder. Details:","level":"INFO"}
+>>>>>>> cffb15d6064030cb15ba6a06d0befbcd942d14d8
