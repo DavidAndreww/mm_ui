@@ -1,22 +1,29 @@
-export const QueryGridRows = (data = null) => {
+export const QueryGridRows = (data = null, date = null) => {
     let dataSet = []
-    if (data === null || data === undefined){
+    if (data === null || data === undefined || date === null || date === undefined){
 
     }else{
-        for (let i = 0; i < data.length; i++){
+        for (let i = data.length-1; i >= 0; i--){
             let paramArr = []
-            for (const [key,val] of Object.entries(data[data.length-i-1].parameters)){
-                if(val === null || key === 'engine'){
-                }else {
+            for (const [key,val] of Object.entries(data[i].parameters)){
+                if(val === null || val === [] || key === 'engine' || key === 'brand' || key === 'currStartDate' || key === 'currEndDate' || key === 'prevStartDate' || key === 'prevEndDate'){
+                }else{
                     paramArr.push(val)
                 }
             }
+            for (const [key,val] of Object.entries(date)){
+                if(val === null ||  val === undefined){
+                }else{
+                    paramArr.push(val)
+                }
+            }
+            console.log('i',i,'paramArr',paramArr)
             let row = {
-                id: data[data.length-i-1].id,
-                timestamp: data[data.length-i-1].timestamp,
-                runtime: data[data.length-i-1].runtime,
+                id: data[i].id,
+                timestamp: data[i].timestamp,
+                runtime: data[i].runtime,
                 parameters:paramArr,
-                engine:data[data.length-i-1].parameters.engine
+                engine:data[i].parameters.engine
             }
             dataSet.push(row)
         }

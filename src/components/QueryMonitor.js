@@ -8,7 +8,7 @@ import { QueryColumnHeaders } from './QueryColumnHeaders';
 import { QueryGridRows } from './QueryGridRows';
 
 
-export const QueryMonitor = ({data}) => {
+export const QueryMonitor = ({data, date}) => {
   const onGridReady = params => {
     params.api.sizeColumnsToFit();
   };
@@ -21,7 +21,7 @@ export const QueryMonitor = ({data}) => {
   const gridOptions = {
     defaultColDef: { resizable: true },
     columnDefs: QueryColumnHeaders(data),
-    rowData: QueryGridRows(data)
+    rowData: QueryGridRows(data,date)
   }
 
   return (

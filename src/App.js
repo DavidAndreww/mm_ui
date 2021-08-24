@@ -12,6 +12,8 @@ import { QueryEngine } from './components/QueryEngine'
 import { ResultsGrid } from './components/ResultsGrid'
 import { slicerMapCreation, parameterValidations, payerFilter, parameterFormatter, geoFilter,teamFilter, marketFilter } from './helperFunctions';
 import theme from './theme/index';
+
+
 function App() {
   const [inProgressFlag, setInProgressFlag] = useState(false)
   const [payerSlicerMaps,setPayerSlicerMaps] = useState()
@@ -24,6 +26,12 @@ function App() {
   const [brandMarketSlicers, setBrandMarketSlicers] = useState()
   const [brandMarketFilterArrays,setBrandMarketFilterArrays] = useState()
   const [queryMonitorData, setQueryMonitorData] = useState([])
+  const [date,setDate] = useState({
+    currStartDate: null,
+    currEndDate: null,
+    prevStartDate: null,
+    prevEndDate: null,
+  })
   const [parameters, setParameters] = useState({
     market: null,
     brand: null,
@@ -85,15 +93,11 @@ function App() {
   },[payerSlicerMaps, parameters])
   
   const toggleParameters = (e, name = null) => {
+    setDate({...date , [name.name]:name.value})
     setParameters(parameterFormatter(e, name, parameters, timeSlicers,brandMarketFilterArrays))
-    // console.log('Time',timeSlicers)
   }
   const handleExecute = () => {
     if (parameterValidations(parameters)) {
-      if (inProgressFlag === true) {
-        window.alert('Cannot execute multiple queries at once...')
-        return
-      }
       let url = 'http://localhost:5000/';
       if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
       if (parameters.engine === 'Snowflake L2') url = 'http://localhost:5000/'
@@ -104,6 +108,9 @@ function App() {
       let currTimeStamp = new Date();
       let param = parameters;
       let endTimeStamp;
+      
+      const newQueryHist = {id:id,timestamp:currTimeStamp.toLocaleString(),parameters:param,runtime:'Calculating...'}
+      setQueryMonitorData([...queryMonitorData, newQueryHist])
 
       fetch(url, {
         method: 'POST',
@@ -113,12 +120,10 @@ function App() {
         })
       }).then(res => res.json()).then(json => {
         console.log('JSON: ', json)
-
         endTimeStamp = new Date();
         let runtimes = (endTimeStamp.getTime() - currTimeStamp.getTime())/1000;
         const newQueryHist = {id:id,timestamp:currTimeStamp.toLocaleString(),parameters:param,runtime:runtimes}
         setQueryMonitorData([...queryMonitorData, newQueryHist])
-        window.alert('Results are here')
         setResults({ result: json })
         setInProgressFlag(false)
       })
@@ -133,30 +138,30 @@ function App() {
           <CircularProgress color="secondary" />
         </Grid>
         :(<div><Grid container spacing={1}>
-          <Grid item xs={2}>
-            <DimensionFilter toggleParameters={toggleParameters} teamFilterArrays={teamFilterArrays} geoFilterArrays={geoFilterArrays} payerFilterArrays={payerFilterArrays} handleSelect={handleExecute} data={parameters}/>            
-          </Grid> 
-           <Grid item xs={6}>
-            <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}  data={parameters}/>
-          </Grid> 
-          <Grid item xs={2}>
-            <MarketFilter toggleParameters={toggleParameters} brandMarketFilterArrays={brandMarketFilterArrays} handleExecute={handleExecute} data={parameters}/>
-          </Grid>   
-          <Grid item xs={2}>
-            <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute}  />
-          </Grid>           
-        </Grid>
-          <Grid container spacing={1}>
-          <Grid item xs={12}>            
-            <ResultsGrid data={result.result}/>
-          </Grid> 
-          <Grid item xs={6}>  
-            <SelectedFilter data={parameters}/>
-          </Grid> 
-          <Grid item xs={6}>            
-            <QueryMonitor data={queryMonitorData} />
-          </Grid>            
-        </Grid></div>) 
+            <Grid item xs={2}>
+              <DimensionFilter toggleParameters={toggleParameters} teamFilterArrays={teamFilterArrays} geoFilterArrays={geoFilterArrays} payerFilterArrays={payerFilterArrays} handleSelect={handleExecute} data={parameters}/>            
+            </Grid> 
+            <Grid item xs={6}>
+              <TimeFilter toggleParameters={toggleParameters} timeSlicers={timeSlicers}  data={parameters} handleExecute={handleExecute} />
+            </Grid> 
+            <Grid item xs={2}>
+              <MarketFilter toggleParameters={toggleParameters} brandMarketFilterArrays={brandMarketFilterArrays} handleExecute={handleExecute} data={parameters}/>
+            </Grid>   
+            <Grid item xs={2}>
+              <QueryEngine toggleParameters={toggleParameters} handleExecute={handleExecute} inProgressFlag={inProgressFlag} />
+            </Grid>           
+          </Grid>
+            <Grid container spacing={1}>
+            <Grid item xs={12}>            
+              <ResultsGrid data={result.result}/>
+            </Grid> 
+            <Grid item xs={6}>  
+              <SelectedFilter data={parameters} date={date}/>
+            </Grid> 
+            <Grid item xs={6}>            
+              <QueryMonitor data={queryMonitorData} date={date}/>
+            </Grid>            
+          </Grid></div>) 
         }
       </div>
     </ThemeProvider>

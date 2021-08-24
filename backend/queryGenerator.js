@@ -10,11 +10,8 @@ const queryGenerator = (params, queryNo) => {
     activeFilters.dateOne = activeFilters.currStartDate;
     activeFilters.dateTwo = activeFilters.currEndDate;
  } else if (queryNo === 2) {
-  //  Uncomment this part when timefilter starts working
    activeFilters.dateOne = activeFilters.prevStartDate;
    activeFilters.dateTwo = activeFilters.prevEndDate;
-  // activeFilters.dateOne = 374;
-  // activeFilters.dateTwo = 376;
  }
 console.log('Active Filters', activeFilters)  
 
@@ -29,9 +26,6 @@ let var_territory = JSON.stringify(activeFilters.territory);
 let var_team = JSON.stringify(activeFilters.team);
 let var_category = JSON.stringify(activeFilters.category);
 let bt = true;
-
-activeFilters.dateOne = '377';
-activeFilters.dateTwo = '407';
 
  return `SELECT DISTINCT
     A.PAYER, 

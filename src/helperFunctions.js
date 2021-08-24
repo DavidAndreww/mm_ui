@@ -19,22 +19,22 @@ export const parameterValidations = (parameters) => {
     return false
   }
   // ensures user has selected a current date range
-  // if (parameters.currStartDate === null || parameters.currEndDate === null) {
-  //   window.alert('Please select a valid date range for current period')
-  //   return false
-  // }
-  // // ensures user has selected both 'prev' date ranges if one has been selected
-  // if (parameters.prevStartDate !== null) {
-  //   if (parameters.prevEndDate === null) {
-  //     window.alert('Please select a valid date range for prior period')
-  //     return false
-  //   }
-  // } else if (parameters.prevStartDate === null) {
-  //   if (parameters.prevEndDate !== null) {
-  //     window.alert('Please select a valid date range for prior period')
-  //     return false
-  //   }
-  // }
+  if (parameters.currStartDate === null || parameters.currEndDate === null) {
+    window.alert('Please select a valid date range for current period')
+    return false
+  }
+  // ensures user has selected both 'prev' date ranges if one has been selected
+  if (parameters.prevStartDate !== null) {
+    if (parameters.prevEndDate === null) {
+      window.alert('Please select a valid date range for prior period')
+      return false
+    }
+  } else if (parameters.prevStartDate === null) {
+    if (parameters.prevEndDate !== null) {
+      window.alert('Please select a valid date range for prior period')
+      return false
+    }
+  }
   return true
 }
 
@@ -670,14 +670,11 @@ export const geoFilter = (maps, obj, stateGeoArrays, setStateGeoArrays) => {
   }
   
 export const datetorow = (dim,obj, maps) => {
-  if (['currStartDate','prevStartDate'].includes(dim)){
+  if (['currStartDate','prevStartDate','currEndDate','prevEndDate'].includes(dim)){
     if(maps.splitWeekStart.has(obj)){
-      console.log(maps.splitWeekStart)
+      // console.log(maps.splitWeekStart)
       return maps.splitWeekStart.get(obj)
-    }
-  }
-  else if (['currEndDate','prevEndDate'].includes(dim)){
-    if(maps.splitWeekEnd.has(obj)){
+    }else if(maps.splitWeekEnd.has(obj)){
       return maps.splitWeekEnd.get(obj)
     }
   }
@@ -817,9 +814,6 @@ export const marketFilter = (maps,obj,stateBrandMarketArrays, setStateBrandMarke
   // }
 }
 
-// export const brandData = () => {
-
-// }
 export const parameterFormatter = (e, data, parameters, slicers, brandMarketFilterArrays) => {
   let dimension;
   let values;
