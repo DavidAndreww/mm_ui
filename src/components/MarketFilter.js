@@ -22,14 +22,15 @@ export const MarketFilter = ({ toggleParameters, brandMarketFilterArrays, handle
       setReadOnly(!readOnly)
     }
   }
-  
+
   return (
     <div id='market-filter'>
       <ComponentHeader label={'Market Filter'}/>
       <ComponentBody>    
         <div className="component-body">
             <Dropdown label={'Market'} array={brandMarketFilterArrays && brandMarketFilterArrays.markets} callback={toggleParameters} />
-            <Dropdown label={'Brand'} array={brandMarketFilterArrays && brandMarketFilterArrays.brands} callback={toggleParameters} />
+            {/* <Dropdown label={'Brand'} array={brandMarketFilterArrays && brandMarketFilterArrays.brands} callback={toggleParameters} /> */}
+            <div> <label> Brand: </label> {data.brand} </div>
         </div>    
       </ComponentBody>
     </div>

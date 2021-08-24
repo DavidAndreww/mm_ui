@@ -19,22 +19,22 @@ export const parameterValidations = (parameters) => {
     return false
   }
   // ensures user has selected a current date range
-  if (parameters.currStartDate === null || parameters.currEndDate === null) {
-    window.alert('Please select a valid date range for current period')
-    return false
-  }
-  // ensures user has selected both 'prev' date ranges if one has been selected
-  if (parameters.prevStartDate !== null) {
-    if (parameters.prevEndDate === null) {
-      window.alert('Please select a valid date range for prior period')
-      return false
-    }
-  } else if (parameters.prevStartDate === null) {
-    if (parameters.prevEndDate !== null) {
-      window.alert('Please select a valid date range for prior period')
-      return false
-    }
-  }
+  // if (parameters.currStartDate === null || parameters.currEndDate === null) {
+  //   window.alert('Please select a valid date range for current period')
+  //   return false
+  // }
+  // // ensures user has selected both 'prev' date ranges if one has been selected
+  // if (parameters.prevStartDate !== null) {
+  //   if (parameters.prevEndDate === null) {
+  //     window.alert('Please select a valid date range for prior period')
+  //     return false
+  //   }
+  // } else if (parameters.prevStartDate === null) {
+  //   if (parameters.prevEndDate !== null) {
+  //     window.alert('Please select a valid date range for prior period')
+  //     return false
+  //   }
+  // }
   return true
 }
 
@@ -799,27 +799,31 @@ export const marketFilter = (maps,obj,stateBrandMarketArrays, setStateBrandMarke
     })
   }
   // When User selects brand
-  else if((obj.market === null || obj.market.length <1) && obj.brand){
-    let marArr = []
-    let uniqueMar = new Set();
-    obj.brand.forEach(brand => {
-      for(let mar of maps.marketToBrand.get(brand.toString())){
-        if(!uniqueMar.has(mar)){
-          uniqueMar.add(mar)
-          marArr.push({ value:mar, label:mar})
-        }
-      }
-    })
-    setStateBrandMarketArrays({
-      ...stateBrandMarketArrays,
-      categories:marArr
-    })
-  }
+  // else if((obj.market === null || obj.market.length <1) && obj.brand){
+  //   let marArr = []
+  //   let uniqueMar = new Set();
+  //   obj.brand.forEach(brand => {
+  //     for(let mar of maps.marketToBrand.get(brand.toString())){
+  //       if(!uniqueMar.has(mar)){
+  //         uniqueMar.add(mar)
+  //         marArr.push({ value:mar, label:mar})
+  //       }
+  //     }
+  //   })
+  //   setStateBrandMarketArrays({
+  //     ...stateBrandMarketArrays,
+  //     categories:marArr
+  //   })
+  // }
 }
 
-export const parameterFormatter = (e, data, parameters, slicers) => {
+// export const brandData = () => {
+
+// }
+export const parameterFormatter = (e, data, parameters, slicers, brandMarketFilterArrays) => {
   let dimension;
   let values;
+
   const filterDatePicker = ['currStartDate','currEndDate','prevStartDate','prevEndDate'];
   if(filterDatePicker.includes(data.name)){
     dimension = data.name;
@@ -827,6 +831,10 @@ export const parameterFormatter = (e, data, parameters, slicers) => {
   }else{
     if (data) {
         dimension = data.name.split(' ').join('')
+        if(dimension === 'market'){
+          console.log(brandMarketFilterArrays.brands[0].value)
+          parameters.brand = [brandMarketFilterArrays.brands[0].value]
+        }
       } else {
         dimension = e.target.id
       }
@@ -841,6 +849,9 @@ export const parameterFormatter = (e, data, parameters, slicers) => {
       else {
         values = e.target.value
       }
+      // if(dimension === 'market'){
+        
+      // }
   }  
   return { ...parameters, [dimension]: values }
 }

@@ -68,7 +68,7 @@ function App() {
   
   useEffect(async() => {
     marketFilter(brandMarketSlicers, parameters, brandMarketFilterArrays, setBrandMarketFilterArrays);
-  },[teamSlicersMaps, parameters])
+  },[brandMarketSlicers,parameters])
 
   useEffect(async() => {
     teamFilter(teamSlicersMaps, parameters, teamFilterArrays, setTeamFilterArrays);
@@ -83,7 +83,7 @@ function App() {
   },[payerSlicerMaps, parameters])
   
   const toggleParameters = (e, name = null) => {
-    setParameters(parameterFormatter(e, name, parameters, timeSlicers))
+    setParameters(parameterFormatter(e, name, parameters, timeSlicers,brandMarketFilterArrays))
   }
   
   const handleExecute = () => {
@@ -95,6 +95,7 @@ function App() {
       let url = 'http://localhost:5000/';
       if (parameters.engine === 'QE-2') url = 'http://localhost:5000/qe2';
       if (parameters.engine === 'Snowflake L2') url = 'http://localhost:5000/'
+      console.log('param',parameters)
       setInProgressFlag(true)
       let id = queryMonitorData.length > 0 ? queryMonitorData[queryMonitorData.length-1].id + 1: 1;
       let currTimeStamp = new Date();
