@@ -28,7 +28,7 @@ export const MarketFilter = ({ toggleParameters, brandMarketFilterArrays, handle
       <ComponentHeader label={'Market Filter'}/>
       <ComponentBody>    
         <div className="component-body">
-            <Dropdown label={'Market'} array={brandMarketFilterArrays && brandMarketFilterArrays.markets} callback={toggleParameters} />
+            <Dropdown label={'Market'} array={brandMarketFilterArrays && brandMarketFilterArrays.markets} callback={toggleParameters} /><br />
             {/* <Dropdown label={'Brand'} array={brandMarketFilterArrays && brandMarketFilterArrays.brands} callback={toggleParameters} /> */}
             <div> <label> Brand: </label> {data.brand} </div>
         </div>    

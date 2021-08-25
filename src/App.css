@@ -118,7 +118,7 @@
 } 
 .filter-item label{
   font-weight: 600;
-  width:80px;
+  width:150px;
   display: inline-flex;
 }
 .d-filter-margin{
@@ -133,3 +133,4 @@
   overflow: auto;
   height: 200px;
 }
+

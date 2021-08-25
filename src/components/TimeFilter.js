@@ -13,6 +13,7 @@ export const TimeFilter = ({ toggleParameters, timeSlicers,data }) => {
     prevStartDate: null,
     prevEndDate: null,
   })
+<<<<<<< HEAD
   let includedstartDates = [];
   let includedendDates = [];
   if(timeSlicers) {
@@ -40,6 +41,21 @@ export const TimeFilter = ({ toggleParameters, timeSlicers,data }) => {
         }
       })
     }    
+=======
+  
+  let includedDates = []
+  if(timeSlicers){
+    timeSlicers.splitWeekStart.forEach((key,val) => {
+      if(!includedDates.includes(val)){
+        includedDates.push(val)
+      }
+    })
+    timeSlicers.splitWeekEnd.forEach((key,val) => {
+      if(!includedDates.includes(val)){
+        includedDates.push(val)
+      }  
+    })
+>>>>>>> backend
   }
   const handleDatePicker = (rawdate,name) => {
     setDate({
@@ -65,13 +81,18 @@ export const TimeFilter = ({ toggleParameters, timeSlicers,data }) => {
               <Grid item style={{width:'100%',marginLeft: '10px',paddingRight:0}} >      
                   <div className='date-wrapper'>
                     <label style={{ marginRight: '5px'}} className='date-label'>Current Start Date:</label>
+<<<<<<< HEAD
                     <DatePicker  dateFormat="yyyy-MM-dd" className='date-picker'
                     onChange={(date) => handleDatePicker(date,'currStartDate')} selected={date.currStartDate} includeDates={includedstartDates} />
+=======
+                    <DatePicker  dateFormat="yyyy-MM-dd" className='date-picker' 
+                    onChange={(date) => handleDatePicker(date,'currStartDate')} selected={date.currStartDate} filterDate={(d) => includedDates.includes(moment(d).format('YYYY-MM-DD'))} />
+>>>>>>> backend
                    </div>
                    <div className='date-wrapper'>
                     <label style={{ marginRight: '11px' }} className='date-label'>Current End Date:</label>                 
-                    <DatePicker dateFormat="yyyy-MM-dd"  className='date-picker'  onChange={(date) => handleDatePicker(date,'currEndDate')}  selected={date.currEndDate}
-                    includeDates={includedendDates}/>     
+                    <DatePicker dateFormat="yyyy-MM-dd"  className='date-picker' onChange={(date) => handleDatePicker(date,'currEndDate')}  selected={date.currEndDate}
+                    filterDate={(d) => includedDates.includes(moment(d).format('YYYY-MM-DD'))}/>     
                     </div>
                 </Grid>
                 {!singleDateRange && 
@@ -79,11 +100,19 @@ export const TimeFilter = ({ toggleParameters, timeSlicers,data }) => {
                       <div className='date-wrapper'>
                         <label style={{ marginRight: '5px' }} className='date-label'>Prev Start Date:</label>
                         <DatePicker dateFormat="yyyy-MM-dd"  className='date-picker' 
+<<<<<<< HEAD
                           onChange={(date) => handleDatePicker(date,'prevStartDate')} selected={date.prevStartDate} includeDates={includedstartDates}/>
                       </div>
                       <div className='date-wrapper'>
                         <label style={{ marginRight: '11px' }} className='date-label'>Prev End Date:</label>
                         <DatePicker dateFormat="yyyy-MM-dd" className='date-picker' onChange={(date) => handleDatePicker(date,'prevEndDate')} selected={date.prevEndDate} includeDates={includedendDates}/>
+=======
+                          onChange={(date) => handleDatePicker(date,'prevStartDate')} selected={date.prevStartDate} filterDate={(d) => includedDates.includes(moment(d).format('YYYY-MM-DD'))}/>
+                      </div>
+                      <div className='date-wrapper'>
+                        <label style={{ marginRight: '11px' }} className='date-label'>Prev End Date:</label>
+                        <DatePicker dateFormat="yyyy-MM-dd" className='date-picker' onChange={(date) => handleDatePicker(date,'prevEndDate')} selected={date.prevEndDate} filterDate={(d) => includedDates.includes(moment(d).format('YYYY-MM-DD'))}/>
+>>>>>>> backend
                     </div>
                 </Grid>}
               </Grid>
