@@ -17,7 +17,6 @@ export const QueryGridRows = (data = null, date = null) => {
                     paramArr.push(val)
                 }
             }
-            console.log('i',i,'paramArr',paramArr)
             let row = {
                 id: data[i].id,
                 timestamp: data[i].timestamp,
